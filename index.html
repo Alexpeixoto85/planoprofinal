@@ -1760,11 +1760,11 @@
                 <div class="editable-header-info">
                     <div class="form-group">
                         <label for="imobiliariaNome">Nome da Imobiliária</label>
-                        <input type="text" id="imobiliariaNome" class="form-control" placeholder="Ex: Cunha Imobiliária">
+                        <input type="text" id="imobiliariaNome" class="form-control" placeholder="Ex: Imobiliária">
                     </div>
                     <div class="form-group">
                         <label for="corretorNome">Nome do Corretor</label>
-                        <input type="text" id="corretorNome" class="form-control" placeholder="Ex: Alex Peixoto">
+                        <input type="text" id="corretorNome" class="form-control" placeholder="Ex: Corretor">
                     </div>
                     <div class="form-group">
                         <label for="corretorCreci">CRECI do Corretor</label>
@@ -1774,7 +1774,7 @@
 
                 <div class="document-header-info" id="pdfHeaderInfo">
                     <h2 style="color: #333; text-align: center; margin-bottom: 10px; font-size: 1.5rem;">CUNHA IMOBILIÁRIA</h2>
-                    <p style="text-align: center; color: #555; font-size: 0.9rem; margin-bottom: 20px;">ALEX PEIXOTO - CRECI/AL 5794</p>
+                    <p style="text-align: center; color: #555; font-size: 0.9rem; margin-bottom: 20px;"> -</p>
                 </div>
 
                 <div class="document-section">
@@ -3477,9 +3477,9 @@ ${cleanCurrencyFormat(saldoRemanescenteSpan.textContent) > 0.00 ? 'Esse valor ou
                 corretorCreciInput.value = savedHeaderInfo.corretorCreci || '';
             } else {
                 // Define valores padrão se não houver nada salvo
-                imobiliariaNomeInput.value = 'IMOBILIÁRIA';
-                corretorNomeInput.value = 'Corretor';
-                corretorCreciInput.value = 'CRECI';
+                imobiliariaNomeInput.value = '';
+                corretorNomeInput.value = '';
+                corretorCreciInput.value = 'CRECI/AL 5794';
             }
         }
 
