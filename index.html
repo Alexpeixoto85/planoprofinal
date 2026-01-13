@@ -2024,7 +2024,7 @@
         const printObservacoes = document.getElementById('print-observacoes');
         // --- FIM NOVO: Elementos para impressão moderna ---
 
-        // --- NOVO: Dados dos documentos por profissão ---
+        // --- ATUALIZADO: Dados dos documentos por profissão com listas completas ---
         const documentosPorProfissao = {
             'carteira-assinada': {
                 titulo: 'CARTEIRA ASSINADA',
@@ -2097,51 +2097,6 @@
                 ]
             }
         };
-        // --- FIM NOVO: Dados dos documentos por profissão ---
-
-        // --- NOVO: Função para carregar documentos baseado na profissão selecionada ---
-        function carregarDocumentosPorProfissao(profissao) {
-            const dadosProfissao = documentosPorProfissao[profissao];
-            
-            if (!dadosProfissao) {
-                console.error('Profissão não encontrada:', profissao);
-                return;
-            }
-
-            // Limpa o container de documentos
-            documentosContainer.innerHTML = '';
-
-            // Cria a seção de documentos
-            const documentSection = document.createElement('div');
-            documentSection.classList.add('document-section');
-
-            // Cria o título da seção
-            const title = document.createElement('h4');
-            title.textContent = dadosProfissao.titulo;
-            documentSection.appendChild(title);
-
-            // Cria a lista de documentos
-            const documentList = document.createElement('ul');
-            
-            dadosProfissao.documentos.forEach(documento => {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `<i class="fas fa-check-circle"></i> ${documento}`;
-                documentList.appendChild(listItem);
-            });
-
-            documentSection.appendChild(documentList);
-            documentosContainer.appendChild(documentSection);
-
-            // Adiciona a observação sobre Imposto de Renda
-            const obsSection = document.createElement('div');
-            obsSection.classList.add('document-section');
-            obsSection.innerHTML = `
-                <h4>OBSERVAÇÃO</h4>
-                <p>Apresentar Imposto de Renda caso tenha declarado</p>
-            `;
-            documentosContainer.appendChild(obsSection);
-        }
-        // --- FIM NOVO: Função para carregar documentos baseado na profissão selecionada ---
 
         // Função para quebrar linhas longas em um texto
         function wordWrap(text, maxWidth) {
@@ -2237,7 +2192,6 @@
                 printObservacoes.textContent = data.observacoesSimulacao || 'Nenhuma observação adicionada.';
             }
         }
-        // --- FIM NOVA FUNÇÃO: Atualizar dados para impressão moderna ---
 
         function gerarConteudoSimulacaoTXT() {
             const data = getFormattedValues();
@@ -2340,8 +2294,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             return msg;
         }
 
-        // NOVO: Função para gerar o conteúdo dos documentos como TXT
-        // Esta função já foi fornecida e está correta. Ela é a base para o TXT e WhatsApp.
+        // ATUALIZADO: Função para gerar o conteúdo dos documentos como TXT
         function gerarConteudoDocumentosTXT() {
             const imobiliaria = imobiliariaNomeInput.value.trim() || 'IMOBILIÁRIA';
             const corretor = corretorNomeInput.value.trim() || 'Corretor(a)';
@@ -2377,7 +2330,6 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
         }
 
         // NOVO: Função para baixar os documentos como TXT
-        // Esta função já foi fornecida e está correta.
         function baixarDocumentosComoTxt() {
             const textoDosDocumentos = gerarConteudoDocumentosTXT();
             const nomeClienteVal = nomeClienteInput.value.trim().replace(/\s+/g, '_') || 'Cliente';
@@ -2394,8 +2346,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             documentsModal.classList.remove('show'); // Fecha o modal após o download
         }
 
-        // Função para gerar a mensagem de documentos para WhatsApp (ATUALIZADA)
-        // Agora, ela usa a mesma lógica de formatação de gerarConteudoDocumentosTXT()
+        // ATUALIZADO: Função para gerar a mensagem de documentos para WhatsApp
         function gerarConteudoDocumentosWhatsApp() {
             const imobiliaria = imobiliariaNomeInput.value.trim() || 'IMOBILIÁRIA';
             const corretor = corretorNomeInput.value.trim() || 'Corretor(a)';
@@ -3000,7 +2951,6 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             };
             reader.readAsText(file);
         }
-        // --- FIM NOVO: Função para importar apenas leads (JSON) ---
 
         // --- NOVO: Função para importar leads CSV ---
         function processImportLeadsCSVFile(event) {
@@ -3160,7 +3110,6 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             }
             return leads;
         }
-        // --- FIM NOVO: Função para importar leads CSV ---
 
         // Função para codificar HTML - Essencial para prevenir XSS ao exibir dados do localStorage
         if (typeof encodeHTML !== 'function') {
@@ -3451,6 +3400,49 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
         }
         // --- FIM FUNÇÃO PARA ACIONAR O EFEITO DE FESTA ---
 
+        // --- ATUALIZADO: Função para carregar documentos baseado na profissão selecionada ---
+        function carregarDocumentosPorProfissao(profissao) {
+            const dadosProfissao = documentosPorProfissao[profissao];
+            
+            if (!dadosProfissao) {
+                console.error('Profissão não encontrada:', profissao);
+                return;
+            }
+
+            // Limpa o container de documentos
+            documentosContainer.innerHTML = '';
+
+            // Cria a seção de documentos
+            const documentSection = document.createElement('div');
+            documentSection.classList.add('document-section');
+
+            // Cria o título da seção
+            const title = document.createElement('h4');
+            title.textContent = dadosProfissao.titulo;
+            documentSection.appendChild(title);
+
+            // Cria a lista de documentos
+            const documentList = document.createElement('ul');
+            
+            dadosProfissao.documentos.forEach(documento => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<i class="fas fa-check-circle"></i> ${documento}`;
+                documentList.appendChild(listItem);
+            });
+
+            documentSection.appendChild(documentList);
+            documentosContainer.appendChild(documentSection);
+
+            // Adiciona a observação sobre Imposto de Renda para TODAS as profissões
+            const obsSection = document.createElement('div');
+            obsSection.classList.add('document-section');
+            obsSection.innerHTML = `
+                <h4>OBSERVAÇÃO</h4>
+                <p><strong>OBS:</strong> Apresentar Imposto de Renda caso tenha declarado</p>
+            `;
+            documentosContainer.appendChild(obsSection);
+        }
+
         // --- Event Listeners ---
         [parcelasEntradaInput, correcaoINCCInput].forEach(input => {
             input.addEventListener('input', calcularValores);
@@ -3726,7 +3718,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
              // NOVO: Carrega as informações do cabeçalho do PDF ao carregar a página
              loadPdfHeaderInfo();
 
-             // NOVO: Carrega os documentos da profissão padrão (Carteira Assinada) ao carregar a página
+             // ATUALIZADO: Carrega os documentos da profissão padrão (Carteira Assinada) ao carregar a página
              carregarDocumentosPorProfissao('carteira-assinada');
              
              // NOVO: Atualiza os dados de impressão ao carregar a página
@@ -3762,7 +3754,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
         corretorNomeInput.addEventListener('input', savePdfHeaderInfo);
         corretorCreciInput.addEventListener('input', savePdfHeaderInfo);
 
-        // NOVO: Event Listener para o seletor de profissão
+        // ATUALIZADO: Event Listener para o seletor de profissão
         if (profissaoClienteSelect) {
             profissaoClienteSelect.addEventListener('change', function() {
                 carregarDocumentosPorProfissao(this.value);
@@ -3880,7 +3872,6 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
         if (baixarDocumentosPdfBtn) {
             baixarDocumentosPdfBtn.addEventListener('click', baixarDocumentosComoPdf);
         }
-        // --- Fim do Event Listener para o NOVO botão "Baixar PDF" ---
 
         // --- Event Listeners para o botão de Importar Leads JSON ---
         if (btnImportarLeads) {
@@ -3892,9 +3883,8 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
         if (importLeadsFileInput) {
             importLeadsFileInput.addEventListener('change', processImportLeadsFile);
         }
-        // --- FIM Event Listeners para o botão de Importar Leads JSON ---
 
-        // --- NOVO: Event Listeners para o botão de Importar Leads CSV ---
+        // --- Event Listeners para o botão de Importar Leads CSV ---
         if (btnImportarLeadsCSV) {
             btnImportarLeadsCSV.addEventListener('click', () => {
                 // Dispara o clique no input de arquivo CSV escondido
@@ -3904,7 +3894,6 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
         if (importLeadsCSVFileInput) {
             importLeadsCSVFileInput.addEventListener('change', processImportLeadsCSVFile);
         }
-        // --- FIM NOVO: Event Listeners para o botão de Importar Leads CSV ---
 
         // --- Event Listener para o NOVO botão "Baixar TXT" dentro do modal de documentos ---
         if (baixarDocumentosTxtBtn) {
