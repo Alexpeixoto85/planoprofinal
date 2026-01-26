@@ -14,15 +14,14 @@
             --primary-dark: #3a56d4;
             --secondary-color: #3f37c9;
             --accent-color: #4895ef;
-            --info-color: #007bff; /* Cor para botões de informação/backup */
+            --info-color: #007bff;
 
-            /* New Gold and Black Scheme */
-            --gold-light: #FFD700;    /* Pure Gold */
-            --gold-dark: #DAA520;     /* Goldenrod */
-            --dark-background: #1a1a1a; /* Soft Black */
-            --dark-detail: #2c2c2c; /* Dark Grey for elements */
-            --light-text: #f0f0f0; /* Off-white for readability */
-            --grey-detail: #888; /* Lighter grey for minor details */
+            --gold-light: #FFD700;
+            --gold-dark: #DAA520;
+            --dark-background: #1a1a1a;
+            --dark-detail: #2c2c2c;
+            --light-text: #f0f0f0;
+            --grey-detail: #888;
 
             --danger-color: #f72585;
             --success-color: #4cc9f0;
@@ -66,15 +65,11 @@
             padding: 20px;
         }
 
-        /* INÍCIO: Modificações para a borda degradê no card */
         .card {
-            /* Propriedades originais (background-color movido para ::before) */
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             padding: 24px;
             margin-bottom: 24px;
-
-            /* Novas propriedades para a borda degradê */
             position: relative;
             z-index: 1;
             border: 3px solid transparent;
@@ -84,7 +79,6 @@
             overflow: hidden;
         }
 
-        /* Pseudo-elemento para o fundo sólido dentro da borda degradê */
         .card::before {
             content: '';
             position: absolute;
@@ -92,11 +86,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: #333; /* Cor de fundo original do card */
+            background: #333;
             z-index: -1;
             border-radius: var(--border-radius);
         }
-        /* FIM: Modificações para a borda degradê no card */
 
         h1, h2, h3, h4 {
             color: var(--gold-light);
@@ -136,13 +129,11 @@
             font-size: 0.95rem;
         }
 
-        /* CSS for highlighting labels */
         .highlight-label {
             font-weight: bold;
-            color: var(--gold-light); /* Using the defined gold color */
+            color: var(--gold-light);
         }
 
-        /* CSS for the Saldo Remanescente note rectangle */
         .saldo-remanescente-note {
             display: block;
             margin-top: 8px;
@@ -152,7 +143,7 @@
             background-color: var(--dark-detail);
             font-size: 0.9rem;
             color: var(--light-text);
-            word-wrap: break-word; /* Ensure text wraps */
+            word-wrap: break-word;
         }
 
         .form-control {
@@ -192,9 +183,9 @@
             margin: 8px 0;
             font-size: 1rem;
         }
-         /* Adjust result card paragraph containing the note */
+
         .result-card p:has(.saldo-remanescente-note) {
-             margin-bottom: 0; /* Reduce space if a note follows */
+             margin-bottom: 0;
         }
 
         .result-card strong {
@@ -221,16 +212,18 @@
             transition: var(--transition);
             border: none;
             width: 100%;
-            margin-bottom: 12px; /* Default margin, can be overridden */
+            margin-bottom: 12px;
         }
-        .btn.btn-auto-width { /* Nova classe para botões com largura automática */
+        
+        .btn.btn-auto-width {
             width: auto;
-            padding: 12px; /* Ajusta padding para botões só com ícone */
-            flex-shrink: 0; /* Impede que o botão encolha */
+            padding: 12px;
+            flex-shrink: 0;
         }
-         .btn-auto-width i {
-             margin-right: 0 !important; /* Remover margem do ícone para botões só com ícone */
-         }
+        
+        .btn-auto-width i {
+             margin-right: 0 !important;
+        }
 
         .btn-primary {
             background-color: var(--gold-light);
@@ -266,6 +259,7 @@
             background-color: var(--success-color);
             color: white;
         }
+        
         .btn-success:hover {
             background-color: #3ab7d8;
             transform: translateY(-1px);
@@ -281,7 +275,7 @@
             transform: translateY(-1px);
         }
 
-         .btn-whatsapp {
+        .btn-whatsapp {
             background-color: #25D366;
             color: white;
         }
@@ -291,13 +285,15 @@
             transform: translateY(-1px);
         }
 
-         .btn-whatsapp i {
+        .btn-whatsapp i {
              margin-right: 0;
-         }
+        }
+        
         .btn-info {
             background-color: var(--info-color);
             color: white;
         }
+        
         .btn-info:hover {
             background-color: #0056b3;
             transform: translateY(-1px);
@@ -306,15 +302,16 @@
         .btn i {
             margin-right: 8px;
         }
+        
         .btn .btn-text {
             margin-left: 0px;
         }
-        /* Adicionado estilo para o contador de leads */
+        
         #leadCount {
-            margin-left: 5px; /* Espaço entre o ícone e o número */
-            font-size: 0.9em; /* Tamanho um pouco menor para o número */
-            font-weight: 700; /* Deixa o número em negrito */
-             color: var(--gold-light); /* Cor para destacar a contagem */
+            margin-left: 5px;
+            font-size: 0.9em;
+            font-weight: 700;
+            color: var(--gold-light);
         }
 
         .btn-group {
@@ -323,52 +320,55 @@
             gap: 12px;
             margin-top: 24px;
         }
-        .backup-btn-group { /* Especificidade para o grupo de backup */
+        
+        .backup-btn-group {
             margin-top: 12px;
         }
-        /* Container para os botões Leads, Nova Simulação e Calculadora */
+        
         .top-button-container {
             display: flex;
-            gap: 10px; /* Espaço entre os botões */
-            justify-content: flex-end; /* Alinhar os botões à direita */
+            gap: 10px;
+            justify-content: flex-end;
             align-items: center;
-            margin-bottom: 20px; /* Espaço antes do primeiro campo do formulário */
-            flex-wrap: wrap; /* Permite que os botões quebrem linha em telas pequenas */
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
-         /* Alinhar o botão de Leads à esquerda e os outros à direita */
+        
         .top-button-container #btnAbrirListaLeads {
-            margin-right: auto; /* Empurra este botão para a esquerda */
+            margin-right: auto;
         }
+        
         .top-button-container .btn {
-            margin-bottom: 0; /* Remove margem inferior dos botões dentro deste container */
+            margin-bottom: 0;
         }
-         /* Ajuste específico para o link da calculadora para parecer um botão */
-         .top-button-container .btn-calculator {
-             display: inline-flex; /* Permite alinhar o ícone e texto (se houver) */
-             align-items: center;
-             justify-content: center;
-             padding: 12px; /* Mesmo padding dos botões de ícone único */
-             border-radius: var(--border-radius);
-             font-weight: 500;
-             font-size: 1rem;
-             text-align: center;
-             cursor: pointer;
-             transition: var(--transition);
-             border: none; /* Remove a borda padrão de link */
-             text-decoration: none; /* Remove sublinhado padrão de link */
-             width: auto; /* Largura automática */
-             flex-shrink: 0; /* Impede que o botão encolha */
-             /* Estilos de cor e fundo para combinar com o botão primário (Nova Simulação) */
-             background-color: var(--gold-light);
-             color: var(--dark-background);
-         }
-         .top-button-container .btn-calculator:hover {
-              background-color: var(--gold-dark);
-             transform: translateY(-1px);
-         }
-         .top-button-container .btn-calculator i {
-              margin-right: 0; /* Remover margem direita do ícone */
-         }
+        
+        .top-button-container .btn-calculator {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-decoration: none;
+            width: auto;
+            flex-shrink: 0;
+            background-color: var(--gold-light);
+            color: var(--dark-background);
+        }
+        
+        .top-button-container .btn-calculator:hover {
+            background-color: var(--gold-dark);
+            transform: translateY(-1px);
+        }
+        
+        .top-button-container .btn-calculator i {
+            margin-right: 0;
+        }
 
         .history-section {
             margin-top: 32px;
@@ -387,27 +387,27 @@
             word-wrap: break-word;
         }
 
-         .history-item h4 {
+        .history-item h4 {
             color: var(--gold-light);
             margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 1.1rem;
-         }
+        }
 
-         .history-item p {
-             margin: 4px 0;
-             font-size: 0.95rem;
-         }
+        .history-item p {
+            margin: 4px 0;
+            font-size: 0.95rem;
+        }
 
-         .history-item .note-content {
-             margin-top: 12px;
-             padding-top: 12px;
-             border-top: 1px solid #555;
-             font-style: italic;
-             color: var(--grey-detail);
-         }
+        .history-item .note-content {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #555;
+            font-style: italic;
+            color: var(--grey-detail);
+        }
 
         .history-item .badge {
             background-color: var(--gold-light);
@@ -476,7 +476,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000; /* Z-index base para modais */
+            z-index: 1000;
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -484,14 +484,12 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Adicionando ou modificando a regra para o modal de confirmação */
         #confirmationModal {
-             z-index: 1010; /* Z-index mais alto para aparecer acima de outros modais (como o histórico) */
+             z-index: 1010;
         }
 
-        /* Novo estilo para o modal de documentos */
         #documentsModal {
-            z-index: 1005; /* Entre o histórico e a confirmação */
+            z-index: 1005;
         }
 
         .modal.show {
@@ -542,41 +540,47 @@
             margin-top: 20px;
         }
 
-        /* Estilo específico para o conteúdo do modal de documentos */
         #documentsModal .document-header-info {
-            margin-bottom: 20px; /* Espaço para o cabeçalho da empresa */
+            margin-bottom: 20px;
         }
+        
         #documentsModal .document-section {
             margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 1px solid #444;
         }
+        
         #documentsModal .document-section:last-child {
             border-bottom: none;
             margin-bottom: 0;
             padding-bottom: 0;
         }
+        
         #documentsModal .document-section h4 {
             color: var(--gold-light);
             margin-bottom: 10px;
             font-size: 1.1rem;
         }
+        
         #documentsModal .document-section ul {
             list-style-type: none;
             padding-left: 0;
         }
+        
         #documentsModal .document-section ul li {
             margin-bottom: 8px;
             font-size: 0.95rem;
             display: flex;
             align-items: flex-start;
         }
+        
         #documentsModal .document-section ul li i {
             margin-right: 10px;
-            color: var(--success-color); /* Ícone de check */
+            color: var(--success-color);
             font-size: 1.1rem;
-            margin-top: 2px; /* Ajuste fino */
+            margin-top: 2px;
         }
+        
         #documentsModal .developer-info-modal {
             margin-top: 20px;
             font-size: 0.85rem;
@@ -584,23 +588,23 @@
             text-align: center;
         }
 
-        /* Botões dentro do modal de documentos */
         #documentsModal .modal-buttons {
             display: flex;
             gap: 10px;
             margin-top: 20px;
-            justify-content: space-around; /* Distribui os botões */
+            justify-content: space-around;
         }
+        
         #documentsModal .modal-buttons .btn {
-            flex-grow: 1; /* Permite que os botões cresçam */
-            width: auto; /* Anula o width: 100% padrão do .btn */
-            margin-bottom: 0; /* Remove a margem inferior padrão */
+            flex-grow: 1;
+            width: auto;
+            margin-bottom: 0;
         }
+        
         #documentsModal .modal-buttons .btn i {
-            margin-right: 5px; /* Adiciona uma pequena margem ao ícone */
+            margin-right: 5px;
         }
 
-        /* Estilos para os novos campos editáveis no modal de documentos */
         #documentsModal .editable-header-info {
             background-color: var(--dark-detail);
             border-radius: var(--border-radius);
@@ -608,33 +612,38 @@
             margin-bottom: 20px;
             color: var(--light-text);
         }
+        
         #documentsModal .editable-header-info .form-group {
             margin-bottom: 15px;
         }
+        
         #documentsModal .editable-header-info .form-group:last-child {
             margin-bottom: 0;
         }
+        
         #documentsModal .editable-header-info label {
             font-size: 0.9rem;
-            font-weight: normal; /* Labels padrão */
+            font-weight: normal;
             color: var(--grey-detail);
         }
+        
         #documentsModal .editable-header-info input.form-control {
-            padding: 10px 12px; /* Padding menor */
-            font-size: 0.95rem; /* Fonte menor */
-            background-color: #383838; /* Um pouco mais claro que o fundo do bloco */
+            padding: 10px 12px;
+            font-size: 0.95rem;
+            background-color: #383838;
         }
 
-        /* Estilo para o seletor de profissão */
         #documentsModal .profession-selector {
             margin-bottom: 20px;
         }
+        
         #documentsModal .profession-selector label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
             color: var(--light-text);
         }
+        
         #documentsModal .profession-selector select {
             width: 100%;
             padding: 12px 16px;
@@ -649,6 +658,7 @@
             background-position: right 12px center;
             background-size: 16px;
         }
+        
         #documentsModal .profession-selector select:focus {
             border-color: var(--gold-light);
             outline: none;
@@ -659,72 +669,83 @@
             .container {
                 padding: 16px;
             }
+            
             .card {
                 padding: 20px;
             }
+            
             h1 {
                 font-size: 1.5rem;
             }
+            
             h2 {
                 font-size: 1.2rem;
             }
+            
             .btn-group {
                 grid-template-columns: 1fr;
                 gap: 10px;
             }
+            
             .history-actions {
                 flex-direction: column;
             }
+            
             .history-actions .btn {
                 width: 100%;
                 margin-bottom: 8px;
             }
-             .footer {
-                 padding: 20px 10px;
-             }
+            
+            .footer {
+                padding: 20px 10px;
+            }
+            
             .btn-whatsapp {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: center;
             }
+            
             .btn-whatsapp i {
                 margin-right: 5px;
             }
-             #notasSection .btn-group {
-                 grid-template-columns: 1fr;
-                 gap: 8px;
-             }
-             /* Ajustes para telas menores para o top-button-container */
-             .top-button-container {
-                 flex-direction: row; /* Manter os botões lado a lado */
-                 gap: 5px; /* Reduzir o espaço entre os botões em mobile, se necessário */
-                 justify-content: space-around; /* Distribuir espaço entre os botões */
-                 flex-wrap: wrap; /* Permitir que os botões quebrem linha em telas muito estreitas */
-             }
-              .top-button-container .btn {
-                  width: auto; /* Permitir que a largura se ajuste ao conteúdo */
-                  margin-bottom: 0; /* Garantir que não haja margem inferior desnecessária */
-                  padding: 8px 10px; /* Ajustar padding para botões em mobile se necessário */
-              }
-              .btn-auto-width { /* Manter a largura automática para os botões marcados */
-                  width: auto !important;
-              }
-               /* Ajuste padding para botões somente com ícone em mobile - já estava ok, podemos manter ou ajustar */
-              .top-button-container .btn-auto-width:not(:has(.btn-text)) {
-                  padding: 8px; /* Ajustar padding para botões só com ícone em mobile */
-                  width: auto !important;
-              }
-               /* Ajustar o margin-right: auto para o botão de Leads para ele continuar na esquerda */
-              .top-button-container #btnAbrirListaLeads {
-                  margin-right: auto;
-              }
+            
+            #notasSection .btn-group {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .top-button-container {
+                flex-direction: row;
+                gap: 5px;
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+            
+            .top-button-container .btn {
+                width: auto;
+                margin-bottom: 0;
+                padding: 8px 10px;
+            }
+            
+            .btn-auto-width {
+                width: auto !important;
+            }
+            
+            .top-button-container .btn-auto-width:not(:has(.btn-text)) {
+                padding: 8px;
+                width: auto !important;
+            }
+            
+            .top-button-container #btnAbrirListaLeads {
+                margin-right: auto;
+            }
 
-              /* Botões no modal de documentos em telas menores */
-             #documentsModal .modal-buttons {
-                 flex-direction: column; /* Empilha os botões */
-                 gap: 8px; /* Reduz o espaçamento */
-             }
+            #documentsModal .modal-buttons {
+                flex-direction: column;
+                gap: 8px;
+            }
         }
 
         @media (min-width: 768px) {
@@ -732,34 +753,39 @@
                 max-width: 700px;
                 padding: 24px;
             }
-            .btn-group { /* Geral para btn-group */
-                 grid-template-columns: 1fr 1fr;
-                 gap: 12px;
+            
+            .btn-group {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
             }
+            
             .btn-whatsapp i {
-                 margin-right: 8px;
+                margin-right: 8px;
             }
-             #notasSection .btn-group { /* Específico para notas, se precisar de layout diferente */
-                 grid-template-columns: 1fr 1fr;
-                 gap: 12px;
-             }
-              .history-actions {
+            
+            #notasSection .btn-group {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            
+            .history-actions {
                 flex-direction: row;
             }
-             /* Mantém o layout horizontal para telas maiores */
+            
             .top-button-container {
                 flex-direction: row;
                 align-items: center;
-                gap: 10px; /* Manter o gap horizontal */
+                gap: 10px;
             }
+            
             .top-button-container .btn-auto-width {
-                 width: auto; /* Botões com largura automática */
+                width: auto;
             }
-             /* Ajuste padding para botões somente com ícone em desktop */
-             .top-button-container .btn-auto-width:not(:has(.btn-text)) {
-                 padding: 12px;
-                 width: auto;
-             }
+            
+            .top-button-container .btn-auto-width:not(:has(.btn-text)) {
+                padding: 12px;
+                width: auto;
+            }
         }
 
         .toast {
@@ -770,7 +796,7 @@
             padding: 12px 24px;
             border-radius: var(--border-radius);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            z-index: 2000; /* Toast deve estar sempre por cima */
+            z-index: 2000;
             opacity: 0;
             transition: transform 0.3s ease, opacity 0.3s ease;
             max-width: 90%;
@@ -788,10 +814,12 @@
             background-color: var(--success-color);
             color: white;
         }
+        
         .toast-error {
             background-color: var(--danger-color);
             color: white;
         }
+        
         .toast-warning {
             background-color: var(--gold-dark);
             color: var(--dark-background);
@@ -799,60 +827,55 @@
 
         .top-links {
             display: flex;
-            justify-content: flex-end; /* Alterado para flex-end para alinhar qualquer coisa que sobre aqui à direita */
+            justify-content: flex-end;
             align-items: center;
             margin-bottom: 20px;
             padding: 0 10px;
         }
 
-        /* Estilos para o link do Blog para que ele fique no estilo do botão de impressão */
-         #blogLink {
-             font-weight: bold; /* Manter o peso da fonte se houver texto (não terá, mas por consistência) */
-             text-decoration: none; /* Remover sublinhado padrão de link */
-             color: var(--light-text); /* Cor do ícone */
-             display: inline-flex; /* Para alinhar o ícone */
-             align-items: center;
-             justify-content: center;
-             padding: 12px; /* Mesmo padding dos botões de ícone único */
-             border-radius: var(--border-radius); /* Mesmo border-radius */
-             cursor: pointer;
-             transition: var(--transition); /* Mesma transição de hover */
+        #blogLink {
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--light-text);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+            border: 2px solid transparent;
+            background: linear-gradient(to right, var(--gold-light), var(--success-color), var(--gold-light)) border-box;
+            background-size: 200% auto;
+            animation: gradientBorder 3s linear infinite;
+            overflow: hidden;
+        }
 
-             /* Configuração da borda e background para o degradê (copiado de btnImprimirSimulacao) */
-             position: relative;
-             z-index: 1;
-             border: 2px solid transparent;
-             /* Usar o mesmo degradê do botão de imprimir */
-             background: linear-gradient(to right, var(--gold-light), var(--success-color), var(--gold-light)) border-box;
-             background-size: 200% auto;
-             animation: gradientBorder 3s linear infinite;
-             overflow: hidden;
-         }
+        #blogLink::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--dark-detail);
+            z-index: -1;
+            border-radius: var(--border-radius);
+        }
 
-         /* Pseudo-elemento para o fundo sólido por baixo da borda degradê do blog */
-         #blogLink::before {
-             content: '';
-             position: absolute;
-             top: 0;
-             left: 0;
-             right: 0;
-             bottom: 0;
-             background: var(--dark-detail); /* Cor de fundo similar aos outros botões */
-             z-index: -1; /* Fita por baixo do conteúdo (ícone) */
-             border-radius: var(--border-radius); /* Mantém os cantos arredondados */
-         }
+        #blogLink:hover {
+            transform: translateY(-1px);
+            text-decoration: none;
+        }
 
-         #blogLink:hover {
-             transform: translateY(-1px); /* Mesmo efeito de hover */
-             text-decoration: none; /* Garantir que não sublinhe no hover */
-         }
+        #blogLink i {
+            margin-right: 0;
+            color: var(--light-text);
+        }
 
-         #blogLink i {
-             margin-right: 0; /* Remover margem do ícone */
-             color: var(--light-text); /* Garantir a cor do ícone */
-         }
-
-         .footer {
+        .footer {
             margin-top: 40px;
             padding: 30px 20px;
             background-color: var(--dark-detail);
@@ -860,13 +883,16 @@
             color: var(--light-text);
             font-size: 0.9rem;
             border-top: 1px solid #555;
-         }
-         .footer p {
-             margin: 5px 0;
-         }
-         .footer .developer-info {
-             font-weight: 500;
-         }
+        }
+        
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        .footer .developer-info {
+            font-weight: 500;
+        }
+        
         .footer .whatsapp-icon {
             color: #25D366;
             font-size: 1.5rem;
@@ -874,166 +900,150 @@
             display: block;
         }
 
-         .marquee-text {
-             font-size: 0.8rem;
-             color: var(--grey-detail);
-             /* Removed marquee animation and related properties */
-             display: block; /* Changed from inline-block */
-         }
+        .marquee-text {
+            font-size: 0.8rem;
+            color: var(--grey-detail);
+            display: block;
+        }
 
         #secaoListaLeads h2 {
             color: var(--gold-light);
             border-bottom: none;
             margin-bottom: 0;
         }
+        
         #tabelaLeads {
             color: var(--light-text);
             border: 1px solid #555;
             margin-top: 20px;
-            /* Ajuste para layout da tabela com notas */
-             width: 100%; /* Garante que a tabela ocupe o espaço disponível */
-             display: table; /* Garante que a tabela se comporte como tal */
-             border-collapse: collapse;
+            width: 100%;
+            display: table;
+            border-collapse: collapse;
         }
+        
         #tabelaLeads th, #tabelaLeads td {
             border: 1px solid #555;
             padding: 10px;
             text-align: left;
-            vertical-align: top; /* Alinha o conteúdo da célula no topo */
-            word-break: break-word; /* Quebra palavras longas se necessário */
-             /* Torna as células flexíveis */
+            vertical-align: top;
+            word-break: break-word;
             flex-grow: 1;
             flex-basis: 0;
         }
-         /* Ajuste as larguras das colunas */
-         #tabelaLeads th:nth-child(1) { width: 10%; } /* Nome */
-         #tabelaLeads th:nth-child(2) { width: 10%; } /* Telefone */
-         #tabelaLeads th:nth-child(3) { width: 10%; } /* Imóvel */
-         #tabelaLeads th:nth-child(4) { width: 8%; } /* Data */
-         /* Novas Colunas */
-         #tabelaLeads th:nth-child(5) { width: 8%; } /* Subsídio */
-         #tabelaLeads th:nth-child(6) { width: 8%; } /* Financiado */
-         #tabelaLeads th:nth-child(7) { width: 8%; } /* FGTS */
-         /* Colunas Existentes */
-         #tabelaLeads th:nth-child(8) { width: 12%; } /* Notas */
-         #tabelaLeads th:nth-child(9) { width: 18%; text-align: left;} /* Observações */
-         #tabelaLeads th:nth-child(10) { width: 8%; text-align: center;} /* Ações */
+        
+        #tabelaLeads th:nth-child(1) { width: 10%; }
+        #tabelaLeads th:nth-child(2) { width: 10%; }
+        #tabelaLeads th:nth-child(3) { width: 10%; }
+        #tabelaLeads th:nth-child(4) { width: 8%; }
+        #tabelaLeads th:nth-child(5) { width: 8%; }
+        #tabelaLeads th:nth-child(6) { width: 8%; }
+        #tabelaLeads th:nth-child(7) { width: 8%; }
+        #tabelaLeads th:nth-child(8) { width: 12%; }
+        #tabelaLeads th:nth-child(9) { width: 18%; text-align: left;}
+        #tabelaLeads th:nth-child(10) { width: 8%; text-align: center;}
 
         #tabelaLeads th {
             background-color: var(--dark-detail);
             color: var(--gold-light);
         }
+        
         #tabelaLeads tbody tr:nth-child(even) {
             background-color: #2c2c2c;
         }
+        
         #tabelaLeads tbody tr:hover {
             background-color: #444;
         }
+        
         #tabelaLeads .btn-danger i {
             margin-right: 0;
         }
 
-        /* CSS for Spin Animation */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        #btnNovaSimulacao i.fas.fa-sync-alt { /* Apply animation to the icon */
+        #btnNovaSimulacao i.fas.fa-sync-alt {
             animation: spin 2s linear infinite;
         }
 
-        /* Adicionar Animação para o Ícone Piscar (do botão Leads) */
         @keyframes iconBlink {
-            0%, 100% { opacity: 1; } /* Totalmente visível no início e fim */
-            50% { opacity: 0.3; } /* Menos visível no meio */
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
-        /* Adicionar Animação para a Borda Brilhar (do botão Leads) */
         @keyframes borderGlow {
             0%, 100% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.4), 0 0 10px rgba(255, 215, 0, 0.2); border-color: var(--gold-light); }
             50% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.4); border-color: var(--gold-dark); }
         }
 
-        /* Adicionar Animação para a Borda em Degradê (para o botão Imprimir, Simulador Caixa e Blog) */
         @keyframes gradientBorder {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* Aplicar as Animações ao Botão Leads e seu Ícone */
         #btnAbrirListaLeads {
-            /* Manter estilos existentes */
-            /* .btn.btn-auto-width */
-             animation: borderGlow 2s infinite alternate; /* Aplicar a animação da borda */
-             border: 2px solid transparent; /* Adicionar uma borda transparente para animar */
-             /* padding ajustado para levar em conta a nova borda */
-             padding: 10px; /* Ajusta padding para botões só com ícone */
-             position: relative; /* Necessário para o pseudo-elemento ou para garantir z-index */
-             z-index: 1; /* Garante que o botão esteja acima de elementos de fundo */
-             background-clip: padding-box; /* Impede que o background do degradê preencha o botão */
-             /* Adicionado display flex para alinhar ícone e contador */
-             display: flex;
-             align-items: center;
-             justify-content: center;
+            animation: borderGlow 2s infinite alternate;
+            border: 2px solid transparent;
+            padding: 10px;
+            position: relative;
+            z-index: 1;
+            background-clip: padding-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         #btnAbrirListaLeads i {
-            animation: iconBlink 1.5s infinite alternate; /* Aplicar a animação de piscar ao ícone */
-             margin-right: 5px; /* Adicionar um pequeno espaço entre o ícone e o contador */
+            animation: iconBlink 1.5s infinite alternate;
+            margin-right: 5px;
         }
-        /* Remover margem do ícone em mobile se btn-auto-width for apenas ícone - ajustado abaixo */
+        
         @media (max-width: 768px) {
-             .top-button-container .btn-auto-width#btnAbrirListaLeads i {
-                 margin-right: 5px !important; /* Manter um pequeno espaço em mobile também */
-             }
+            .top-button-container .btn-auto-width#btnAbrirListaLeads i {
+                margin-right: 5px !important;
+            }
         }
 
-        /* Aplicar Animação de Borda Degradê ao Botão de Imprimir */
         #btnImprimirSimulacao {
-             /* Manter estilos existentes */
-             /* .btn.btn-auto-width */
-             position: relative;
-             z-index: 1;
-             padding: 10px;
-             overflow: hidden;
-
-             /* Configuração da borda e background para o degradê */
-             border: 2px solid transparent;
-             background: linear-gradient(to right, var(--gold-light), var(--success-color), var(--gold-light)) border-box;
-             background-size: 200% auto;
-             animation: gradientBorder 3s linear infinite;
+            position: relative;
+            z-index: 1;
+            padding: 10px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            background: linear-gradient(to right, var(--gold-light), var(--success-color), var(--gold-light)) border-box;
+            background-size: 200% auto;
+            animation: gradientBorder 3s linear infinite;
         }
 
         #btnImprimirSimulacao::before {
-             content: '';
-             position: absolute;
-             top: 0;
-             left: 0;
-             right: 0;
-             bottom: 0;
-             background: var(--dark-detail); /* Cor de fundo do botão por cima do degradê */
-             z-index: -1; /* Fita por baixo do conteúdo (ícone) */
-             border-radius: var(--border-radius); /* Mantém os cantos arredondados */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--dark-detail);
+            z-index: -1;
+            border-radius: var(--border-radius);
         }
 
-        /* Ajustes para o ícone dentro do botão de imprimir */
         #btnImprimirSimulacao i {
-              margin-right: 0 !important; /* Garantir que não tenha margem */
-              color: var(--light-text); /* Cor do ícone para contrastar com o fundo */
+            margin-right: 0 !important;
+            color: var(--light-text);
         }
 
-        /* Novo estilo para o botão de documentos */
         #btnDocumentos {
-             position: relative;
-             z-index: 1;
-             padding: 10px;
-             overflow: hidden;
-             border: 2px solid transparent;
-             background: linear-gradient(to right, var(--gold-light), var(--success-color), var(--gold-light)) border-box;
-             background-size: 200% auto;
-             animation: gradientBorder 3s linear infinite;
+            position: relative;
+            z-index: 1;
+            padding: 10px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            background: linear-gradient(to right, var(--gold-light), var(--success-color), var(--gold-light)) border-box;
+            background-size: 200% auto;
+            animation: gradientBorder 3s linear infinite;
         }
 
         #btnDocumentos::before {
@@ -1043,9 +1053,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: var(--dark-detail); /* Cor de fundo do botão por cima do degradê */
-            z-index: -1; /* Fita por baixo do conteúdo (ícone) */
-            border-radius: var(--border-radius); /* Mantém os cantos arredondados */
+            background: var(--dark-detail);
+            z-index: -1;
+            border-radius: var(--border-radius);
         }
 
         #btnDocumentos i {
@@ -1053,12 +1063,10 @@
             color: var(--light-text);
         }
 
-        /* Classe para esconder elementos na tela, mas mostrar na impressão */
         .print-only {
             display: none;
         }
 
-        /* --- NOVO: Estilos para Impressão do Formulário Principal (Layout Moderno e Horizontal) --- */
         @media print {
             body {
                 background-color: #fff;
@@ -1095,8 +1103,8 @@
             }
 
             .print-only {
-                 display: block !important;
-             }
+                display: block !important;
+            }
 
             .top-links,
             .top-button-container,
@@ -1116,7 +1124,6 @@
                 display: block !important;
             }
 
-            /* NOVO: Layout horizontal moderno para impressão */
             .print-header {
                 text-align: center;
                 margin-bottom: 15px;
@@ -1222,51 +1229,53 @@
             }
 
             .print-footer {
-                 margin-top: 30px;
-                 padding-top: 20px;
-                 border-top: 1px solid #ccc;
-                 font-size: 0.9rem;
-                 color: #000;
-                 page-break-before: avoid;
-             }
+                margin-top: 30px;
+                padding-top: 20px;
+                border-top: 1px solid #ccc;
+                font-size: 0.9rem;
+                color: #000;
+                page-break-before: avoid;
+            }
+            
             .print-footer .footer-info {
-                 display: flex;
-                 justify-content: space-between;
-                 margin-bottom: 30px;
-                 padding: 0 20px;
-                 flex-wrap: wrap;
-                 gap: 20px;
-             }
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 30px;
+                padding: 0 20px;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
 
-             .print-footer .footer-info span {
-                 flex-grow: 1;
-                 flex-basis: 0;
-             }
-             .print-footer .footer-info span:last-child {
-                 flex-grow: 0;
-                 flex-basis: auto;
-                 text-align: right;
-             }
+            .print-footer .footer-info span {
+                flex-grow: 1;
+                flex-basis: 0;
+            }
+            
+            .print-footer .footer-info span:last-child {
+                flex-grow: 0;
+                flex-basis: auto;
+                text-align: right;
+            }
 
             .print-footer .signature-area {
-                 display: flex;
-                 justify-content: space-around;
-                 align-items: flex-start;
-                 padding: 0 20px;
-                 flex-wrap: wrap;
-                 gap: 30px;
-             }
+                display: flex;
+                justify-content: space-around;
+                align-items: flex-start;
+                padding: 0 20px;
+                flex-wrap: wrap;
+                gap: 30px;
+            }
 
             .print-footer .signature-block {
-                 display: flex;
-                 flex-direction: column;
-                 align-items: center;
-                 width: 45%;
-                 text-align: center;
-                 box-sizing: border-box;
-                 flex-grow: 1;
-                 flex-basis: 0;
-             }
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 45%;
+                text-align: center;
+                box-sizing: border-box;
+                flex-grow: 1;
+                flex-basis: 0;
+            }
 
             .print-footer .signature-line {
                 display: block;
@@ -1280,35 +1289,35 @@
                 font-size: 0.9rem;
             }
 
-             @media print and (max-width: 400px) {
-                 .print-grid {
-                     grid-template-columns: 1fr;
-                 }
-                 
-                 .print-footer .footer-info,
-                 .print-footer .signature-area {
-                     flex-direction: column;
-                     gap: 15px;
-                     padding: 0;
-                 }
-                 .print-footer .footer-info span,
-                 .print-footer .signature-block {
-                     width: 100%;
-                     flex-basis: auto;
-                 }
-                  .print-footer .footer-info span:last-child {
-                     text-align: left;
-                  }
-             }
+            @media print and (max-width: 400px) {
+                .print-grid {
+                    grid-template-columns: 1fr;
+                }
+                
+                .print-footer .footer-info,
+                .print-footer .signature-area {
+                    flex-direction: column;
+                    gap: 15px;
+                    padding: 0;
+                }
+                
+                .print-footer .footer-info span,
+                .print-footer .signature-block {
+                    width: 100%;
+                    flex-basis: auto;
+                }
+                
+                .print-footer .footer-info span:last-child {
+                    text-align: left;
+                }
+            }
         }
 
-        /* --- Estilos para Impressão do MODAL DE DOCUMENTOS (PDF) --- */
-        /* Esta classe será 'ativada' pela função html2canvas para gerar o PDF */
         .documents-print-layout {
             font-family: 'Inter', sans-serif;
             background-color: #ffffff !important;
             color: #000000 !important;
-            padding: 15mm 20mm !important; /* Margens: 15mm top/bottom, 20mm left/right */
+            padding: 15mm 20mm !important;
             box-shadow: none !important;
             border-radius: 0 !important;
             width: auto !important;
@@ -1321,92 +1330,91 @@
         .documents-print-layout .modal-header,
         .documents-print-layout .modal-buttons,
         .documents-print-layout .developer-info-modal,
-        .documents-print-layout .editable-header-info /* Esconde os campos de edição no PDF */ {
+        .documents-print-layout .editable-header-info {
             display: none !important;
         }
 
-        /* Título Principal no PDF (Documentos para Simulação) */
         .documents-print-layout h3 {
-            font-size: 1.5rem !important; /* Um pouco menor para caber */
+            font-size: 1.5rem !important;
             color: #333333 !important;
             text-align: center !important;
-            margin-bottom: 15px !important; /* Espaço menor */
+            margin-bottom: 15px !important;
             padding-bottom: 0 !important;
             border-bottom: none !important;
-            line-height: 1.2 !important; /* Diminui o espaçamento de linha */
+            line-height: 1.2 !important;
         }
 
-        /* Informações do cabeçalho da empresa no PDF */
         .documents-print-layout .document-header-info {
-            margin-bottom: 20px !important; /* Ajusta a margem do bloco */
-            /* Garante que o texto seja centralizado, como no PDF original */
+            margin-bottom: 20px !important;
             text-align: center !important;
         }
+        
         .documents-print-layout .document-header-info h2 {
-            font-size: 1.2rem !important; /* Ajusta o tamanho da fonte */
-            margin-bottom: 5px !important; /* Reduz margem */
-            color: #000000 !important; /* Preto */
+            font-size: 1.2rem !important;
+            margin-bottom: 5px !important;
+            color: #000000 !important;
             line-height: 1.1 !important;
         }
+        
         .documents-print-layout .document-header-info p {
-            font-size: 0.8rem !important; /* Texto menor */
-            margin-bottom: 10px !important; /* Reduz margem */
-            color: #333333 !important; /* Cinza escuro */
+            font-size: 0.8rem !important;
+            margin-bottom: 10px !important;
+            color: #333333 !important;
             line-height: 1.1 !important;
         }
 
         .documents-print-layout .document-section {
-            margin-bottom: 20px !important; /* Espaço menor entre seções */
-            padding-bottom: 10px !important; /* Espaço menor */
-            border-bottom: 1px dashed #dddddd !important; /* Borda mais clara e suave */
+            margin-bottom: 20px !important;
+            padding-bottom: 10px !important;
+            border-bottom: 1px dashed #dddddd !important;
         }
+        
         .documents-print-layout .document-section:last-child {
             border-bottom: none !important;
         }
 
         .documents-print-layout .document-section h4 {
-            font-size: 1.05rem !important; /* Títulos de seção um pouco menores */
-            color: #444444 !important; /* Cinza escuro */
-            margin-bottom: 10px !important; /* Espaço menor */
+            font-size: 1.05rem !important;
+            color: #444444 !important;
+            margin-bottom: 10px !important;
             font-weight: bold !important;
             text-transform: uppercase;
-            line-height: 1.2 !important; /* Diminui o espaçamento de linha */
+            line-height: 1.2 !important;
         }
 
         .documents-print-layout .document-section ul li {
-            font-size: 0.9rem !important; /* Texto da lista menor */
-            margin-bottom: 5px !important; /* Espaço entre itens da lista */
-            color: #111111 !important; /* Texto mais escuro */
-            line-height: 1.2 !important; /* Diminui o espaçamento de linha */
+            font-size: 0.9rem !important;
+            margin-bottom: 5px !important;
+            color: #111111 !important;
+            line-height: 1.2 !important;
             display: flex;
-            align-items: flex-start; /* Garante que o texto comece na mesma linha do ícone */
+            align-items: flex-start;
         }
 
         .documents-print-layout .document-section ul li i {
-            color: #006400 !important; /* Verde mais escuro e sólido para o ícone */
-            margin-right: 8px !important; /* Reduz o espaço para o ícone */
-            font-size: 1rem !important; /* Ícone do tamanho do texto */
-            flex-shrink: 0; /* Impede que o ícone encolha */
-            padding-top: 1px; /* Ajuste fino para alinhar o ícone com o texto */
+            color: #006400 !important;
+            margin-right: 8px !important;
+            font-size: 1rem !important;
+            flex-shrink: 0;
+            padding-top: 1px;
         }
 
-        /* --- ESTILOS DO EFEITO DE FESTA (BALÕES E CONFETES) --- */
         #partyEffectContainer {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 9999; /* Garante que fique acima de tudo */
-            pointer-events: none; /* Permite clicar através da overlay */
-            overflow: hidden; /* Esconde elementos que saem da tela */
-            opacity: 0; /* Inicialmente invisível */
-            transition: opacity 0.5s ease; /* Transição suave na visibilidade */
-            background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+            z-index: 9999;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            background-color: rgba(0, 0, 0, 0.5);
         }
 
         #partyEffectContainer.show {
-            opacity: 1; /* Torna visível */
+            opacity: 1;
         }
 
         #partyMessage {
@@ -1415,32 +1423,30 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: white;
-            font-size: 2.5em; /* Tamanho do texto */
+            font-size: 2.5em;
             font-weight: bold;
             text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* Sombra para destacar o texto */
-            z-index: 10; /* Acima dos balões/confetes */
-            opacity: 0; /* Inicialmente invisível */
-            transition: opacity 0.5s ease; /* Transição suave */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
 
-         #partyEffectContainer.show #partyMessage {
-             opacity: 1; /* Torna o texto visível quando o container é exibido */
-         }
+        #partyEffectContainer.show #partyMessage {
+            opacity: 1;
+        }
 
-        /* Estilos para Balões */
         .balloon {
             position: absolute;
-            bottom: -100px; /* Começa abaixo da tela */
-            width: 50px; /* Tamanho do balão */
-            height: 60px; /* Tamanho do balão */
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; /* Formato de balão */
+            bottom: -100px;
+            width: 50px;
+            height: 60px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             opacity: 0.8;
-            animation: floatUp 10s ease-in infinite; /* Animação de flutuar */
-            z-index: 1; /* Abaixo do texto */
+            animation: floatUp 10s ease-in infinite;
+            z-index: 1;
         }
 
-        /* Pseudo-elemento para a "cauda" do balão */
         .balloon::after {
             content: '';
             position: absolute;
@@ -1448,11 +1454,10 @@
             left: 50%;
             transform: translateX(-50%);
             width: 1px;
-            height: 20px; /* Comprimento da cauda */
-            background-color: rgba(255, 255, 255, 0.5); /* Cor da cauda */
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Animação de flutuar para os balões */
         @keyframes floatUp {
             0% {
                 transform: translateY(0) rotate(0deg);
@@ -1468,46 +1473,41 @@
             }
         }
 
-        /* Estilos para Confetes */
         .confetti {
             position: absolute;
-            width: 8px; /* Tamanho do confete */
-            height: 12px; /* Tamanho do confete */
-            background-color: white; /* Cor padrão (será sobrescrita) */
+            width: 8px;
+            height: 12px;
+            background-color: white;
             opacity: 0.7;
-            animation: fallAndRotate 8s linear infinite; /* Animação de cair e girar */
-            z-index: 0; /* Abaixo dos balões */
+            animation: fallAndRotate 8s linear infinite;
+            z-index: 0;
         }
 
-        /* Animação de cair e girar para os confetes */
         @keyframes fallAndRotate {
             0% {
                 transform: translateY(0) rotate(0deg);
                 opacity: 0.7;
             }
             100% {
-                transform: translateY(110vh) rotate(720deg); /* Cai e gira duas vezes */
+                transform: translateY(110vh) rotate(720deg);
                 opacity: 0.5;
             }
         }
-        /* --- FIM ESTILOS DO EFEITO DE FESTA --- */
-
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="top-links">
-            </div>
+        <div class="top-links"></div>
 
         <div class="card" id="simuladorCard">
-             <div class="print-header print-only">
-                 SIMULAÇÃO DE PLANO DE PAGAMENTO
-             </div>
+            <div class="print-header print-only">
+                SIMULAÇÃO DE PLANO DE PAGAMENTO
+            </div>
 
             <div class="top-button-container">
                 <button id="btnAbrirListaLeads" class="btn btn-secondary btn-auto-width" title="Ver Leads Salvos">
-                   <i class="fas fa-users"></i>
-                   <span id="leadCount">0</span>
+                    <i class="fas fa-users"></i>
+                    <span id="leadCount">0</span>
                 </button>
                 <button id="btnNovaSimulacao" class="btn btn-primary btn-auto-width" title="Nova Simulação">
                     <i class="fas fa-sync-alt"></i>
@@ -1516,12 +1516,12 @@
                     <i class="fas fa-file-alt"></i>
                 </button>
                 <a href="https://www.portaldeempreendimentos.caixa.gov.br/simulador/" target="_blank" class="btn btn-primary btn-auto-width btn-calculator" title="Abrir Simulador Caixa">
-                     <i class="fas fa-calculator"></i>
-                 </a>
-                 <a href="https://dinheiroeplanejamento.blogspot.com/2025/04/guia-completo-para-corretores-de.html" target="_blank" id="blogLink" title="Acesse o Blog">
-                     <i class="fas fa-book"></i>
-                 </a>
-                 <button id="btnImprimirSimulacao" class="btn btn-secondary btn-auto-width" title="Imprimir Simulação">
+                    <i class="fas fa-calculator"></i>
+                </a>
+                <a href="https://dinheiroeplanejamento.blogspot.com/2025/04/guia-completo-para-corretores-de.html" target="_blank" id="blogLink" title="Acesse o Blog">
+                    <i class="fas fa-book"></i>
+                </a>
+                <button id="btnImprimirSimulacao" class="btn btn-secondary btn-auto-width" title="Imprimir Simulação">
                     <i class="fas fa-print"></i>
                 </button>
             </div>
@@ -1607,7 +1607,6 @@
                 </div>
             </div>
 
-            <!-- NOVA SEÇÃO: Intercaladas -->
             <div class="divider"></div>
             <h3>Intercaladas</h3> <div class="divider"></div>
 
@@ -1626,11 +1625,9 @@
             <div class="result-card">
                 <p><strong>Total de Intercaladas:</strong> <span id="totalIntercaladas">R$ 0,00</span></p>
             </div>
-            <!-- FIM NOVA SEÇÃO -->
 
             <div class="result-card">
                 <p><strong>Saldo Remanescente:</strong> <span id="saldoRemanescente">R$ 0,00</span></p>
-                <!-- A nota será inserida aqui via JavaScript quando o saldo for maior que 0 -->
             </div>
 
             <div class="result-card">
@@ -1685,72 +1682,71 @@
                 </div>
             </div>
 
-             <!-- NOVO: Layout de impressão moderno e horizontal -->
-             <div class="print-only">
-                 <div class="print-grid">
-                     <div class="print-section">
-                         <h3>Informações do Cliente</h3>
-                         <p><strong>Nome:</strong> <span class="value" id="print-nomeCliente"></span></p>
-                         <p><strong>Telefone:</strong> <span class="value" id="print-telefoneCliente"></span></p>
-                         <p><strong>Empreendimento:</strong> <span class="value" id="print-nomeEmpreendimento"></span></p>
-                     </div>
-                     
-                     <div class="print-section">
-                         <h3>Valores do Imóvel</h3>
-                         <p><strong>Valor do Imóvel:</strong> <span class="value" id="print-valorImovel"></span></p>
-                         <p><strong>Desconto (Subsídio):</strong> <span class="value" id="print-descontoMCMV"></span></p>
-                         <p><strong>Desconto Construtora:</strong> <span class="value" id="print-descontoConstrutora"></span></p>
-                         <p><strong>FGTS:</strong> <span class="value" id="print-valorFGTS"></span></p>
-                         <p><strong>Valor Financiado:</strong> <span class="value" id="print-valorFinanciado"></span></p>
-                     </div>
-                     
-                     <div class="print-section">
-                         <h3>Entrada</h3>
-                         <p><strong>Sinal para Construtora:</strong> <span class="value" id="print-sinalConstrutora"></span></p>
-                         <p><strong>Valor Parcelado:</strong> <span class="value" id="print-maximoConstrParc"></span></p>
-                         <p><strong>Parcelas:</strong> <span class="value" id="print-parcelasEntrada"></span></p>
-                         <p><strong>Correção INCC:</strong> <span class="value" id="print-correcaoINCC"></span></p>
-                         <p><strong>1ª Parcela:</strong> <span class="value" id="print-valorParcelaEntradaInicial"></span></p>
-                     </div>
-                     
-                     <div class="print-section">
-                         <h3>Intercaladas</h3>
-                         <p><strong>Valor das Intercaladas:</strong> <span class="value" id="print-valorIntercaladas"></span></p>
-                         <p><strong>Quantidade:</strong> <span class="value" id="print-quantidadeIntercaladas"></span></p>
-                         <p><strong>Total:</strong> <span class="value" id="print-totalIntercaladas"></span></p>
-                     </div>
-                     
-                     <div class="print-section highlight full-width">
-                         <h3>Resumo Financeiro</h3>
-                         <p><strong>Saldo Remanescente:</strong> <span class="value" id="print-saldoRemanescente"></span></p>
-                         <p id="print-saldoNota" style="font-size: 0.8rem; margin-top: 8px; color: #555;"></p>
-                     </div>
-                     
-                     <div class="print-section full-width">
-                         <h3>Observações</h3>
-                         <div class="print-notes">
-                             <p id="print-observacoes"></p>
-                         </div>
-                     </div>
-                 </div>
-             </div>
+            <div class="print-only">
+                <div class="print-grid">
+                    <div class="print-section">
+                        <h3>Informações do Cliente</h3>
+                        <p><strong>Nome:</strong> <span class="value" id="print-nomeCliente"></span></p>
+                        <p><strong>Telefone:</strong> <span class="value" id="print-telefoneCliente"></span></p>
+                        <p><strong>Empreendimento:</strong> <span class="value" id="print-nomeEmpreendimento"></span></p>
+                    </div>
+                    
+                    <div class="print-section">
+                        <h3>Valores do Imóvel</h3>
+                        <p><strong>Valor do Imóvel:</strong> <span class="value" id="print-valorImovel"></span></p>
+                        <p><strong>Desconto (Subsídio):</strong> <span class="value" id="print-descontoMCMV"></span></p>
+                        <p><strong>Desconto Construtora:</strong> <span class="value" id="print-descontoConstrutora"></span></p>
+                        <p><strong>FGTS:</strong> <span class="value" id="print-valorFGTS"></span></p>
+                        <p><strong>Valor Financiado:</strong> <span class="value" id="print-valorFinanciado"></span></p>
+                    </div>
+                    
+                    <div class="print-section">
+                        <h3>Entrada</h3>
+                        <p><strong>Sinal para Construtora:</strong> <span class="value" id="print-sinalConstrutora"></span></p>
+                        <p><strong>Valor Parcelado:</strong> <span class="value" id="print-maximoConstrParc"></span></p>
+                        <p><strong>Parcelas:</strong> <span class="value" id="print-parcelasEntrada"></span></p>
+                        <p><strong>Correção INCC:</strong> <span class="value" id="print-correcaoINCC"></span></p>
+                        <p><strong>1ª Parcela:</strong> <span class="value" id="print-valorParcelaEntradaInicial"></span></p>
+                    </div>
+                    
+                    <div class="print-section">
+                        <h3>Intercaladas</h3>
+                        <p><strong>Valor das Intercaladas:</strong> <span class="value" id="print-valorIntercaladas"></span></p>
+                        <p><strong>Quantidade:</strong> <span class="value" id="print-quantidadeIntercaladas"></span></p>
+                        <p><strong>Total:</strong> <span class="value" id="print-totalIntercaladas"></span></p>
+                    </div>
+                    
+                    <div class="print-section highlight full-width">
+                        <h3>Resumo Financeiro</h3>
+                        <p><strong>Saldo Remanescente:</strong> <span class="value" id="print-saldoRemanescente"></span></p>
+                        <p id="print-saldoNota" style="font-size: 0.8rem; margin-top: 8px; color: #555;"></p>
+                    </div>
+                    
+                    <div class="print-section full-width">
+                        <h3>Observações</h3>
+                        <div class="print-notes">
+                            <p id="print-observacoes"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-             <div class="print-footer print-only">
-                 <div class="footer-info">
-                     <span>Cidade:_________________________</span>
-                     <span>Data: _____/_____/_________</span>
-                 </div>
-                 <div class="signature-area">
-                     <div class="signature-block">
-                         <span class="signature-line"></span>
-                         <p>Assinatura do Cliente</p>
-                     </div>
-                     <div class="signature-block">
-                         <span class="signature-line"></span>
-                         <p>Assinatura do Corretor</p>
-                     </div>
-                 </div>
-             </div>
+            <div class="print-footer print-only">
+                <div class="footer-info">
+                    <span>Cidade:_________________________</span>
+                    <span>Data: _____/_____/_________</span>
+                </div>
+                <div class="signature-area">
+                    <div class="signature-block">
+                        <span class="signature-line"></span>
+                        <p>Assinatura do Cliente</p>
+                    </div>
+                    <div class="signature-block">
+                        <span class="signature-line"></span>
+                        <p>Assinatura do Corretor</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="secaoListaLeads" class="card" style="display: none; margin-top: 30px;">
@@ -1779,16 +1775,15 @@
                             <th style="padding: 10px; border: 1px solid #555; text-align: left;">Telefone</th>
                             <th style="padding: 10px; border: 1px solid #555; text-align: left;">Imóvel</th>
                             <th style="padding: 10px; border: 1px solid #555; text-align: left;">Data</th>
-                             <th style="padding: 10px; border: 1px solid #555; text-align: left;">Subsídio</th>
+                            <th style="padding: 10px; border: 1px solid #555; text-align: left;">Subsídio</th>
                             <th style="padding: 10px; border: 1px solid #555; text-align: left;">Financiado</th>
                             <th style="padding: 10px; border: 1px solid #555; text-align: left;">FGTS</th>
-                             <th style="padding: 10px; border: 1px solid #555; text-align: left;">Notas</th>
+                            <th style="padding: 10px; border: 1px solid #555; text-align: left;">Notas</th>
                             <th style="padding: 10px; border: 1px solid #555; text-align: left;">Observações</th>
                             <th style="padding: 10px; border: 1px solid #555; text-align: center;">Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="corpoTabelaLeads">
-                        </tbody>
+                    <tbody id="corpoTabelaLeads"></tbody>
                 </table>
                 <p id="semLeadsMensagem" style="text-align: center; padding: 20px; display: none;">Nenhum lead salvo ainda.</p>
             </div>
@@ -1827,8 +1822,8 @@
             <div id="historyList">
                 <div class="empty-state" id="emptyHistoryMessage" style="display: none;">
                     <i class="fas fa-box-open"></i>
-                     <p>Nenhuma nota salva ainda.</p>
-                 </div>
+                    <p>Nenhuma nota salva ainda.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -1859,6 +1854,7 @@
                     <label for="profissaoCliente">Profissão do Cliente</label>
                     <select id="profissaoCliente" class="form-control">
                         <option value="carteira-assinada">Carteira Assinada</option>
+                        <option value="servidor-publico">Servidor Público</option>
                         <option value="empresario">Empresário</option>
                         <option value="forcas-armadas">Forças Armadas</option>
                         <option value="autonomo">Autônomo</option>
@@ -1894,9 +1890,11 @@
     <div id="partyEffectContainer">
         <div id="partyMessage">Parabéns! Continue assim!</div>
     </div>
+    
     <footer class="footer">
         <p class="developer-info">Desenvolvedor - Alex Peixoto - (82) 996622036</p>
-        <p class="marquee-text">Solicite seu sistema CRM</p> <a href="https://wa.me/5582996622036" target="_blank" class="whatsapp-icon">
+        <p class="marquee-text">Solicite seu sistema CRM</p>
+        <a href="https://wa.me/5582996622036" target="_blank" class="whatsapp-icon">
             <i class="fab fa-whatsapp"></i>
         </a>
     </footer>
@@ -1905,10 +1903,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <script>
-        // Use a desestruturação para obter o construtor jsPDF do objeto global window.jspdf
         const { jsPDF } = window.jspdf;
 
-        // DOM Elements
         const valorImovelInput = document.getElementById('valorImovel');
         const descontoMCMVInput = document.getElementById('descontoMCMV');
         const valorFinanciadoInput = document.getElementById('valorFinanciado');
@@ -1944,13 +1940,10 @@
         const currencyInputs = document.querySelectorAll('.currency-input');
         const btnNovaSimulacao = document.getElementById('btnNovaSimulacao');
         const btnExportarBackup = document.getElementById('btnExportarBackup');
-        const btnImportarBackup = document.getElementById('btnImportarBackup'); // Mudança aqui
+        const btnImportarBackup = document.getElementById('btnImportarBackup');
         const importFileInput = document.getElementById('importFile');
         const blogLink = document.getElementById('blogLink');
-
-        // Novo botão de impressão
         const btnImprimirSimulacao = document.getElementById('btnImprimirSimulacao');
-        // Elementos da lista de Leads
         const btnAbrirListaLeads = document.getElementById('btnAbrirListaLeads');
         const secaoListaLeads = document.getElementById('secaoListaLeads');
         const corpoTabelaLeads = document.getElementById('corpoTabelaLeads');
@@ -1959,50 +1952,28 @@
         const btnVoltarSimulador = document.getElementById('btnVoltarSimulador');
         const simuladorCardElement = document.getElementById('simuladorCard');
         const tabelaLeadsElement = document.getElementById('tabelaLeads');
-        // Elemento para exibir a contagem de leads
         const leadCountSpan = document.getElementById('leadCount');
-
-        // --- Elementos para Importar Leads CSV ---
         const btnImportarLeadsCSV = document.getElementById('btnImportarLeadsCSV');
         const importLeadsCSVFileInput = document.getElementById('importLeadsCSVFile');
-        // --- Fim Elementos para Importar Leads CSV ---
-
-        // --- Elementos para Importar Leads JSON ---
         const btnImportarLeads = document.getElementById('btnImportarLeads');
         const importLeadsFileInput = document.getElementById('importLeadsFile');
-        // --- FIM Elementos para Importar Leads JSON ---
-
-        // --- ELEMENTOS DO MODAL DE DOCUMENTOS ---
         const btnDocumentos = document.getElementById('btnDocumentos');
         const documentsModal = document.getElementById('documentsModal');
         const enviarDocumentosWhatsappBtn = document.getElementById('enviarDocumentosWhatsappBtn');
         const baixarDocumentosPdfBtn = document.getElementById('baixarDocumentosPdfBtn');
         const documentsModalBody = document.getElementById('documentsModalBody');
-        const pdfHeaderInfo = document.getElementById('pdfHeaderInfo'); // NOVO: Elemento que vai para o PDF
-        const imobiliariaNomeInput = document.getElementById('imobiliariaNome'); // NOVO: Campo de edição
-        const corretorNomeInput = document.getElementById('corretorNome');     // NOVO: Campo de edição
-        const corretorCreciInput = document.getElementById('corretorCreci');   // NOVO: Campo de edição
-        // NOVO: Elemento do botão Baixar TXT no modal de documentos
+        const pdfHeaderInfo = document.getElementById('pdfHeaderInfo');
+        const imobiliariaNomeInput = document.getElementById('imobiliariaNome');
+        const corretorNomeInput = document.getElementById('corretorNome');
+        const corretorCreciInput = document.getElementById('corretorCreci');
         const baixarDocumentosTxtBtn = document.getElementById('baixarDocumentosTxtBtn');
-        // --- FIM ELEMENTOS DO MODAL DE DOCUMENTOS ---
-
-        // --- ELEMENTOS DO EFEITO DE FESTA ---
         const partyEffectContainer = document.getElementById('partyEffectContainer');
         const partyMessage = document.getElementById('partyMessage');
-        // --- FIM ELEMENTOS DO EFEITO DE FESTA ---
-
-        // --- NOVO: Elementos para seleção de profissão ---
         const profissaoClienteSelect = document.getElementById('profissaoCliente');
         const documentosContainer = document.getElementById('documentosContainer');
-        // --- FIM NOVO: Elementos para seleção de profissão ---
-
-        // --- NOVOS ELEMENTOS PARA INTERCALADAS ---
         const valorIntercaladasInput = document.getElementById('valorIntercaladas');
         const quantidadeIntercaladasInput = document.getElementById('quantidadeIntercaladas');
         const totalIntercaladasSpan = document.getElementById('totalIntercaladas');
-        // --- FIM NOVOS ELEMENTOS PARA INTERCALADAS ---
-
-        // --- NOVO: Elementos para impressão moderna ---
         const printNomeCliente = document.getElementById('print-nomeCliente');
         const printTelefoneCliente = document.getElementById('print-telefoneCliente');
         const printNomeEmpreendimento = document.getElementById('print-nomeEmpreendimento');
@@ -2022,9 +1993,7 @@
         const printSaldoRemanescente = document.getElementById('print-saldoRemanescente');
         const printSaldoNota = document.getElementById('print-saldoNota');
         const printObservacoes = document.getElementById('print-observacoes');
-        // --- FIM NOVO: Elementos para impressão moderna ---
 
-        // --- ATUALIZADO: Dados dos documentos por profissão com listas completas ---
         const documentosPorProfissao = {
             'carteira-assinada': {
                 titulo: 'CARTEIRA ASSINADA',
@@ -2036,6 +2005,20 @@
                     '2 Últimos contracheques',
                     'Extrato do FGTS'
                 ]
+            },
+            'servidor-publico': {
+                titulo: 'SERVIDOR PÚBLICO (CONCURSADO OU COMISSIONADO)',
+                documentos: [
+                    'RG + CPF ou CNH',
+                    'Comprovante de residência - atualizado',
+                    'Certidão de nascimento/casamento/divórcio + averbação',
+                    'Carteira de trabalho',
+                    'Portaria ou nomeação',
+                    '03 últimos contracheques',
+                    '03 últimos extratos bancários',
+                    'Declaração de imposto de renda + recibo'
+                ],
+                observacao: 'Obs.: Se possuir dependentes: RG+CPF e Certidão de nascimento. Caso tenha o contra cheque, não precisa da nomeação.'
             },
             'empresario': {
                 titulo: 'EMPRESÁRIO',
@@ -2098,7 +2081,6 @@
             }
         };
 
-        // Função para quebrar linhas longas em um texto
         function wordWrap(text, maxWidth) {
             if (!text) return '';
             const lines = text.split('\n');
@@ -2149,16 +2131,14 @@
                 valorIntercaladas: formatCurrencyDisplay(cleanCurrencyFormat(valorIntercaladasInput.value)),
                 quantidadeIntercaladas: quantidadeIntercaladasInput.value,
                 totalIntercaladas: totalIntercaladasSpan.textContent,
-                notasCliente: notasClienteTextArea.value.trim(), // Conteúdo da seção 'Notas do Cliente'
-                observacoesSimulacao: observacoesClienteTextArea.value.trim() // Conteúdo do NOVO campo Observações
+                notasCliente: notasClienteTextArea.value.trim(),
+                observacoesSimulacao: observacoesClienteTextArea.value.trim()
             };
         }
 
-        // --- NOVA FUNÇÃO: Atualizar dados para impressão moderna ---
         function atualizarDadosImpressao() {
             const data = getFormattedValues();
             
-            // Atualiza os elementos de impressão
             if (printNomeCliente) printNomeCliente.textContent = data.nomeCliente;
             if (printTelefoneCliente) printTelefoneCliente.textContent = data.telefoneCliente;
             if (printNomeEmpreendimento) printNomeEmpreendimento.textContent = data.nomeEmpreendimento;
@@ -2177,7 +2157,6 @@
             if (printTotalIntercaladas) printTotalIntercaladas.textContent = data.totalIntercaladas;
             if (printSaldoRemanescente) printSaldoRemanescente.textContent = data.saldoRemanescente;
             
-            // Atualiza a nota do saldo remanescente
             if (printSaldoNota) {
                 const saldoNumerico = cleanCurrencyFormat(data.saldoRemanescente);
                 if (saldoNumerico > 0) {
@@ -2187,7 +2166,6 @@
                 }
             }
             
-            // Atualiza as observações
             if (printObservacoes) {
                 printObservacoes.textContent = data.observacoesSimulacao || 'Nenhuma observação adicionada.';
             }
@@ -2196,8 +2174,7 @@
         function gerarConteudoSimulacaoTXT() {
             const data = getFormattedValues();
             const dataHora = new Date().toLocaleString('pt-BR');
-            // Define a largura máxima para quebra de linha no TXT
-            const maxWidth = 70; // Ajuste este valor conforme necessário
+            const maxWidth = 70;
 
             let txtContent = `SIMULAÇÃO DE PLANO DE PAGAMENTO (${dataHora})
 --------------------------------------------------
@@ -2230,23 +2207,21 @@ ${cleanCurrencyFormat(saldoRemanescenteSpan.textContent) > 0.00 ? 'Nota: Esse va
 Valor da Entrada Parcelado: ${data.valorParcelaEntradaInicial}
 --------------------------------------------------
 `;
-            // Adiciona a nota do cliente da seção "Notas do Cliente" se ela existir, aplicando wordWrap
+            
             if (data.notasCliente) {
                 txtContent += `NOTAS DO CLIENTE:\n${wordWrap(data.notasCliente, maxWidth)}\n--------------------------------------------------\n`;
             }
 
-            // Adiciona as Observações do novo campo se elas existirem, aplicando wordWrap
             if (data.observacoesSimulacao) {
-                 txtContent += `OBSERVACÕES DA SIMULAÇÃO:\n${wordWrap(data.observacoesSimulacao, maxWidth)}\n--------------------------------------------------\n`;
+                txtContent += `OBSERVACÕES DA SIMULAÇÃO:\n${wordWrap(data.observacoesSimulacao, maxWidth)}\n--------------------------------------------------\n`;
             }
 
-            // Aplica wordWrap na observação final fixa
             const observacaoFinal = `Observação: Esta é uma simulação. Valores sujeitos a alteração e aprovação.
 O valor das parcelas de entrada é corrigido mensalmente pelo INCC
 `;
             txtContent += wordWrap(observacaoFinal, maxWidth) + '\n';
 
-             return txtContent;
+            return txtContent;
         }
 
         function gerarConteudoSimulacaoWhatsApp() {
@@ -2270,7 +2245,6 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             msg += `  Parcelado Construtora: ${data.maximoConstrParc} em ${data.parcelasEntrada}x%0A`;
             msg += `  *1ª Parcela (com INCC ${data.correcaoINCC}):* ${data.valorParcelaEntradaInicial}%0A`;
             
-            // Adiciona informações das intercaladas
             if (cleanCurrencyFormat(data.valorIntercaladas) > 0 && data.quantidadeIntercaladas > 0) {
                 msg += `%0A*Intercaladas:*%0A`;
                 msg += `  Valor: ${data.valorIntercaladas}%0A`;
@@ -2279,22 +2253,22 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             }
             
             if (saldoRemanescenteNumerico > 0.00) {
-                 msg += `  Saldo Remanescente: ${data.saldoRemanescente}%0A`;
-                 msg += `  _Esse valor ou parte dele, pode ser pago na entrega das chaves, intercaladas ou de forma que a construtora aceite._%0A`;
+                msg += `  Saldo Remanescente: ${data.saldoRemanescente}%0A`;
+                msg += `  _Esse valor ou parte dele, pode ser pago na entrega das chaves, intercaladas ou de forma que a construtora aceite._%0A`;
             } else {
-                 msg += `  Saldo Remanescente: ${data.saldoRemanescente}%0A`;
+                msg += `  Saldo Remanescente: ${data.saldoRemanescente}%0A`;
             }
-             msg += `%0A${encodeURIComponent("O valor das parcelas de entrada é corrigido mensalmente pelo INCC")}%0A`;
-            // Adiciona as Observações do novo campo se elas existirem
+            
+            msg += `%0A${encodeURIComponent("O valor das parcelas de entrada é corrigido mensalmente pelo INCC")}%0A`;
+            
             if (data.observacoesSimulacao) {
-                 msg += `%0A*OBSERVACÕES DA SIMULAÇÃO:*%0A${encodeURIComponent(data.observacoesSimulacao)}`;
+                msg += `%0A*OBSERVACÕES DA SIMULAÇÃO:*%0A${encodeURIComponent(data.observacoesSimulacao)}`;
             }
 
             msg += `%0A%0A*Atenção:* Simulação sujeita a alterações e aprovação.`;
             return msg;
         }
 
-        // ATUALIZADO: Função para gerar o conteúdo dos documentos como TXT
         function gerarConteudoDocumentosTXT() {
             const imobiliaria = imobiliariaNomeInput.value.trim() || 'IMOBILIÁRIA';
             const corretor = corretorNomeInput.value.trim() || 'Corretor(a)';
@@ -2315,9 +2289,12 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             dadosProfissao.documentos.forEach(documento => {
                 txtContent += `- ${documento}\n`;
             });
-            txtContent += `\n`;
-
-            txtContent += `--- OBSERVAÇÃO ---\n`;
+            
+            if (dadosProfissao.observacao) {
+                txtContent += `\n*OBSERVAÇÃO:* ${dadosProfissao.observacao}\n`;
+            }
+            
+            txtContent += `\n--- OBSERVAÇÃO GERAL ---\n`;
             txtContent += `- Apresentar Imposto de Renda caso tenha declarado\n\n`;
 
             txtContent += `Por favor, me envie fotos claras e legíveis de todos os documentos. Caso tenha alguma dúvida, estou à disposição para ajudar!\n\n`;
@@ -2329,7 +2306,6 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             return txtContent;
         }
 
-        // NOVO: Função para baixar os documentos como TXT
         function baixarDocumentosComoTxt() {
             const textoDosDocumentos = gerarConteudoDocumentosTXT();
             const nomeClienteVal = nomeClienteInput.value.trim().replace(/\s+/g, '_') || 'Cliente';
@@ -2343,10 +2319,9 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             document.body.removeChild(link);
             URL.revokeObjectURL(link.href);
             showToast('Lista de documentos baixada como TXT!', 'success');
-            documentsModal.classList.remove('show'); // Fecha o modal após o download
+            documentsModal.classList.remove('show');
         }
 
-        // ATUALIZADO: Função para gerar a mensagem de documentos para WhatsApp
         function gerarConteudoDocumentosWhatsApp() {
             const imobiliaria = imobiliariaNomeInput.value.trim() || 'IMOBILIÁRIA';
             const corretor = corretorNomeInput.value.trim() || 'Corretor(a)';
@@ -2367,9 +2342,13 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             dadosProfissao.documentos.forEach(documento => {
                 msg += `✅ ${documento}%0A`;
             });
-            msg += `%0A`;
-
-            msg += `*--- OBSERVAÇÃO ---*%0A`;
+            
+            if (dadosProfissao.observacao) {
+                msg += `%0A*OBSERVAÇÃO ESPECÍFICA:*%0A`;
+                msg += `✅ ${dadosProfissao.observacao}%0A`;
+            }
+            
+            msg += `%0A*--- OBSERVAÇÃO GERAL ---*%0A`;
             msg += `✅ Apresentar Imposto de Renda caso tenha declarado%0A%0A`;
 
             msg += `Por favor, me envie fotos claras e legíveis de todos os documentos. Caso tenha alguma dúvida, estou à disposição para ajudar!%0A%0A`;
@@ -2403,7 +2382,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             let urlWhatsApp = '';
 
             if (telefoneLimpo) {
-                urlWhatsApp = `https://wa.me/55${telefoneLimpo}?text=${mensagem}`; // Garante o 55 na URL do WhatsApp
+                urlWhatsApp = `https://wa.me/55${telefoneLimpo}?text=${mensagem}`;
             } else {
                 urlWhatsApp = `https://wa.me/?text=${mensagem}`;
                 showToast('Telefone do cliente não informado. A mensagem será aberta para você escolher o contato.', 'warning', 7000);
@@ -2411,11 +2390,10 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
 
             const newWindow = window.open(urlWhatsApp, '_blank');
             if (!newWindow) {
-                  showToast('Falha ao abrir o WhatsApp. Verifique se popups estão bloqueados.', 'danger', 5000);
+                showToast('Falha ao abrir o WhatsApp. Verifique se popups estão bloqueados.', 'danger', 5000);
             }
         }
 
-        // Função para enviar documentos via WhatsApp
         function enviarDocumentosPorWhatsApp() {
             const mensagemDocumentos = gerarConteudoDocumentosWhatsApp();
             const telefoneLimpo = getCleanPhoneNumberDigits(telefoneClienteInput.value.trim());
@@ -2432,11 +2410,10 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             if (!newWindow) {
                 showToast('Falha ao abrir o WhatsApp. Verifique se popups estão bloqueados.', 'danger', 5000);
             } else {
-                documentsModal.classList.remove('show'); // Fecha o modal após tentar abrir o WhatsApp
+                documentsModal.classList.remove('show');
             }
         }
 
-        // Função para baixar os documentos como PDF
         async function baixarDocumentosComoPdf() {
             if (!documentsModalBody) {
                 console.error("Elemento documentsModalBody não encontrado!");
@@ -2446,15 +2423,12 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
 
             showToast('Gerando PDF... Aguarde um momento.', 'info', 3000);
 
-            // Antes de capturar, atualiza o conteúdo da div que será impressa no PDF
-            // com os valores dos campos editáveis.
             const imobiliariaNome = imobiliariaNomeInput.value.trim();
             const corretorNome = corretorNomeInput.value.trim();
             const corretorCreci = corretorCreciInput.value.trim();
 
-            const originalPdfHeaderContent = pdfHeaderInfo.innerHTML; // Salva o HTML original
+            const originalPdfHeaderContent = pdfHeaderInfo.innerHTML;
             
-            // Atualiza o conteúdo da div que será 'printada' no PDF
             pdfHeaderInfo.innerHTML = `
                 <h2 style="color: #333; text-align: center; margin-bottom: 5px; font-size: 1.2rem; line-height: 1.1;">
                     ${imobiliariaNome.toUpperCase() || 'IMOBILIÁRIA'}
@@ -2463,19 +2437,18 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                     ${corretorNome.toUpperCase() || 'CORRETOR(A)'} ${corretorCreci.toUpperCase() || ''}
                 </p>
             `;
-            // Aplica a classe para layout de impressão no PDF para o corpo do modal
+            
             documentsModalBody.classList.add('documents-print-layout');
 
             try {
-                // Captura o conteúdo do modal-body como uma imagem (canvas)
                 const canvas = await html2canvas(documentsModalBody, {
-                    scale: 3, // Aumenta a escala para melhor qualidade do PDF
-                    useCORS: true, // Importante se houver imagens externas
-                    backgroundColor: '#ffffff' // Fundo branco para o canvas
+                    scale: 3,
+                    useCORS: true,
+                    backgroundColor: '#ffffff'
                 });
 
-                const imgData = canvas.toDataURL('image/jpeg', 1.0); // Usar JPEG com qualidade 1.0 para otimização de tamanho e qualidade
-                const pdf = new jsPDF('p', 'mm', 'a4'); // 'p' = retrato, 'mm' = milímetros, 'a4' = tamanho da página
+                const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                const pdf = new jsPDF('p', 'mm', 'a4');
 
                 const pdfWidth = pdf.internal.pageSize.getWidth();
                 const pdfHeight = pdf.internal.pageSize.getHeight();
@@ -2485,13 +2458,11 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                 const imgHeightInPdf = pdfWidth / imgRatio;
 
                 let heightLeft = imgHeightInPdf;
-                let position = 0; // Posição inicial no PDF
+                let position = 0;
 
-                // Adiciona a primeira imagem
                 pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, imgHeightInPdf);
                 heightLeft -= pdfHeight;
 
-                // Adiciona páginas adicionais se o conteúdo for maior que uma página
                 while (heightLeft > 0) {
                     position = heightLeft - imgHeightInPdf;
                     pdf.addPage();
@@ -2507,9 +2478,8 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                 console.error("Erro ao gerar PDF:", error);
                 showToast('Erro ao gerar PDF. Tente novamente mais tarde.', 'danger');
             } finally {
-                // Remove a classe de layout de impressão e restaura o conteúdo original do cabeçalho
                 documentsModalBody.classList.remove('documents-print-layout');
-                pdfHeaderInfo.innerHTML = originalPdfHeaderContent; // Restaura o HTML original
+                pdfHeaderInfo.innerHTML = originalPdfHeaderContent;
                 documentsModal.classList.remove('show');
             }
         }
@@ -2535,6 +2505,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                 input.value = '';
                 return;
             }
+            
             const originalDigitsBeforeCursor = input.value.substring(0, input.selectionStart).replace(/\D/g, '').length;
             const numberValue = parseFloat(value) / 100;
             input.value = numberValue.toFixed(2).replace('.', ',');
@@ -2544,6 +2515,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
 
             let newCursorPosition = 0;
             let digitsCount = 0;
+            
             for(let i = 0; i < input.value.length; i++) {
                 if (/\d/.test(input.value[i])) {
                     digitsCount++;
@@ -2554,7 +2526,8 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                     break;
                 }
             }
-             if (input.value.startsWith('0,0') && value.length > 1) {
+            
+            if (input.value.startsWith('0,0') && value.length > 1) {
                 newCursorPosition = input.value.length;
             }
 
@@ -2572,13 +2545,14 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             let value = input.value.replace(/\D/g, '');
             const originalLength = input.value.length;
             const cursorPosition = input.selectionStart;
+            
             if (value.length > 0) {
                 value = value.replace(/^(\d{2})/, '($1) ');
                 if (value.length > 5) {
                     if (value.length <= 14 && value.charAt(5) === '9' && value.length > 6) {
-                         value = value.replace(/(\(\d{2}\)\s\d{5})(\d{0,4})/, '$1-$2');
+                        value = value.replace(/(\(\d{2}\)\s\d{5})(\d{0,4})/, '$1-$2');
                     } else if (value.length <=14 && value.charAt(5) !== '9' && value.length > 5){
-                         value = value.replace(/(\(\d{2}\)\s\d{4})(\d{0,4})/, '$1-$2');
+                        value = value.replace(/(\(\d{2}\)\s\d{4})(\d{0,4})/, '$1-$2');
                     } else if (value.length === 15 && value.charAt(5) === '9') {
                         value = value.replace(/(\(\d{2}\)\s\d{5})(\d{4})/, '$1-$2');
                     } else if (value.length === 14 && value.charAt(5) !== '9') {
@@ -2587,33 +2561,33 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                 }
                 if (value.length > 15) value = value.substring(0,15);
             }
+            
             input.value = value;
 
             const newLength = input.value.length;
             const diff = newLength - originalLength;
             let newCursorPosition = cursorPosition + diff;
+            
             if (diff > 0 && cursorPosition === originalLength) {
                 newCursorPosition = newLength;
             }
 
             try {
-                 input.setSelectionRange(newCursorPosition, newCursorPosition);
-             } catch (e) {
+                input.setSelectionRange(newCursorPosition, newCursorPosition);
+            } catch (e) {
                 console.warn("Erro ao definir posição do cursor no telefone:", e);
             }
         }
 
-         function validatePhoneNumber(phoneNumber) {
-             const digits = phoneNumber.replace(/\D/g, '');
-             return digits.length === 10 || digits.length === 11;
-         }
+        function validatePhoneNumber(phoneNumber) {
+            const digits = phoneNumber.replace(/\D/g, '');
+            return digits.length === 10 || digits.length === 11;
+        }
 
-        // Função para obter apenas os dígitos limpos do telefone
         function getCleanPhoneNumberDigits(phoneNumber) {
             return phoneNumber.replace(/\D/g, '');
         }
 
-        // --- NOVA FUNÇÃO: Calcular total das intercaladas ---
         function calcularIntercaladas() {
             const valorIntercaladas = cleanCurrencyFormat(valorIntercaladasInput.value) || 0;
             const quantidadeIntercaladas = parseInt(quantidadeIntercaladasInput.value) || 0;
@@ -2636,20 +2610,16 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             const correcaoINCC = parseFloat(correcaoINCCInput.value) || 0;
             const valorEntradaCalculadoNumerico = valorImovel - descontoMCMV - valorFinanciado - valorFGTS - descontoConstrutora;
 
-            // Calcula o total das intercaladas
             const totalIntercaladas = calcularIntercaladas();
-
-            // Subtrai o total das intercaladas do saldo remanescente
             const saldoRemanescenteCalculado = valorEntradaCalculadoNumerico - sinalConstrutora - maximoConstrParc - totalIntercaladas;
+            
             saldoRemanescenteSpan.textContent = formatCurrencyDisplay(saldoRemanescenteCalculado);
             
-            // Remove qualquer nota existente
             const existingNote = saldoRemanescenteSpan.parentElement.querySelector('.saldo-remanescente-note');
             if(existingNote) {
                 existingNote.remove();
             }
 
-            // Adiciona a nota apenas se o saldo for maior que 0
             if (saldoRemanescenteCalculado > 0.00) {
                 const noteElement = document.createElement('span');
                 noteElement.classList.add('saldo-remanescente-note');
@@ -2666,9 +2636,9 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             } else if (maximoConstrParc === 0 && parcelasEntrada > 0) {
                 valorParcelaEntradaInicialCalc = 0;
             }
+            
             valorParcelaEntradaInicialSpan.textContent = formatCurrencyDisplay(valorParcelaEntradaInicialCalc);
             
-            // --- NOVO: Atualiza os dados para impressão sempre que os valores são calculados ---
             atualizarDadosImpressao();
         }
 
@@ -2676,12 +2646,12 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             const digits = phoneNumber.replace(/\D/g, '');
             if (digits.length === 0) return 'Não Informado';
             if (digits.length === 11) {
-                 return `(${digits.substring(0, 2)}) ${digits.substring(2, 7)}-${digits.substring(7)}`;
+                return `(${digits.substring(0, 2)}) ${digits.substring(2, 7)}-${digits.substring(7)}`;
             } else if (digits.length === 10) {
-                 return `(${digits.substring(0, 2)}) ${digits.substring(2, 6)}-${digits.substring(6)}`;
+                return `(${digits.substring(0, 2)}) ${digits.substring(2, 6)}-${digits.substring(6)}`;
             }
-             return `${digits} (Formato Inválido)`;
-         }
+            return `${digits} (Formato Inválido)`;
+        }
 
         function limparFormularioNovaSimulacao() {
             nomeEmpreendimentoInput.value = '';
@@ -2689,6 +2659,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             telefoneClienteInput.value = '';
             parcelasEntradaInput.value = '1';
             correcaoINCCInput.value = '0';
+            
             const camposMoedaParaLimpar = [
                 valorImovelInput,
                 descontoMCMVInput,
@@ -2699,18 +2670,18 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                 maximoConstrParcInput,
                 valorIntercaladasInput
             ];
+            
             camposMoedaParaLimpar.forEach(input => {
                 input.value = '0,00';
                 formatInputAsCurrency({ target: input });
             });
-            // Limpa o campo de quantidade de intercaladas
+            
             quantidadeIntercaladasInput.value = '0';
             
-            // Limpa o campo de Observações
-             if (observacoesClienteTextArea) {
-                 observacoesClienteTextArea.value = '';
-             }
-            // Limpa o campo de Notas da seção Notas
+            if (observacoesClienteTextArea) {
+                observacoesClienteTextArea.value = '';
+            }
+            
             if (notasClienteTextArea) {
                 notasClienteTextArea.value = '';
             }
@@ -2743,6 +2714,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                     listaLeads: JSON.parse(listaLeads),
                     exportTimestamp: new Date().toISOString()
                 };
+                
                 const jsonData = JSON.stringify(backupData, null, 2);
                 const blob = new Blob([jsonData], { type: 'application/json' });
                 const url = URL.createObjectURL(blob);
@@ -2765,9 +2737,10 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             console.log('processImportFile iniciado.');
             const file = event.target.files[0];
             if (!file) {
-                 console.log('Nenhum arquivo selecionado.');
+                console.log('Nenhum arquivo selecionado.');
                 return;
             }
+            
             console.log('Arquivo selecionado:', file.name, file.type);
             if (file.type !== "application/json") {
                 showToast('Por favor, selecione um arquivo .json válido.', 'warning');
@@ -2782,6 +2755,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                 try {
                     const importedData = JSON.parse(e.target.result);
                     console.log('Dados importados parseados:', importedData);
+                    
                     if (typeof importedData !== 'object' || importedData === null ||
                         (!importedData.hasOwnProperty('clientNotes') && !importedData.hasOwnProperty('listaLeads'))) {
                         showToast('Arquivo de backup inválido ou formato incorreto.', 'danger');
@@ -2804,35 +2778,35 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                             }
                             if (notasClienteTextArea) notasClienteTextArea.value = '';
                         } else {
-                             console.log('Dados de notas inválidos ou não encontrados no backup.');
+                            console.log('Dados de notas inválidos ou não encontrados no backup.');
                         }
 
                         if (importedData.hasOwnProperty('listaLeads') && Array.isArray(importedData.listaLeads)) {
-                             // Adicionar propriedades 'observacoes', 'descontoMCMV', 'valorFinanciado', 'valorFGTS' a leads antigos, se não existirem (para compatibilidade)
-                             const leadsToImport = importedData.listaLeads.map(lead => {
-                                 if (!lead.hasOwnProperty('observacoes')) {
-                                     lead.observacoes = 'Sem observações.'; // Define um valor padrão
-                                 }
-                                 if (!lead.hasOwnProperty('descontoMCMV')) {
-                                     lead.descontoMCMV = 0; // Define um valor padrão
-                                 }
-                                  if (!lead.hasOwnProperty('valorFinanciado')) {
-                                     lead.valorFinanciado = 0; // Define um valor padrão
-                                  }
-                                   if (!lead.hasOwnProperty('valorFGTS')) {
-                                      lead.valorFGTS = 0; // Define um valor padrão
-                                  }
-                                 return lead;
-                             });
-                            localStorage.setItem('listaLeads', JSON.stringify(leadsToImport)); // Salva com os leads compatíveis
+                            const leadsToImport = importedData.listaLeads.map(lead => {
+                                if (!lead.hasOwnProperty('observacoes')) {
+                                    lead.observacoes = 'Sem observações.';
+                                }
+                                if (!lead.hasOwnProperty('descontoMCMV')) {
+                                    lead.descontoMCMV = 0;
+                                }
+                                if (!lead.hasOwnProperty('valorFinanciado')) {
+                                    lead.valorFinanciado = 0;
+                                }
+                                if (!lead.hasOwnProperty('valorFGTS')) {
+                                    lead.valorFGTS = 0;
+                                }
+                                return lead;
+                            });
+                            
+                            localStorage.setItem('listaLeads', JSON.stringify(leadsToImport));
                             leadsImported = true;
                             console.log('Leads importados (compatibilidade aplicada).');
                             if (secaoListaLeads.style.display !== 'none') {
                                 carregarLeadsNaTabela();
                             }
-                            updateLeadCountDisplay(); // Atualiza a contagem após importar leads
+                            updateLeadCountDisplay();
                         } else {
-                             console.log('Dados de leads inválidos ou não encontrados no backup.');
+                            console.log('Dados de leads inválidos ou não encontrados no backup.');
                         }
 
                         if(notesImported && leadsImported){
@@ -2842,8 +2816,8 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                         } else if (leadsImported){
                             showToast('Leads do backup importados. Notas não encontradas/inválidas no backup.', 'warning', 6000);
                         } else {
-                             showToast('Nenhum dado válido de Notas ou Leads encontrado no arquivo de backup.', 'danger', 6000);
-                             console.warn('Nenhum dado válido importado.');
+                            showToast('Nenhum dado válido de Notas ou Leads encontrado no arquivo de backup.', 'danger', 6000);
+                            console.warn('Nenhum dado válido importado.');
                         }
 
                         limparFormularioNovaSimulacao();
@@ -2861,6 +2835,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                     console.log('Input file limpo.');
                 }
             };
+            
             reader.onerror = function() {
                 console.error("Erro ao ler o arquivo de backup:", reader.error);
                 showToast('Erro ao ler o arquivo de backup.', 'danger');
@@ -2869,7 +2844,6 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             reader.readAsText(file);
         }
 
-        // --- NOVO: Função para importar apenas leads (JSON) ---
         function processImportLeadsFile(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -2885,8 +2859,6 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                 try {
                     const importedLeads = JSON.parse(e.target.result);
 
-                    // Validação aprimorada: Verifica se é um array e se cada item é um objeto com propriedades básicas de lead
-                    // As propriedades "nome" e "telefone" são consideradas essenciais para um registro de lead.
                     if (!Array.isArray(importedLeads) || !importedLeads.every(lead => typeof lead === 'object' && lead !== null && lead.nome && lead.telefone)) {
                         showToast('Arquivo de leads inválido ou formato incorreto. Esperado um array de objetos de lead.', 'danger');
                         importLeadsFileInput.value = '';
@@ -2899,13 +2871,11 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                         let leadsUpdated = 0;
 
                         importedLeads.forEach(importedLead => {
-                            // Garante a compatibilidade com leads antigos que podem não ter esses campos
-                            // Define um valor padrão se a propriedade não existir no lead importado.
                             importedLead.observacoes = importedLead.observacoes || 'Sem observações.';
                             importedLead.descontoMCMV = importedLead.descontoMCMV || 0;
                             importedLead.valorFinanciado = importedLead.valorFinanciado || 0;
                             importedLead.valorFGTS = importedLead.valorFGTS || 0;
-                            // Adiciona dataSalvo e dataISO se não existirem, usando a data e hora atual.
+                            
                             if (!importedLead.dataSalvo) {
                                 importedLead.dataSalvo = new Date().toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
                             }
@@ -2920,11 +2890,9 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                             );
 
                             if (existingLeadIndex > -1) {
-                                // Atualiza lead existente, mantendo o ID (se existir) e sobrescrevendo com os novos dados
                                 existingLeads[existingLeadIndex] = { ...existingLeads[existingLeadIndex], ...importedLead };
                                 leadsUpdated++;
                             } else {
-                                // Adiciona novo lead
                                 existingLeads.push(importedLead);
                                 newLeadsAdded++;
                             }
@@ -2941,9 +2909,10 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                     console.error("Erro ao processar o arquivo de leads:", error);
                     showToast('Erro ao processar o arquivo de leads. Verifique o formato.', 'danger');
                 } finally {
-                    importLeadsFileInput.value = ''; // Limpa o input file para permitir novas seleções
+                    importLeadsFileInput.value = '';
                 }
             };
+            
             reader.onerror = function() {
                 console.error("Erro ao ler o arquivo de leads:", reader.error);
                 showToast('Erro ao ler o arquivo de leads.', 'danger');
@@ -2952,7 +2921,6 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             reader.readAsText(file);
         }
 
-        // --- NOVO: Função para importar leads CSV ---
         function processImportLeadsCSVFile(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -2982,26 +2950,21 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                         let leadsIgnored = 0;
 
                         parsedLeads.forEach(importedLead => {
-                            // Validação mínima para leads do CSV
                             if (!importedLead.nome || !importedLead.telefone) {
                                 console.warn("Lead ignorado por falta de Nome ou Telefone:", importedLead);
                                 leadsIgnored++;
                                 return;
                             }
 
-                            // Normaliza o telefone para comparação
                             const telefoneLimpoImportado = getCleanPhoneNumberDigits(importedLead.telefone);
-
-                            // Tenta encontrar um lead existente
                             const existingLeadIndex = existingLeads.findIndex(lead =>
                                 lead.nome.toLowerCase() === (importedLead.nome || '').toLowerCase() &&
                                 getCleanPhoneNumberDigits(lead.telefone) === telefoneLimpoImportado
                             );
 
-                            // Garante que todas as propriedades esperadas existam com valores padrão se não vierem do CSV
                             const leadToSave = {
                                 nome: importedLead.nome,
-                                telefone: formatPhoneNumberForOutput(importedLead.telefone), // Formata o telefone para exibição
+                                telefone: formatPhoneNumberForOutput(importedLead.telefone),
                                 imovel: importedLead.imovel || 'Não Informado',
                                 notas: importedLead.notas || 'Sem notas adicionadas.',
                                 observacoes: importedLead.observacoes || 'Sem observações.',
@@ -3013,11 +2976,9 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                             };
 
                             if (existingLeadIndex > -1) {
-                                // Atualiza lead existente
                                 existingLeads[existingLeadIndex] = { ...existingLeads[existingLeadIndex], ...leadToSave };
                                 leadsUpdated++;
                             } else {
-                                // Adiciona novo lead
                                 existingLeads.push(leadToSave);
                                 newLeadsAdded++;
                             }
@@ -3029,7 +2990,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                         let successMessage = `Importação CSV concluída! ${newLeadsAdded} novos leads adicionados, ${leadsUpdated} leads atualizados.`;
                         if (leadsIgnored > 0) {
                             successMessage += ` (${leadsIgnored} leads ignorados por dados incompletos)`;
-                            showToast(successMessage, 'warning', 10000); // Mostra aviso por mais tempo
+                            showToast(successMessage, 'warning', 10000);
                         } else {
                             showToast(successMessage, 'success', 7000);
                         }
@@ -3040,26 +3001,25 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                     console.error("Erro ao processar o arquivo CSV:", error);
                     showToast('Erro ao processar o arquivo CSV. Verifique o formato ou a codificação (UTF-8).', 'danger');
                 } finally {
-                    importLeadsCSVFileInput.value = ''; // Limpa o input file para permitir novas seleções
+                    importLeadsCSVFileInput.value = '';
                 }
             };
+            
             reader.onerror = function() {
                 console.error("Erro ao ler o arquivo CSV:", reader.error);
                 showToast('Erro ao ler o arquivo CSV.', 'danger');
                 importLeadsCSVFileInput.value = '';
             };
-            reader.readAsText(file); // Leitura como texto (UTF-8 é o padrão)
+            reader.readAsText(file);
         }
 
-        // Função para parsear CSV (simples, separador por ponto e vírgula)
         function parseCSV(csvString) {
             const lines = csvString.split('\n').filter(line => line.trim() !== '');
             if (lines.length === 0) return [];
 
-            const headers = lines[0].split(';').map(h => h.trim().replace(/["\s]/g, '')); // Remove aspas duplas e espaços em branco
+            const headers = lines[0].split(';').map(h => h.trim().replace(/["\s]/g, ''));
             const leads = [];
 
-            // Mapeamento de cabeçalhos do CSV para chaves internas do objeto lead
             const headerMap = {
                 'Nome': 'nome',
                 'Telefone': 'telefone',
@@ -3077,23 +3037,21 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                 const values = lines[i].split(';');
                 if (values.length !== headers.length) {
                     console.warn(`Linha CSV ignorada devido a número inconsistente de colunas: "${lines[i]}"`);
-                    continue; // Pula linhas malformadas
+                    continue;
                 }
 
                 const lead = {};
                 headers.forEach((header, index) => {
-                    const key = headerMap[header]; // Mapeia o cabeçalho do CSV para a chave interna
+                    const key = headerMap[header];
                     if (key) {
-                        let value = values[index].trim().replace(/^"|"$/g, ''); // Remove aspas duplas das pontas
-                        // Tenta converter valores numéricos
+                        let value = values[index].trim().replace(/^"|"$/g, '');
                         if (['descontoMCMV', 'valorFinanciado', 'valorFGTS'].includes(key)) {
-                            value = cleanCurrencyFormat(value); // Usa a função de limpeza de moeda
+                            value = cleanCurrencyFormat(value);
                         }
                         lead[key] = value;
                     }
                 });
 
-                // Adiciona data e dataISO se não estiverem presentes no CSV
                 if (!lead.dataSalvo) {
                     lead.dataSalvo = new Date().toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
                 }
@@ -3101,7 +3059,6 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                     lead.dataISO = new Date().toISOString();
                 }
 
-                // Validação mínima para garantir que o lead tenha nome e telefone antes de ser adicionado
                 if (lead.nome && lead.telefone) {
                     leads.push(lead);
                 } else {
@@ -3111,7 +3068,6 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             return leads;
         }
 
-        // Função para codificar HTML - Essencial para prevenir XSS ao exibir dados do localStorage
         if (typeof encodeHTML !== 'function') {
             window.encodeHTML = function(str) {
                 if (typeof str !== 'string') return '';
@@ -3119,7 +3075,6 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             }
         }
 
-        // Função para atualizar a exibição da contagem de leads
         function updateLeadCountDisplay() {
             const leads = JSON.parse(localStorage.getItem('listaLeads')) || [];
             if (leadCountSpan) {
@@ -3130,6 +3085,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
         function carregarLeadsNaTabela() {
             const leads = JSON.parse(localStorage.getItem('listaLeads')) || [];
             corpoTabelaLeads.innerHTML = '';
+            
             if (leads.length === 0) {
                 semLeadsMensagem.style.display = 'block';
                 if(tabelaLeadsElement) tabelaLeadsElement.style.display = 'none';
@@ -3137,106 +3093,102 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                 semLeadsMensagem.style.display = 'none';
                 if(tabelaLeadsElement) tabelaLeadsElement.style.display = 'table';
                 leads.sort((a, b) => new Date(b.dataISO) - new Date(a.dataISO));
+                
                 leads.forEach((lead, index) => {
-                    const row = corpoTabelaLeads.insertRow();
-                    // Certifica-se de que as novas propriedades existem para leads antigos, se necessário
                     const descontoMCMVDisplay = formatCurrencyDisplay(lead.descontoMCMV || 0);
                     const valorFinanciadoDisplay = formatCurrencyDisplay(lead.valorFinanciado || 0);
                     const valorFGTSDisplay = formatCurrencyDisplay(lead.valorFGTS || 0);
-                    // Adicionado as células para os novos campos
+                    
+                    const row = corpoTabelaLeads.insertRow();
                     row.innerHTML = `<td style="padding: 8px; border: 1px solid #555;">${encodeHTML(lead.nome)}</td>
-                                         <td style="padding: 8px; border: 1px solid #555;">${encodeHTML(lead.telefone)}</td>
-                                         <td style="padding: 8px; border: 1px solid #555;">${encodeHTML(lead.imovel)}</td>
-                                         <td style="padding: 8px; border: 1px solid #555;">${lead.dataSalvo}</td>
-                                         <td style="padding: 8px; border: 1px solid #555;">${descontoMCMVDisplay}</td>
-                                         <td style="padding: 8px; border: 1px solid #555;">${valorFinanciadoDisplay}</td>
-                                         <td style="padding: 8px; border: 1px solid #555;">${valorFGTSDisplay}</td>
-                                         <td style="padding: 8px; border: 1px solid #555;">${encodeHTML(lead.notas || '').replace(/\n/g, '<br>')}</td>
-                                         <td style="padding: 8px; border: 1px solid #555;">${encodeHTML(lead.observacoes || '').replace(/\n/g, '<br>')}</td>
-                                         <td style="padding: 8px; border: 1px solid #555; text-align: center;">
-                                             <button class="btn btn-danger btn-sm" onclick="confirmDeleteLead('${lead.dataISO}', '${encodeURIComponent(encodeHTML(lead.nome))}')" title="Excluir Lead" style="padding: 5px 8px; font-size: 0.8rem; margin-bottom: 0;">
-                                                 <i class="fas fa-trash"></i>
-                                             </button>
-                                         </td>`;
+                                     <td style="padding: 8px; border: 1px solid #555;">${encodeHTML(lead.telefone)}</td>
+                                     <td style="padding: 8px; border: 1px solid #555;">${encodeHTML(lead.imovel)}</td>
+                                     <td style="padding: 8px; border: 1px solid #555;">${lead.dataSalvo}</td>
+                                     <td style="padding: 8px; border: 1px solid #555;">${descontoMCMVDisplay}</td>
+                                     <td style="padding: 8px; border: 1px solid #555;">${valorFinanciadoDisplay}</td>
+                                     <td style="padding: 8px; border: 1px solid #555;">${valorFGTSDisplay}</td>
+                                     <td style="padding: 8px; border: 1px solid #555;">${encodeHTML(lead.notas || '').replace(/\n/g, '<br>')}</td>
+                                     <td style="padding: 8px; border: 1px solid #555;">${encodeHTML(lead.observacoes || '').replace(/\n/g, '<br>')}</td>
+                                     <td style="padding: 8px; border: 1px solid #555; text-align: center;">
+                                         <button class="btn btn-danger btn-sm" onclick="confirmDeleteLead('${lead.dataISO}', '${encodeURIComponent(encodeHTML(lead.nome))}')" title="Excluir Lead" style="padding: 5px 8px; font-size: 0.8rem; margin-bottom: 0;">
+                                             <i class="fas fa-trash"></i>
+                                         </button>
+                                     </td>`;
                 });
             }
-             updateLeadCountDisplay(); // Atualiza a contagem sempre que a tabela é carregada
+            
+            updateLeadCountDisplay();
         }
 
         window.confirmDeleteLead = function(leadDataISO, leadNomeEncodado) {
-             const leadNome = decodeURIComponent(leadNomeEncodado);
+            const leadNome = decodeURIComponent(leadNomeEncodado);
             showConfirmationModal(`Tem certeza que deseja excluir o lead: <strong>${encodeHTML(leadNome)}</strong>?`, () => {
-                 excluirLead(leadDataISO);
+                excluirLead(leadDataISO);
             });
         }
 
         function showConfirmationModal(message, onConfirm) {
-             modalTitle.textContent = 'Confirmação';
-             modalMessage.innerHTML = message;
-             confirmationModal.classList.add('show');
+            modalTitle.textContent = 'Confirmação';
+            modalMessage.innerHTML = message;
+            confirmationModal.classList.add('show');
 
-             // Fechar o modal de histórico se estiver aberto antes de abrir o de confirmação
-             if (historyModal.classList.contains('show')) {
+            if (historyModal.classList.contains('show')) {
                 historyModal.classList.remove('show');
-             }
+            }
 
-             const confirmAction = () => {
-                 onConfirm();
-                 confirmationModal.classList.remove('show');
-                 modalConfirmBtn.removeEventListener('click', confirmAction);
-                 modalCancelBtn.removeEventListener('click', cancelAction);
-                  // Reabrir o modal de histórico se ele estava aberto antes
-                  if (historyModalWasOpen) {
-                     historyModal.classList.add('show');
-                     historyModalWasOpen = false; // Resetar flag
-                  }
-             };
-             const cancelAction = () => {
-                 showToast('Ação cancelada.', 'info');
-                 confirmationModal.classList.remove('show');
-                 modalConfirmBtn.removeEventListener('click', confirmAction);
-                 modalCancelBtn.removeEventListener('click', cancelAction);
-                 // Reabrir o modal de histórico se ele estava aberto antes
-                  if (historyModalWasOpen) {
-                     historyModal.classList.add('show');
-                     historyModalWasOpen = false; // Resetar flag
-                  }
-             };
-             // Flag para saber se o modal de histórico estava aberto
-             let historyModalWasOpen = historyModal.classList.contains('show');
-             modalConfirmBtn.removeEventListener('click', confirmAction);
-             modalCancelBtn.removeEventListener('click', cancelAction);
+            const confirmAction = () => {
+                onConfirm();
+                confirmationModal.classList.remove('show');
+                modalConfirmBtn.removeEventListener('click', confirmAction);
+                modalCancelBtn.removeEventListener('click', cancelAction);
+                
+                if (historyModalWasOpen) {
+                    historyModal.classList.add('show');
+                    historyModalWasOpen = false;
+                }
+            };
+            
+            const cancelAction = () => {
+                showToast('Ação cancelada.', 'info');
+                confirmationModal.classList.remove('show');
+                modalConfirmBtn.removeEventListener('click', confirmAction);
+                modalCancelBtn.removeEventListener('click', cancelAction);
+                
+                if (historyModalWasOpen) {
+                    historyModal.classList.add('show');
+                    historyModalWasOpen = false;
+                }
+            };
+            
+            let historyModalWasOpen = historyModal.classList.contains('show');
+            modalConfirmBtn.removeEventListener('click', confirmAction);
+            modalCancelBtn.removeEventListener('click', cancelAction);
 
-             modalConfirmBtn.addEventListener('click', confirmAction);
-             modalCancelBtn.addEventListener('click', cancelAction);
+            modalConfirmBtn.addEventListener('click', confirmAction);
+            modalCancelBtn.addEventListener('click', cancelAction);
         }
 
         function excluirLead(leadDataISO) {
             let todosLeads = JSON.parse(localStorage.getItem('listaLeads')) || [];
             todosLeads = todosLeads.filter(lead => lead.dataISO !== leadDataISO);
             localStorage.setItem('listaLeads', JSON.stringify(todosLeads));
-            carregarLeadsNaTabela(); // Recarrega a tabela e atualiza a contagem
+            carregarLeadsNaTabela();
             showToast('Lead excluído.', 'danger');
         }
 
-        // Função salvarLead modificada para evitar duplicidade na lista completa e adicionar novos campos
         function salvarLead() {
             const nomeClienteVal = nomeClienteInput.value.trim();
             const telefoneClienteOriginal = telefoneClienteInput.value.trim();
             const nomeEmpreendimentoVal = nomeEmpreendimentoInput.value.trim();
             const notasClienteVal = notasClienteTextArea.value.trim();
             const observacoesSimulacaoVal = observacoesClienteTextArea.value.trim();
-            // --- Novos campos a serem salvos ---
             const descontoMCMVVal = cleanCurrencyFormat(descontoMCMVInput.value) || 0;
             const valorFinanciadoVal = cleanCurrencyFormat(valorFinanciadoInput.value) || 0;
             const valorFGTSVal = cleanCurrencyFormat(valorFGTSInput.value) || 0;
             const valorIntercaladasVal = cleanCurrencyFormat(valorIntercaladasInput.value) || 0;
             const quantidadeIntercaladasVal = parseInt(quantidadeIntercaladasInput.value) || 0;
-            // -----------------------------------
 
-            // Precisamos de pelo menos nome ou telefone para identificar um lead
             if (!nomeClienteVal && !telefoneClienteOriginal) {
-                // Não salva se não houver identificação básica
                 console.warn("Nome ou telefone não preenchido. Lead não salvo.");
                 return;
             }
@@ -3246,39 +3198,31 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
 
             let leads = JSON.parse(localStorage.getItem('listaLeads')) || [];
             const dataAtual = new Date();
-            // Tenta encontrar um lead existente com o mesmo nome E telefone limpo
+            
             const existingLeadIndex = leads.findIndex(lead =>
-                 lead.nome.toLowerCase() === nomeClienteVal.toLowerCase() &&
-                 getCleanPhoneNumberDigits(lead.telefone) === telefoneLimpoParaComparacao &&
-                 (nomeClienteVal !== '' || telefoneLimpoParaComparacao !== '') // Só compara se houver nome ou telefone preenchido no input
+                lead.nome.toLowerCase() === nomeClienteVal.toLowerCase() &&
+                getCleanPhoneNumberDigits(lead.telefone) === telefoneLimpoParaComparacao &&
+                (nomeClienteVal !== '' || telefoneLimpoParaComparacao !== '')
             );
+            
             if (existingLeadIndex > -1) {
-                // Se um lead existente foi encontrado, atualiza as informações
                 leads[existingLeadIndex].imovel = nomeEmpreendimentoVal || 'Não Informado';
                 leads[existingLeadIndex].observacoes = observacoesSimulacaoVal || 'Sem observações.';
                 leads[existingLeadIndex].dataSalvo = dataAtual.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
                 leads[existingLeadIndex].dataISO = dataAtual.toISOString();
-                // --- Atualiza os novos campos no lead existente ---
                 leads[existingLeadIndex].descontoMCMV = descontoMCMVVal;
                 leads[existingLeadIndex].valorFinanciado = valorFinanciadoVal;
                 leads[existingLeadIndex].valorFGTS = valorFGTSVal;
                 leads[existingLeadIndex].valorIntercaladas = valorIntercaladasVal;
                 leads[existingLeadIndex].quantidadeIntercaladas = quantidadeIntercaladasVal;
-                // -------------------------------------------------
                 console.log(`Lead existente atualizado para: ${nomeClienteVal}`);
             } else {
-                 // Verifica se há dados suficientes para salvar um novo lead
-                 // Mantenha esta verificação se quiser que só salve um lead novo
-                 // caso pelo menos um dos campos principais ou novos campos tenham valor.
-                 // Ajuste a condição conforme sua necessidade.
-                 if (!nomeClienteVal && !telefoneClienteOriginal && !nomeEmpreendimentoVal && !notasClienteVal && !observacoesSimulacaoVal && descontoMCMVVal === 0 && valorFinanciadoVal === 0 && valorFGTSVal === 0 && valorIntercaladasVal === 0 && quantidadeIntercaladasVal === 0) {
-                     console.warn("Nenhum dado suficiente para salvar um novo lead.");
-                     return;
-                 }
-                // Se nenhum lead existente foi encontrado, adiciona um novo
+                if (!nomeClienteVal && !telefoneClienteOriginal && !nomeEmpreendimentoVal && !notasClienteVal && !observacoesSimulacaoVal && descontoMCMVVal === 0 && valorFinanciadoVal === 0 && valorFGTSVal === 0 && valorIntercaladasVal === 0 && quantidadeIntercaladasVal === 0) {
+                    console.warn("Nenhum dado suficiente para salvar um novo lead.");
+                    return;
+                }
+                
                 const novoLead = {
-                    // Gere um ID único para novos leads, se necessário para outras operações (ex: notas)
-                    // id: Date.now(), // Opcional: Adicionar um ID único
                     nome: nomeClienteVal || 'Não Informado',
                     telefone: telefoneClienteFormatado,
                     imovel: nomeEmpreendimentoVal || 'Não Informado',
@@ -3286,50 +3230,45 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                     observacoes: observacoesSimulacaoVal || 'Sem observações.',
                     dataSalvo: dataAtual.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
                     dataISO: dataAtual.toISOString(),
-                    // --- Adiciona os novos campos ao novo lead ---
                     descontoMCMV: descontoMCMVVal,
                     valorFinanciado: valorFinanciadoVal,
                     valorFGTS: valorFGTSVal,
                     valorIntercaladas: valorIntercaladasVal,
                     quantidadeIntercaladas: quantidadeIntercaladasVal
-                    // -------------------------------------------
                 };
-                // Verifica a duplicidade recente APENAS para novos leads antes de adicionar (mantém a lógica anterior)
-                 // Ajuste esta lógica se a inclusão dos novos campos impactar a definição de "duplicado"
-                 const leadRecenteDuplicado = leads.find(lead =>
-                     lead.nome === novoLead.nome &&
-                     getCleanPhoneNumberDigits(lead.telefone) === getCleanPhoneNumberDigits(novoLead.telefone) && // Compara telefones limpos
-                     lead.imovel === novoLead.imovel &&
-                     lead.notas === novoLead.notas &&
-                     lead.observacoes === novoLead.observacoes &&
-                      lead.descontoMCMV === novoLead.descontoMCMV && // Inclui os novos campos na verificação
-                      lead.valorFinanciado === novoLead.valorFinanciado &&
-                      lead.valorFGTS === novoLead.valorFGTS &&
-                      lead.valorIntercaladas === novoLead.valorIntercaladas &&
-                      lead.quantidadeIntercaladas === novoLead.quantidadeIntercaladas &&
-                     (new Date() - new Date(lead.dataISO)) < (10 * 1000) // Considera duplicado se salvo nos últimos 10 segundos
-                 );
-                 if (leadRecenteDuplicado) {
-                    // console.log("Lead recente duplicado não salvo (prevenção de clique rápido).");
-                    return; // Sai da função se for um clique rápido duplicado
-                 }
+                
+                const leadRecenteDuplicado = leads.find(lead =>
+                    lead.nome === novoLead.nome &&
+                    getCleanPhoneNumberDigits(lead.telefone) === getCleanPhoneNumberDigits(novoLead.telefone) &&
+                    lead.imovel === novoLead.imovel &&
+                    lead.notas === novoLead.notas &&
+                    lead.observacoes === novoLead.observacoes &&
+                    lead.descontoMCMV === novoLead.descontoMCMV &&
+                    lead.valorFinanciado === novoLead.valorFinanciado &&
+                    lead.valorFGTS === novoLead.valorFGTS &&
+                    lead.valorIntercaladas === novoLead.valorIntercaladas &&
+                    lead.quantidadeIntercaladas === novoLead.quantidadeIntercaladas &&
+                    (new Date() - new Date(lead.dataISO)) < (10 * 1000)
+                );
+                
+                if (leadRecenteDuplicado) {
+                    return;
+                }
 
                 leads.push(novoLead);
                 console.log(`Novo lead salvo para: ${nomeClienteVal}`);
-                // *** CHAMA A NOVA FUNÇÃO DE EFEITO DE FESTA ***
-                triggerPartyEffect(); // Chama a função do efeito apenas para NOVOS leads
-                // *******************************************
+                triggerPartyEffect();
             }
 
             localStorage.setItem('listaLeads', JSON.stringify(leads));
-             updateLeadCountDisplay(); // Atualiza a contagem ao salvar um lead
+            updateLeadCountDisplay();
+            
             if (secaoListaLeads.style.display !== 'none') {
-                carregarLeadsNaTabela(); // Atualiza a tabela se a seção de leads estiver visível
+                carregarLeadsNaTabela();
             }
         }
 
-        // --- FUNÇÃO PARA ACIONAR O EFEITO DE FESTA ---
-        let partyEffectTimeout; // Variável para armazenar o ID do timeout
+        let partyEffectTimeout;
 
         function triggerPartyEffect() {
             if (!partyEffectContainer) {
@@ -3337,70 +3276,54 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                 return;
             }
 
-            // Limpa qualquer timeout existente
             clearTimeout(partyEffectTimeout);
-
-            // Limpa balões e confetes anteriores
             clearPartyElements();
-
-            // Exibe o contêiner do efeito
             partyEffectContainer.classList.add('show');
+            generatePartyElements(50, 100);
 
-            // Gera e adiciona os elementos de festa
-            generatePartyElements(50, 100); // 50 balões, 100 confetes
-
-            // Define um novo timeout para remover o efeito após 10 segundos
             partyEffectTimeout = setTimeout(() => {
                 partyEffectContainer.classList.remove('show');
-                // Limpa os elementos após o efeito terminar
-                setTimeout(clearPartyElements, 500); // Um pequeno delay para a transição de opacidade
-            }, 10000); // 10000 milissegundos = 10 segundos
+                setTimeout(clearPartyElements, 500);
+            }, 10000);
         }
 
-        // Função para gerar e adicionar balões e confetes
         function generatePartyElements(numBalloons, numConfetti) {
-            const colors = ['#ff7e5f', '#feb47b', '#ffb347', '#ffcc33', '#ffff33', '#a7cf4f', '#7acb91', '#56b870', '#29a84a', '#008080', '#0000ff', '#4b0082', '#9400d3', '#ff00ff']; // Cores variadas
-            const confettiColors = ['#f00', '#0f0', '#00f', '#ff0', '#0ff', '#f0f', '#fff']; // Cores para confetes
+            const colors = ['#ff7e5f', '#feb47b', '#ffb347', '#ffcc33', '#ffff33', '#a7cf4f', '#7acb91', '#56b870', '#29a84a', '#008080', '#0000ff', '#4b0082', '#9400d3', '#ff00ff'];
+            const confettiColors = ['#f00', '#0f0', '#00f', '#ff0', '#0ff', '#f0f', '#fff'];
 
-            // Gera Balões
             for (let i = 0; i < numBalloons; i++) {
                 const balloon = document.createElement('div');
                 balloon.classList.add('balloon');
                 const randomColor = colors[Math.floor(Math.random() * colors.length)];
                 balloon.style.backgroundColor = randomColor;
-                balloon.style.left = `${Math.random() * 100}vw`; // Posição horizontal aleatória
-                balloon.style.animationDuration = `${10 + Math.random() * 5}s`; // Duração da animação aleatória
-                balloon.style.animationDelay = `${Math.random() * 2}s`; // Delay para animação aleatória
+                balloon.style.left = `${Math.random() * 100}vw`;
+                balloon.style.animationDuration = `${10 + Math.random() * 5}s`;
+                balloon.style.animationDelay = `${Math.random() * 2}s`;
                 partyEffectContainer.appendChild(balloon);
             }
 
-            // Gera Confetes
             for (let i = 0; i < numConfetti; i++) {
                 const confetti = document.createElement('div');
                 confetti.classList.add('confetti');
                 const randomColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
                 confetti.style.backgroundColor = randomColor;
-                confetti.style.left = `${Math.random() * 100}vw`; // Posição horizontal aleatória
-                confetti.style.top = `${Math.random() * -20}vh`; // Começa acima ou na parte superior
-                 const randomSize = Math.random() * 10 + 5; // Tamanho aleatório entre 5px e 15px
-                 confetti.style.width = `${randomSize}px`;
-                 confetti.style.height = `${randomSize * (0.8 + Math.random()*0.4)}px`; // Altura um pouco variada
-                confetti.style.animationDuration = `${6 + Math.random() * 4}s`; // Duração da animação aleatória
-                confetti.style.animationDelay = `${Math.random() * 3}s`; // Delay para animação aleatória
-                 confetti.style.opacity = `${0.5 + Math.random() * 0.5}`; // Opacidade aleatória
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.top = `${Math.random() * -20}vh`;
+                const randomSize = Math.random() * 10 + 5;
+                confetti.style.width = `${randomSize}px`;
+                confetti.style.height = `${randomSize * (0.8 + Math.random()*0.4)}px`;
+                confetti.style.animationDuration = `${6 + Math.random() * 4}s`;
+                confetti.style.animationDelay = `${Math.random() * 3}s`;
+                confetti.style.opacity = `${0.5 + Math.random() * 0.5}`;
                 partyEffectContainer.appendChild(confetti);
             }
         }
 
-        // Função para remover balões e confetes do contêiner
         function clearPartyElements() {
-            // Mantém o #partyMessage, remove apenas os elementos gerados dinamicamente
             const elementsToRemove = partyEffectContainer.querySelectorAll('.balloon, .confetti');
             elementsToRemove.forEach(element => element.remove());
         }
-        // --- FIM FUNÇÃO PARA ACIONAR O EFEITO DE FESTA ---
 
-        // --- ATUALIZADO: Função para carregar documentos baseado na profissão selecionada ---
         function carregarDocumentosPorProfissao(profissao) {
             const dadosProfissao = documentosPorProfissao[profissao];
             
@@ -3409,19 +3332,15 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                 return;
             }
 
-            // Limpa o container de documentos
             documentosContainer.innerHTML = '';
 
-            // Cria a seção de documentos
             const documentSection = document.createElement('div');
             documentSection.classList.add('document-section');
 
-            // Cria o título da seção
             const title = document.createElement('h4');
             title.textContent = dadosProfissao.titulo;
             documentSection.appendChild(title);
 
-            // Cria a lista de documentos
             const documentList = document.createElement('ul');
             
             dadosProfissao.documentos.forEach(documento => {
@@ -3433,20 +3352,29 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             documentSection.appendChild(documentList);
             documentosContainer.appendChild(documentSection);
 
-            // Adiciona a observação sobre Imposto de Renda para TODAS as profissões
-            const obsSection = document.createElement('div');
-            obsSection.classList.add('document-section');
-            obsSection.innerHTML = `
-                <h4>OBSERVAÇÃO</h4>
+            if (dadosProfissao.observacao) {
+                const obsSection = document.createElement('div');
+                obsSection.classList.add('document-section');
+                obsSection.innerHTML = `
+                    <h4>OBSERVAÇÃO ESPECÍFICA</h4>
+                    <p><strong>OBS:</strong> ${dadosProfissao.observacao}</p>
+                `;
+                documentosContainer.appendChild(obsSection);
+            }
+
+            const obsGeralSection = document.createElement('div');
+            obsGeralSection.classList.add('document-section');
+            obsGeralSection.innerHTML = `
+                <h4>OBSERVAÇÃO GERAL</h4>
                 <p><strong>OBS:</strong> Apresentar Imposto de Renda caso tenha declarado</p>
             `;
-            documentosContainer.appendChild(obsSection);
+            documentosContainer.appendChild(obsGeralSection);
         }
 
-        // --- Event Listeners ---
         [parcelasEntradaInput, correcaoINCCInput].forEach(input => {
             input.addEventListener('input', calcularValores);
         });
+        
         currencyInputs.forEach(input => {
             input.addEventListener('input', (event) => {
                 formatInputAsCurrency(event);
@@ -3455,7 +3383,6 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             formatInputAsCurrency({ target: input });
         });
         
-        // Adiciona os novos campos de intercaladas aos event listeners
         [valorIntercaladasInput, quantidadeIntercaladasInput].forEach(input => {
             if (input.type === 'text') {
                 input.addEventListener('input', (event) => {
@@ -3473,6 +3400,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
         if (btnNovaSimulacao) {
             btnNovaSimulacao.addEventListener('click', limparFormularioNovaSimulacao);
         }
+        
         if (btnExportarBackup) {
             btnExportarBackup.addEventListener('click', exportarBackup);
         }
@@ -3480,7 +3408,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
         if (btnImportarBackup) {
             btnImportarBackup.addEventListener('click', () => {
                 if (importFileInput) {
-                     importFileInput.click();
+                    importFileInput.click();
                 } else {
                     console.error('Erro: Elemento input#importFile não encontrado!');
                 }
@@ -3500,24 +3428,26 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             if (isHidden) {
                 if (icon) icon.classList.replace('fa-clipboard', 'fa-clipboard-list');
                 if (btnTextSpan) btnTextSpan.textContent = ' Fechar Notas Restritas';
-                 loadNoteForCurrentClient(); // Tenta carregar a nota ao abrir
+                loadNoteForCurrentClient();
             } else {
                 if (icon) icon.classList.replace('fa-clipboard-list', 'fa-clipboard');
                 if (btnTextSpan) btnTextSpan.textContent = ' Notas Restritas';
             }
         });
+        
         function loadNoteForCurrentClient() {
             const nomeClienteAtual = nomeClienteInput.value.trim();
             const telefoneClienteAtual = formatPhoneNumberForOutput(telefoneClienteInput.value.trim());
             const savedNotes = JSON.parse(localStorage.getItem('clientNotes')) || [];
-            // Usa nome E telefone limpo para encontrar a nota
+            
             const noteToLoad = savedNotes.find(note =>
                 note.nome.toLowerCase() === (nomeClienteAtual || '').toLowerCase() &&
                 getCleanPhoneNumberDigits(note.telefone) === getCleanPhoneNumberDigits(telefoneClienteInput.value.trim())
             );
+            
             if (noteToLoad) {
-                 notasClienteTextArea.value = noteToLoad.notas === 'Sem notas adicionadas.' ? '' : noteToLoad.notas;
-                 console.log(`Nota carregada para cliente: ${nomeClienteAtual}`);
+                notasClienteTextArea.value = noteToLoad.notas === 'Sem notas adicionadas.' ? '' : noteToLoad.notas;
+                console.log(`Nota carregada para cliente: ${nomeClienteAtual}`);
             } else {
                 notasClienteTextArea.value = '';
                 console.log(`Nenhuma nota encontrada para cliente: ${nomeClienteAtual}`);
@@ -3529,8 +3459,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             const telefoneClienteOriginal = telefoneClienteInput.value.trim();
             const notasContent = notasClienteTextArea.value.trim();
 
-             // Precisa de nome ou telefone para vincular a nota
-             if (!nomeCliente && !telefoneClienteOriginal) {
+            if (!nomeCliente && !telefoneClienteOriginal) {
                 showToast('Preencha Nome ou Telefone para salvar a nota.', 'warning');
                 return;
             }
@@ -3540,47 +3469,48 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
 
             const savedNotes = JSON.parse(localStorage.getItem('clientNotes')) || [];
 
-            // Tenta encontrar uma nota existente com o mesmo nome E telefone limpo
             const existingNoteIndex = savedNotes.findIndex(n =>
-                 n.nome.toLowerCase() === nomeCliente.toLowerCase() &&
-                 getCleanPhoneNumberDigits(n.telefone) === telefoneLimpoParaComparacao &&
-                 (nomeCliente !== '' || telefoneLimpoParaComparacao !== '') // Só compara se houver nome ou telefone preenchido
+                n.nome.toLowerCase() === nomeCliente.toLowerCase() &&
+                getCleanPhoneNumberDigits(n.telefone) === telefoneLimpoParaComparacao &&
+                (nomeCliente !== '' || telefoneLimpoParaComparacao !== '')
             );
+            
             if(existingNoteIndex > -1) {
-                 // Atualiza a nota existente
-                 savedNotes[existingNoteIndex].notas = notasContent || 'Sem notas adicionadas.';
-                 savedNotes[existingNoteIndex].timestamp = new Date().toLocaleString('pt-BR');
-                 console.log(`Nota atualizada para cliente: ${nomeCliente || 'Não Informado'}`);
+                savedNotes[existingNoteIndex].notas = notasContent || 'Sem notas adicionadas.';
+                savedNotes[existingNoteIndex].timestamp = new Date().toLocaleString('pt-BR');
+                console.log(`Nota atualizada para cliente: ${nomeCliente || 'Não Informado'}`);
             } else {
-                 // Se não encontrou nota existente, cria uma nova (mesmo que o lead já exista, a nota é um histórico separado)
-                  const note = {
-                     id: Date.now(), // Novo ID para a nota histórica
-                     nome: nomeCliente || 'Cliente Não Informado',
-                     telefone: telefoneClienteFormatado,
-                     notas: notasContent || 'Sem notas adicionadas.',
-                     timestamp: new Date().toLocaleString('pt-BR')
-                 };
+                const note = {
+                    id: Date.now(),
+                    nome: nomeCliente || 'Cliente Não Informado',
+                    telefone: telefoneClienteFormatado,
+                    notas: notasContent || 'Sem notas adicionadas.',
+                    timestamp: new Date().toLocaleString('pt-BR')
+                };
                 savedNotes.push(note);
-                 console.log(`Nova nota histórica salva para cliente: ${nomeCliente || 'Não Informado'}`);
+                console.log(`Nova nota histórica salva para cliente: ${nomeCliente || 'Não Informado'}`);
             }
 
             localStorage.setItem('clientNotes', JSON.stringify(savedNotes));
             showToast('Nota salva com sucesso!', 'success');
+            
             if (historyModal.classList.contains('show')) {
-                loadHistoryNotes(); // Recarrega o histórico se estiver aberto
+                loadHistoryNotes();
             }
-             // Recarrega a nota para o cliente atual (garante que a nota atualizada está na tela)
-             loadNoteForCurrentClient();
+            
+            loadNoteForCurrentClient();
         });
 
         baixarNotasBtn.addEventListener('click', () => {
             const nomeClienteVal = nomeClienteInput.value || 'Não Informado';
             const telefoneClienteVal = formatPhoneNumberForOutput(telefoneClienteInput.value);
             const notasContent = notasClienteTextArea.value || 'Nenhuma nota adicionada.';
+            
             if (nomeClienteVal === 'Não Informado' && telefoneClienteVal === 'Não Informado' && notasContent === 'Nenhuma nota adicionada.') {
-                 showToast('Não há conteúdo para baixar.', 'warning');
+                showToast('Não há conteúdo para baixar.', 'warning');
                 return;
             }
+            
             const textContent = `Notas do Cliente\n\nCliente: ${nomeClienteVal}\nTelefone: ${telefoneClienteVal}\n\n--- Notas ---\n${notasContent}\n\nNotas geradas em ${new Date().toLocaleString('pt-BR')}`;
             const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
             const a = document.createElement('a');
@@ -3596,11 +3526,13 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
         function loadHistoryNotes() {
             const savedNotes = JSON.parse(localStorage.getItem('clientNotes')) || [];
             historyList.innerHTML = '';
+            
             if (savedNotes.length === 0) {
                 emptyHistoryMessage.style.display = 'block';
             } else {
                 emptyHistoryMessage.style.display = 'none';
                 savedNotes.sort((a,b) => new Date(b.id) - new Date(a.id));
+                
                 savedNotes.forEach(note => {
                     const noteElement = document.createElement('div');
                     noteElement.classList.add('history-item');
@@ -3610,11 +3542,11 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             }
         }
 
-         window.confirmDeleteNote = function(noteId) {
-             showConfirmationModal(`Tem certeza que deseja excluir esta nota?`, () => {
-                 deleteHistoryNote(noteId);
-             });
-         }
+        window.confirmDeleteNote = function(noteId) {
+            showConfirmationModal(`Tem certeza que deseja excluir esta nota?`, () => {
+                deleteHistoryNote(noteId);
+            });
+        }
 
         function deleteHistoryNote(id) {
             let savedNotes = JSON.parse(localStorage.getItem('clientNotes')) || [];
@@ -3622,68 +3554,76 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             localStorage.setItem('clientNotes', JSON.stringify(savedNotes));
             showToast('Nota excluída.', 'danger');
             loadHistoryNotes();
-             const nomeClienteAtual = nomeClienteInput.value.trim();
-             const telefoneClienteAtual = formatPhoneNumberForOutput(telefoneClienteInput.value.trim());
-             // Check if the deleted note was the one loaded in the notes area
-             const noteStillExists = savedNotes.some(note =>
-                 note.nome === (nomeClienteAtual || 'Cliente Não Informado') &&
-                 note.telefone === (telefoneClienteAtual || 'Não Informado')
-             );
-         }
+            
+            const nomeClienteAtual = nomeClienteInput.value.trim();
+            const telefoneClienteAtual = formatPhoneNumberForOutput(telefoneClienteInput.value.trim());
+            const noteStillExists = savedNotes.some(note =>
+                note.nome === (nomeClienteAtual || 'Cliente Não Informado') &&
+                note.telefone === (telefoneClienteAtual || 'Não Informado')
+            );
+        }
 
-         window.loadNoteFromHistory = function(id) {
-             const savedNotes = JSON.parse(localStorage.getItem('clientNotes')) || [];
-             const noteToLoad = savedNotes.find(note => note.id === id);
-             if (noteToLoad) {
-                 nomeClienteInput.value = noteToLoad.nome === 'Cliente Não Informado' ? '' : noteToLoad.nome;
-                 telefoneClienteInput.value = noteToLoad.telefone.replace(/\D/g, '');
-                 formatInputAsPhone({ target: telefoneClienteInput });
-                 notasClienteTextArea.value = noteToLoad.notas === 'Sem notas adicionadas.' ? '' : noteToLoad.notas; // Corrigido aqui
-                 showToast('Nota carregada para o formulário.', 'info');
-                 const historyModalElement = document.getElementById('historyModal');
-                 if(historyModalElement) historyModalElement.classList.remove('show');
-                 if (notasSection.style.display === 'none') {
+        window.loadNoteFromHistory = function(id) {
+            const savedNotes = JSON.parse(localStorage.getItem('clientNotes')) || [];
+            const noteToLoad = savedNotes.find(note => note.id === id);
+            
+            if (noteToLoad) {
+                nomeClienteInput.value = noteToLoad.nome === 'Cliente Não Informado' ? '' : noteToLoad.nome;
+                telefoneClienteInput.value = noteToLoad.telefone.replace(/\D/g, '');
+                formatInputAsPhone({ target: telefoneClienteInput });
+                notasClienteTextArea.value = noteToLoad.notas === 'Sem notas adicionadas.' ? '' : noteToLoad.notas;
+                showToast('Nota carregada para o formulário.', 'info');
+                const historyModalElement = document.getElementById('historyModal');
+                if(historyModalElement) historyModalElement.classList.remove('show');
+                
+                if (notasSection.style.display === 'none') {
                     notasSection.style.display = 'block';
                     const icon = toggleNotasBtn.querySelector('i');
                     const btnTextSpan = toggleNotasBtn.querySelector('.btn-text');
                     if (icon) icon.classList.replace('fa-clipboard','fa-clipboard-list');
                     if(btnTextSpan) btnTextSpan.textContent = ' Fechar Notas Restritas';
-                 }
-                 notasSection.scrollIntoView({ behavior: 'smooth' });
-             } else {
-                 showToast('Erro ao carregar nota.', 'danger');
-             }
-         }
+                }
+                
+                notasSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                showToast('Erro ao carregar nota.', 'danger');
+            }
+        }
 
         openHistoryBtn.addEventListener('click', () => {
             loadHistoryNotes();
             historyModal.classList.add('show');
         });
+        
         closeModalBtns.forEach(button => {
             button.addEventListener('click', (event) => {
                 const modalToClose = event.target.closest('.modal');
                 if (modalToClose) modalToClose.classList.remove('show');
-                 // If closing history modal, ensure confirmation modal is not visible (though z-index should handle)
-               if (modalToClose.id === 'historyModal' && confirmationModal.classList.contains('show')) {
-                     confirmationModal.classList.remove('show');
-                 }
+                
+                if (modalToClose.id === 'historyModal' && confirmationModal.classList.contains('show')) {
+                    confirmationModal.classList.remove('show');
+                }
             });
         });
+        
         window.addEventListener('click', (event) => {
             if (event.target.classList.contains('modal')) {
-                 event.target.classList.remove('show');
-                 // If clicking outside to close a modal, ensure both close if open
-                 if (confirmationModal.classList.contains('show')) confirmationModal.classList.remove('show');
-                 if (historyModal.classList.contains('show')) historyModal.classList.remove('show');
-                 if (documentsModal.classList.contains('show')) documentsModal.classList.remove('show');
-             }
+                event.target.classList.remove('show');
+                
+                if (confirmationModal.classList.contains('show')) confirmationModal.classList.remove('show');
+                if (historyModal.classList.contains('show')) historyModal.classList.remove('show');
+                if (documentsModal.classList.contains('show')) documentsModal.classList.remove('show');
+            }
         });
+        
         window.addEventListener('scroll', () => {
             scrollToTopBtn.style.display = (window.pageYOffset > 300) ? 'flex' : 'none';
         });
+        
         scrollToTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        
         function showToast(message, type = 'info', duration = 5000) {
             let toast = document.getElementById('liveToast');
             if (!toast) {
@@ -3691,6 +3631,7 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                 toast.id = 'liveToast';
                 document.body.appendChild(toast);
             }
+            
             toast.className = 'toast';
             toast.classList.add(`toast-${type}`);
             toast.textContent = message;
@@ -3702,30 +3643,17 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-             calcularValores();
-             formatInputAsPhone({ target: telefoneClienteInput });
-
-             // Carrega a nota para o cliente atual SEMPRE que o nome ou telefone muda
-             nomeClienteInput.addEventListener('input', loadNoteForCurrentClient);
-             telefoneClienteInput.addEventListener('input', loadNoteForCurrentClient);
-
-             // Carrega a nota inicial ao carregar a página se nome/telefone já estiverem preenchidos (ex: após importação)
-             loadNoteForCurrentClient();
-
-             // Inicializa a contagem de leads ao carregar a página
-             updateLeadCountDisplay();
-
-             // NOVO: Carrega as informações do cabeçalho do PDF ao carregar a página
-             loadPdfHeaderInfo();
-
-             // ATUALIZADO: Carrega os documentos da profissão padrão (Carteira Assinada) ao carregar a página
-             carregarDocumentosPorProfissao('carteira-assinada');
-             
-             // NOVO: Atualiza os dados de impressão ao carregar a página
-             atualizarDadosImpressao();
+            calcularValores();
+            formatInputAsPhone({ target: telefoneClienteInput });
+            nomeClienteInput.addEventListener('input', loadNoteForCurrentClient);
+            telefoneClienteInput.addEventListener('input', loadNoteForCurrentClient);
+            loadNoteForCurrentClient();
+            updateLeadCountDisplay();
+            loadPdfHeaderInfo();
+            carregarDocumentosPorProfissao('carteira-assinada');
+            atualizarDadosImpressao();
         });
 
-        // NOVO: Funções para Salvar e Carregar informações do cabeçalho do PDF (localStorage)
         function savePdfHeaderInfo() {
             const headerInfo = {
                 imobiliariaNome: imobiliariaNomeInput.value.trim(),
@@ -3742,19 +3670,16 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                 corretorNomeInput.value = savedHeaderInfo.corretorNome || '';
                 corretorCreciInput.value = savedHeaderInfo.corretorCreci || '';
             } else {
-                // Define valores padrão se não houver nada salvo
                 imobiliariaNomeInput.value = '';
                 corretorNomeInput.value = '';
                 corretorCreciInput.value = 'CRECI/AL 5794';
             }
         }
 
-        // NOVO: Event Listeners para salvar as informações do cabeçalho quando os campos mudam
         imobiliariaNomeInput.addEventListener('input', savePdfHeaderInfo);
         corretorNomeInput.addEventListener('input', savePdfHeaderInfo);
         corretorCreciInput.addEventListener('input', savePdfHeaderInfo);
 
-        // ATUALIZADO: Event Listener para o seletor de profissão
         if (profissaoClienteSelect) {
             profissaoClienteSelect.addEventListener('change', function() {
                 carregarDocumentosPorProfissao(this.value);
@@ -3768,14 +3693,14 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                 if (toggleNotasBtn) {
                     const icon = toggleNotasBtn.querySelector('i');
                     const btnTextSpan = toggleNotasBtn.querySelector('.btn-text');
-                     if (icon) {
-                         icon.classList.replace('fa-clipboard-list','fa-clipboard');
-                     }
-                     if(btnTextSpan) btnTextSpan.textContent = ' Notas Restritas';
+                    if (icon) {
+                        icon.classList.replace('fa-clipboard-list','fa-clipboard');
+                    }
+                    if(btnTextSpan) btnTextSpan.textContent = ' Notas Restritas';
                 }
 
                 secaoListaLeads.style.display = 'block';
-                carregarLeadsNaTabela(); // Garante que a tabela e a contagem estejam atualizadas ao abrir
+                carregarLeadsNaTabela();
                 window.scrollTo({ top: secaoListaLeads.offsetTop - 20, behavior: 'smooth' });
             });
         }
@@ -3784,9 +3709,9 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             btnVoltarSimulador.addEventListener('click', () => {
                 secaoListaLeads.style.display = 'none';
                 if (simuladorCardElement) simuladorCardElement.style.display = 'block';
-                 loadNoteForCurrentClient();
-                 updateLeadCountDisplay(); // Atualiza a contagem ao voltar para o simulador
-                 window.scrollTo({ top: simuladorCardElement.offsetTop - 20, behavior: 'smooth' });
+                loadNoteForCurrentClient();
+                updateLeadCountDisplay();
+                window.scrollTo({ top: simuladorCardElement.offsetTop - 20, behavior: 'smooth' });
             });
         }
 
@@ -3797,20 +3722,20 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
                     showToast('Nenhum lead para baixar.', 'warning');
                     return;
                 }
+                
                 leads.sort((a, b) => new Date(b.dataISO) - new Date(a.dataISO));
-                // Adicionado "Subsídio", "Financiado", "FGTS" ao cabeçalho do CSV
-                let csvContent = "Nome;Telefone;Imovel;Data Salvo;Subsidio;Financiado;FGTS;Notas;Observacoes\n"; // <-- Cabeçalho CSV atualizado
+                let csvContent = "Nome;Telefone;Imovel;Data Salvo;Subsidio;Financiado;FGTS;Notas;Observacoes\n";
+                
                 leads.forEach(lead => {
-                    // Certifica-se de que as novas propriedades existem para leads antigos, se necessário
                     const descontoMCMVValue = lead.descontoMCMV || 0;
                     const valorFinanciadoValue = lead.valorFinanciado || 0;
                     const valorFGTSValue = lead.valorFGTS || 0;
-
-                    // Inclui as notas, observações e os novos campos na linha do CSV
                     const observacoesLead = lead.observacoes || 'Sem observações.';
-                    const row = [`"${encodeHTML(lead.nome).replace(/"/g, '""')}"`, `"${encodeHTML(lead.telefone).replace(/"/g, '""')}"`, `"${encodeHTML(lead.imovel).replace(/"/g, '""')}"`, `"${lead.dataSalvo}"`, `${descontoMCMVValue}`, `${valorFinanciadoValue}`, `${valorFGTSValue}`, `"${encodeHTML(lead.notas || '').replace(/"/g, '""')}"`, `"${encodeHTML(observacoesLead).replace(/"/g, '""')}"`].join(";"); // <-- Adicionado os novos campos aqui
+                    
+                    const row = [`"${encodeHTML(lead.nome).replace(/"/g, '""')}"`, `"${encodeHTML(lead.telefone).replace(/"/g, '""')}"`, `"${encodeHTML(lead.imovel).replace(/"/g, '""')}"`, `"${lead.dataSalvo}"`, `${descontoMCMVValue}`, `${valorFinanciadoValue}`, `${valorFGTSValue}`, `"${encodeHTML(lead.notas || '').replace(/"/g, '""')}"`, `"${encodeHTML(observacoesLead).replace(/"/g, '""')}"`].join(";");
                     csvContent += row + "\n";
                 });
+                
                 const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
                 const link = document.createElement("a");
                 const url = URL.createObjectURL(blob);
@@ -3825,37 +3750,31 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             });
         }
 
-        // Associa a função salvarLead aos botões de ação que geram leads
         if (baixarSimulacaoAtualBtn) {
             baixarSimulacaoAtualBtn.addEventListener('click', () => {
                 baixarSimulacaoComoTXT();
-                salvarLead(); // Salva o lead ao baixar TXT (com a nova lógica de atualização/adição)
+                salvarLead();
             });
         }
 
         if (enviarWhatsappBtn) {
             enviarWhatsappBtn.addEventListener('click', () => {
-                salvarLead(); // Salva o lead antes de enviar pelo WhatsApp (com a nova lógica de atualização/adição)
-                enviarSimulacaoPorWhatsApp(); // Chama a função de envio
+                salvarLead();
+                enviarSimulacaoPorWhatsApp();
             });
         }
 
-         // --- Funcionalidade de Impressão ---
-         if (btnImprimirSimulacao) {
-             btnImprimirSimulacao.addEventListener('click', () => {
-                 // Atualiza os dados de impressão antes de imprimir
-                 atualizarDadosImpressao();
-                 
-                 // Aciona a impressão da janela atual. O CSS @media print fará o resto.
-                 window.print();
-             });
-         }
+        if (btnImprimirSimulacao) {
+            btnImprimirSimulacao.addEventListener('click', () => {
+                atualizarDadosImpressao();
+                window.print();
+            });
+        }
 
-        // --- Event Listener para o botão de Documentos ---
         if (btnDocumentos) {
             btnDocumentos.addEventListener('click', () => {
                 if (documentsModal) {
-                    loadPdfHeaderInfo(); // Carrega as informações ao abrir o modal
+                    loadPdfHeaderInfo();
                     documentsModal.classList.add('show');
                 } else {
                     console.error('Erro: Elemento modal #documentsModal não encontrado!');
@@ -3863,39 +3782,34 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             });
         }
 
-        // --- Event Listener para o botão "Enviar para o Cliente" dentro do modal de documentos ---
         if (enviarDocumentosWhatsappBtn) {
             enviarDocumentosWhatsappBtn.addEventListener('click', enviarDocumentosPorWhatsApp);
         }
 
-        // --- Event Listener para o botão "Baixar PDF" dentro do modal de documentos ---
         if (baixarDocumentosPdfBtn) {
             baixarDocumentosPdfBtn.addEventListener('click', baixarDocumentosComoPdf);
         }
 
-        // --- Event Listeners para o botão de Importar Leads JSON ---
         if (btnImportarLeads) {
             btnImportarLeads.addEventListener('click', () => {
-                // Dispara o clique no input de arquivo escondido
                 importLeadsFileInput.click();
             });
         }
+        
         if (importLeadsFileInput) {
             importLeadsFileInput.addEventListener('change', processImportLeadsFile);
         }
 
-        // --- Event Listeners para o botão de Importar Leads CSV ---
         if (btnImportarLeadsCSV) {
             btnImportarLeadsCSV.addEventListener('click', () => {
-                // Dispara o clique no input de arquivo CSV escondido
                 importLeadsCSVFileInput.click();
             });
         }
+        
         if (importLeadsCSVFileInput) {
             importLeadsCSVFileInput.addEventListener('change', processImportLeadsCSVFile);
         }
 
-        // --- Event Listener para o NOVO botão "Baixar TXT" dentro do modal de documentos ---
         if (baixarDocumentosTxtBtn) {
             baixarDocumentosTxtBtn.addEventListener('click', baixarDocumentosComoTxt);
         }
