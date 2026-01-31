@@ -746,6 +746,24 @@
                 flex-direction: column;
                 gap: 8px;
             }
+            
+            /* Estilos otimizados para botões da lista de leads */
+            .leads-buttons-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px !important;
+            }
+            
+            .leads-buttons-container .btn {
+                padding: 6px 8px !important;
+                font-size: 0.8rem !important;
+                min-width: auto !important;
+            }
+            
+            .leads-buttons-container .btn i {
+                margin-right: 3px !important;
+                font-size: 0.9rem !important;
+            }
         }
 
         @media (min-width: 768px) {
@@ -1224,6 +1242,76 @@
             margin-right: 0 !important;
             color: var(--light-text);
         }
+        
+        /* NOVOS ESTILOS PARA TAXAS */
+        .taxas-container {
+            background-color: var(--dark-detail);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px solid var(--gold-light);
+        }
+        
+        .taxas-container h4 {
+            color: var(--gold-light);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #555;
+            padding-bottom: 8px;
+        }
+        
+        .taxas-info {
+            font-size: 0.9rem;
+            color: var(--grey-detail);
+            margin-top: 10px;
+            padding: 8px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            border-left: 3px solid var(--success-color);
+        }
+        
+        .taxas-info i {
+            color: var(--success-color);
+            margin-right: 5px;
+        }
+        
+        /* Estilos otimizados para botões da lista de leads */
+        .leads-buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
+        .leads-buttons-container .btn {
+            padding: 8px 10px;
+            font-size: 0.85rem;
+            min-width: auto;
+            margin-bottom: 0;
+        }
+        
+        .leads-buttons-container .btn i {
+            margin-right: 5px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 480px) {
+            .leads-buttons-container {
+                justify-content: center;
+                gap: 4px;
+            }
+            
+            .leads-buttons-container .btn {
+                padding: 6px 8px;
+                font-size: 0.75rem;
+            }
+            
+            .leads-buttons-container .btn i {
+                margin-right: 3px;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1248,7 +1336,6 @@
                 <a href="https://dinheiroeplanejamento.blogspot.com/2025/04/guia-completo-para-corretores-de.html" target="_blank" id="blogLink" title="Acesse o Blog">
                     <i class="fas fa-book"></i>
                 </a>
-                <!-- NOVO BOTÃO PARA BAIXAR RESUMO PDF -->
                 <button id="btnBaixarResumoPDF" class="btn btn-success btn-auto-width" title="Baixar Resumo PDF">
                     <i class="fas fa-file-pdf"></i>
                 </button>
@@ -1348,6 +1435,47 @@
                 </p>
             </div>
 
+            <!-- NOVO: CAMPOS PARA TAXAS -->
+            <div class="taxas-container">
+                <h4><i class="fas fa-percentage"></i> Taxas Adicionais</h4>
+                
+                <div class="form-group" id="form-group-taxaObra">
+                    <label for="taxaObra">Taxa de Obra (valor mensal)</label>
+                    <div class="input-group">
+                        <input type="text" id="taxaObra" class="form-control currency-input" value="0,00">
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--grey-detail); margin-top: 5px;">
+                        <i class="fas fa-info-circle"></i> Esta taxa será somada à parcela da entrada e evolui conforme o andamento da obra.
+                    </p>
+                </div>
+
+                <div class="form-group" id="form-group-percentualObra">
+                    <label for="percentualObra">Percentual de Andamento da Obra (%)</label>
+                    <div class="input-group">
+                        <input type="number" id="percentualObra" class="form-control" step="0.01" value="0" inputmode="decimal" min="0" max="100">
+                        <span class="prefix">%</span>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--grey-detail); margin-top: 5px;">
+                        <i class="fas fa-info-circle"></i> Informe o percentual atual de andamento da obra para cálculo da taxa proporcional.
+                    </p>
+                </div>
+
+                <div class="form-group" id="form-group-taxaAssinatura">
+                    <label for="taxaAssinatura">Taxa de Assinatura Caixa (valor único)</label>
+                    <div class="input-group">
+                        <input type="text" id="taxaAssinatura" class="form-control currency-input" value="0,00">
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--grey-detail); margin-top: 5px;">
+                        <i class="fas fa-info-circle"></i> Valor informativo apenas. Não interfere nos cálculos da entrada.
+                    </p>
+                </div>
+
+                <div class="taxas-info" id="taxaObraInfo">
+                    <i class="fas fa-calculator"></i>
+                    <span id="taxaObraCalculada">Taxa de obra atual: R$ 0,00 (0% do valor base)</span>
+                </div>
+            </div>
+
             <div class="divider"></div>
             <h3>Intercaladas</h3> <div class="divider"></div>
 
@@ -1373,6 +1501,7 @@
 
             <div class="result-card">
                 <p><strong>Valor da Entrada Parcelado:</strong> <span id="valorParcelaEntradaInicial">R$ 0,00</span></p>
+                <p><strong>Com Taxa de Obra:</strong> <span id="valorParcelaComTaxaObra">R$ 0,00</span></p>
                 <p style="font-size: 0.9rem; color: var(--grey-detail);">
                     <i class="fas fa-info-circle"></i> O valor das parcelas de entrada é corrigido mensalmente pelo INCC e após a obra pelo IPCA mais 1%.
                 </p>
@@ -1427,24 +1556,23 @@
         </div>
 
         <div id="secaoListaLeads" class="card" style="display: none; margin-top: 30px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:15px; flex-wrap: wrap;">
                 <h2><i class="fas fa-users"></i> Lista de Leads</h2>
-                <div style="display: flex; gap: 10px;">
-                    <button id="btnImportarLeadsCSV" class="btn btn-info btn-auto-width" style="margin-bottom:0;">
-                        <i class="fas fa-file-csv"></i> Importar CSV
+                <div class="leads-buttons-container">
+                    <button id="btnImportarLeadsCSV" class="btn btn-info btn-auto-width" style="margin-bottom:0;" title="Importar CSV">
+                        <i class="fas fa-file-csv"></i>
                     </button>
                     <input type="file" id="importLeadsCSVFile" accept=".csv" style="display: none;">
-                    <button id="btnImportarLeads" class="btn btn-success btn-auto-width" style="margin-bottom:0;">
-                        <i class="fas fa-file-import"></i> Importar JSON
+                    <button id="btnImportarLeads" class="btn btn-success btn-auto-width" style="margin-bottom:0;" title="Importar JSON">
+                        <i class="fas fa-file-import"></i>
                     </button>
                     <input type="file" id="importLeadsFile" accept=".json" style="display: none;">
 
-                    <button id="btnBaixarListaLeads" class="btn btn-primary btn-auto-width" style="margin-bottom:0;">
-                        <i class="fas fa-download"></i> Baixar Lista
+                    <button id="btnBaixarListaLeads" class="btn btn-primary btn-auto-width" style="margin-bottom:0;" title="Baixar CSV">
+                        <i class="fas fa-download"></i>
                     </button>
-                    <!-- NOVO BOTÃO PARA BAIXAR LISTA DE LEADS EM PDF -->
-                    <button id="btnBaixarListaLeadsPDF" class="btn btn-success btn-auto-width" style="margin-bottom:0;">
-                        <i class="fas fa-file-pdf"></i> Baixar PDF
+                    <button id="btnBaixarListaLeadsPDF" class="btn btn-success btn-auto-width" style="margin-bottom:0;" title="Baixar PDF">
+                        <i class="fas fa-file-pdf"></i>
                     </button>
                 </div>
             </div>
@@ -1665,6 +1793,14 @@
         const inccLoading = document.getElementById('inccLoading');
         const inccUpdateTime = document.getElementById('inccUpdateTime');
 
+        // NOVAS VARIÁVEIS PARA TAXAS
+        const taxaObraInput = document.getElementById('taxaObra');
+        const percentualObraInput = document.getElementById('percentualObra');
+        const taxaAssinaturaInput = document.getElementById('taxaAssinatura');
+        const taxaObraInfo = document.getElementById('taxaObraInfo');
+        const taxaObraCalculada = document.getElementById('taxaObraCalculada');
+        const valorParcelaComTaxaObra = document.getElementById('valorParcelaComTaxaObra');
+
         // Funções utilitárias
         function formatCurrencyDisplay(value) {
             if (isNaN(value)) return 'R$ 0,00';
@@ -1770,7 +1906,42 @@
             return total;
         }
 
+        // Função para calcular taxa de obra proporcional
+        function calcularTaxaObraProporcional() {
+            const taxaObraBase = cleanCurrencyFormat(taxaObraInput.value) || 0;
+            const percentualObra = parseFloat(percentualObraInput.value) || 0;
+            
+            if (taxaObraBase > 0 && percentualObra > 0) {
+                const taxaProporcional = (taxaObraBase * percentualObra) / 100;
+                return taxaProporcional;
+            }
+            
+            return taxaObraBase; // Retorna o valor total se não houver percentual
+        }
+
+        // Função para atualizar informações da taxa de obra
+        function atualizarInfoTaxaObra() {
+            const taxaObraBase = cleanCurrencyFormat(taxaObraInput.value) || 0;
+            const percentualObra = parseFloat(percentualObraInput.value) || 0;
+            const taxaProporcional = calcularTaxaObraProporcional();
+            
+            if (taxaObraBase > 0) {
+                if (percentualObra > 0) {
+                    taxaObraCalculada.textContent = `Taxa de obra atual: ${formatCurrencyDisplay(taxaProporcional)} (${percentualObra}% do valor base de ${formatCurrencyDisplay(taxaObraBase)})`;
+                } else {
+                    taxaObraCalculada.textContent = `Taxa de obra: ${formatCurrencyDisplay(taxaObraBase)} (valor total)`;
+                }
+                taxaObraInfo.style.display = 'block';
+            } else {
+                taxaObraInfo.style.display = 'none';
+            }
+        }
+
         function getFormattedValues() {
+            const taxaObraBase = cleanCurrencyFormat(taxaObraInput.value) || 0;
+            const percentualObra = parseFloat(percentualObraInput.value) || 0;
+            const taxaProporcional = calcularTaxaObraProporcional();
+            
             return {
                 nomeCliente: nomeClienteInput.value.trim() || 'Não informado',
                 telefoneCliente: formatPhoneNumberForOutput(telefoneClienteInput.value.trim()),
@@ -1786,6 +1957,11 @@
                 correcaoINCC: correcaoINCCInput.value + '%',
                 saldoRemanescente: saldoRemanescenteSpan.textContent,
                 valorParcelaEntradaInicial: valorParcelaEntradaInicialSpan.textContent,
+                valorParcelaComTaxaObra: valorParcelaComTaxaObra.textContent,
+                taxaObra: formatCurrencyDisplay(taxaObraBase),
+                percentualObra: percentualObra + '%',
+                taxaObraProporcional: formatCurrencyDisplay(taxaProporcional),
+                taxaAssinatura: formatCurrencyDisplay(cleanCurrencyFormat(taxaAssinaturaInput.value)),
                 valorIntercaladas: formatCurrencyDisplay(cleanCurrencyFormat(valorIntercaladasInput.value)),
                 quantidadeIntercaladas: quantidadeIntercaladasInput.value,
                 totalIntercaladas: totalIntercaladasSpan.textContent,
@@ -1987,7 +2163,7 @@
                     ['Valor Parcelado:', data.maximoConstrParc],
                     ['Parcelas:', `${data.parcelasEntrada}x`],
                     ['Correção INCC:', data.correcaoINCC],
-                    ['1ª Parcela:', data.valorParcelaEntradaInicial]
+                    ['1ª Parcela (sem taxa):', data.valorParcelaEntradaInicial]
                 ];
                 
                 entrada.forEach(item => {
@@ -1997,6 +2173,61 @@
                 });
                 
                 yPos += 5;
+                
+                // Taxas
+                const taxaObraBase = cleanCurrencyFormat(taxaObraInput.value) || 0;
+                const taxaAssinatura = cleanCurrencyFormat(taxaAssinaturaInput.value) || 0;
+                
+                if (taxaObraBase > 0 || taxaAssinatura > 0) {
+                    pdf.setFontSize(14);
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.text('TAXAS ADICIONAIS', margin, yPos);
+                    pdf.line(margin, yPos + 2, pageWidth - margin, yPos + 2);
+                    
+                    yPos += 10;
+                    
+                    pdf.setFontSize(11);
+                    pdf.setFont('helvetica', 'normal');
+                    
+                    if (taxaObraBase > 0) {
+                        const percentualObra = parseFloat(percentualObraInput.value) || 0;
+                        if (percentualObra > 0) {
+                            pdf.text('Taxa de Obra (proporcional):', margin, yPos);
+                            pdf.text(data.taxaObraProporcional, pageWidth - margin - 40, yPos, { align: 'right' });
+                            yPos += 6;
+                            
+                            pdf.setFontSize(9);
+                            pdf.setTextColor(100, 100, 100);
+                            pdf.text(`(Base: ${data.taxaObra} | Andamento obra: ${data.percentualObra})`, margin + 5, yPos);
+                            yPos += 4;
+                            pdf.setFontSize(11);
+                            pdf.setTextColor(0, 0, 0);
+                        } else {
+                            pdf.text('Taxa de Obra:', margin, yPos);
+                            pdf.text(data.taxaObra, pageWidth - margin - 40, yPos, { align: 'right' });
+                            yPos += 6;
+                        }
+                    }
+                    
+                    if (taxaAssinatura > 0) {
+                        pdf.text('Taxa de Assinatura Caixa:', margin, yPos);
+                        pdf.text(data.taxaAssinatura, pageWidth - margin - 40, yPos, { align: 'right' });
+                        yPos += 6;
+                    }
+                    
+                    yPos += 5;
+                }
+                
+                // Parcela com taxa
+                pdf.setFontSize(12);
+                pdf.setFont('helvetica', 'bold');
+                pdf.setTextColor(41, 128, 185);
+                pdf.text('PARCELA COM TAXA DE OBRA:', margin, yPos);
+                pdf.setFont('helvetica', 'bold');
+                pdf.setTextColor(0, 0, 0);
+                pdf.text(data.valorParcelaComTaxaObra, pageWidth - margin - 40, yPos, { align: 'right' });
+                
+                yPos += 8;
                 
                 // Intercaladas
                 if (cleanCurrencyFormat(data.valorIntercaladas) > 0 && parseInt(data.quantidadeIntercaladas) > 0) {
@@ -2081,15 +2312,31 @@
                     yPos += 5;
                 }
                 
-                // Nota sobre correção
-                yPos = pageHeight - 25;
+                // Nota sobre correção e taxas
+                yPos = pageHeight - 30;
                 pdf.setFontSize(8);
                 pdf.setFont('helvetica', 'italic');
                 pdf.setTextColor(100, 100, 100);
                 pdf.text('* O valor das parcelas de entrada é corrigido mensalmente pelo INCC e após a obra pelo IPCA mais 1%.', 
                         pageWidth / 2, yPos, { align: 'center' });
                 yPos += 4;
-                pdf.text('** Valores sujeitos a alteração e aprovação. Esta é uma simulação preliminar.', 
+                
+                if (cleanCurrencyFormat(taxaObraInput.value) > 0) {
+                    const percentualObra = parseFloat(percentualObraInput.value) || 0;
+                    if (percentualObra > 0) {
+                        pdf.text(`** Taxa de obra calculada proporcionalmente ao andamento da obra (${percentualObra}%). Evolui conforme avança a obra.`, 
+                                pageWidth / 2, yPos, { align: 'center' });
+                        yPos += 4;
+                    }
+                }
+                
+                if (cleanCurrencyFormat(taxaAssinaturaInput.value) > 0) {
+                    pdf.text('*** Taxa de assinatura Caixa é um valor informativo e não interfere no cálculo das parcelas.', 
+                            pageWidth / 2, yPos, { align: 'center' });
+                    yPos += 4;
+                }
+                
+                pdf.text('**** Valores sujeitos a alteração e aprovação. Esta é uma simulação preliminar.', 
                         pageWidth / 2, yPos, { align: 'center' });
                 
                 // Rodapé
@@ -2197,7 +2444,7 @@
                         lead.financiado || '',
                         lead.fgts || '',
                         lead.notas ? 'Sim' : 'Não',
-                        lead.observacoes ? 'Sim' : 'Não'
+                        lead.observacoes ? (lead.observacoes.length > 50 ? lead.observacoes.substring(0, 50) + '...' : lead.observacoes) : ''
                     ];
                     
                     xPos = margin;
@@ -2293,6 +2540,14 @@
             }
             
             valorParcelaEntradaInicialSpan.textContent = formatCurrencyDisplay(valorParcelaEntradaInicialCalc);
+            
+            // Cálculo da parcela com taxa de obra
+            const taxaObraProporcional = calcularTaxaObraProporcional();
+            const valorParcelaComTaxaObraCalc = valorParcelaEntradaInicialCalc + taxaObraProporcional;
+            valorParcelaComTaxaObra.textContent = formatCurrencyDisplay(valorParcelaComTaxaObraCalc);
+            
+            // Atualizar informações da taxa de obra
+            atualizarInfoTaxaObra();
         }
 
         // Função para limpar formulário
@@ -2301,6 +2556,7 @@
             nomeClienteInput.value = '';
             telefoneClienteInput.value = '';
             parcelasEntradaInput.value = '1';
+            percentualObraInput.value = '0';
             
             const camposMoedaParaLimpar = [
                 valorImovelInput,
@@ -2310,7 +2566,9 @@
                 valorFGTSInput,
                 sinalConstrutoraInput,
                 maximoConstrParcInput,
-                valorIntercaladasInput
+                valorIntercaladasInput,
+                taxaObraInput,
+                taxaAssinaturaInput
             ];
             
             camposMoedaParaLimpar.forEach(input => {
@@ -2571,7 +2829,30 @@
             texto += `Valor Parcelado: ${data.maximoConstrParc}\n`;
             texto += `Parcelas: ${data.parcelasEntrada}x\n`;
             texto += `Correção INCC: ${data.correcaoINCC}\n`;
-            texto += `1ª Parcela: ${data.valorParcelaEntradaInicial}\n\n`;
+            texto += `1ª Parcela (sem taxa): ${data.valorParcelaEntradaInicial}\n\n`;
+            
+            const taxaObraBase = cleanCurrencyFormat(taxaObraInput.value) || 0;
+            const taxaAssinatura = cleanCurrencyFormat(taxaAssinaturaInput.value) || 0;
+            
+            if (taxaObraBase > 0 || taxaAssinatura > 0) {
+                texto += 'TAXAS ADICIONAIS:\n';
+                if (taxaObraBase > 0) {
+                    const percentualObra = parseFloat(percentualObraInput.value) || 0;
+                    if (percentualObra > 0) {
+                        texto += `Taxa de Obra (proporcional): ${data.taxaObraProporcional}\n`;
+                        texto += `  (Base: ${data.taxaObra} | Andamento obra: ${data.percentualObra})\n`;
+                    } else {
+                        texto += `Taxa de Obra: ${data.taxaObra}\n`;
+                    }
+                }
+                
+                if (taxaAssinatura > 0) {
+                    texto += `Taxa de Assinatura Caixa: ${data.taxaAssinatura}\n`;
+                }
+                texto += '\n';
+            }
+            
+            texto += `PARCELA COM TAXA DE OBRA: ${data.valorParcelaComTaxaObra}\n\n`;
             
             if (cleanCurrencyFormat(data.valorIntercaladas) > 0 && parseInt(data.quantidadeIntercaladas) > 0) {
                 texto += 'INTERCALADAS:\n';
@@ -2597,6 +2878,18 @@
             
             texto += '-' .repeat(50) + '\n';
             texto += 'O valor das parcelas de entrada é corrigido mensalmente pelo INCC e após a obra pelo IPCA mais 1%.\n';
+            
+            if (cleanCurrencyFormat(taxaObraInput.value) > 0) {
+                const percentualObra = parseFloat(percentualObraInput.value) || 0;
+                if (percentualObra > 0) {
+                    texto += `Taxa de obra calculada proporcionalmente ao andamento da obra (${percentualObra}%). Evolui conforme avança a obra.\n`;
+                }
+            }
+            
+            if (cleanCurrencyFormat(taxaAssinaturaInput.value) > 0) {
+                texto += 'Taxa de assinatura Caixa é um valor informativo e não interfere no cálculo das parcelas.\n';
+            }
+            
             texto += 'Valores sujeitos a alteração e aprovação. Esta é uma simulação preliminar.\n';
             texto += '-' .repeat(50) + '\n\n';
             texto += 'Desenvolvido por Alex Peixoto - (82) 996622036\n';
@@ -2740,6 +3033,21 @@
             msg += `  Parcelado Construtora: ${data.maximoConstrParc} em ${data.parcelasEntrada}x%0A`;
             msg += `  *1ª Parcela (com INCC ${data.correcaoINCC}):* ${data.valorParcelaEntradaInicial}%0A`;
             
+            const taxaObraBase = cleanCurrencyFormat(taxaObraInput.value) || 0;
+            if (taxaObraBase > 0) {
+                const percentualObra = parseFloat(percentualObraInput.value) || 0;
+                if (percentualObra > 0) {
+                    msg += `  *Taxa de Obra (${percentualObra}%):* ${data.taxaObraProporcional}%0A`;
+                } else {
+                    msg += `  *Taxa de Obra:* ${data.taxaObra}%0A`;
+                }
+                msg += `  *Parcela com Taxa:* ${data.valorParcelaComTaxaObra}%0A`;
+            }
+            
+            if (cleanCurrencyFormat(taxaAssinaturaInput.value) > 0) {
+                msg += `  *Taxa Assinatura Caixa:* ${data.taxaAssinatura}%0A`;
+            }
+            
             if (cleanCurrencyFormat(data.valorIntercaladas) > 0 && data.quantidadeIntercaladas > 0) {
                 msg += `%0A*Intercaladas:*%0A`;
                 msg += `  Valor: ${data.valorIntercaladas}%0A`;
@@ -2755,6 +3063,10 @@
             }
             
             msg += `%0A${encodeURIComponent("O valor das parcelas de entrada é corrigido mensalmente pelo INCC e após a obra pelo IPCA mais 1%.")}%0A`;
+            
+            if (taxaObraBase > 0 && parseFloat(percentualObraInput.value) > 0) {
+                msg += `${encodeURIComponent(`Taxa de obra calculada proporcionalmente ao andamento da obra (${percentualObraInput.value}%). Evolui conforme avança a obra.`)}%0A`;
+            }
             
             if (data.observacoesSimulacao) {
                 msg += `%0A*OBSERVACÕES DA SIMULAÇÃO:*%0A${encodeURIComponent(data.observacoesSimulacao)}`;
@@ -2773,6 +3085,13 @@
                 formatInputAsCurrency({ target: input });
             });
             
+            // Adicionar taxas aos inputs de moeda
+            [taxaObraInput, taxaAssinaturaInput].forEach(input => {
+                input.addEventListener('input', formatInputAsCurrency);
+                input.addEventListener('blur', formatInputAsCurrency);
+                formatInputAsCurrency({ target: input });
+            });
+            
             // Inicializar formatação de telefone
             telefoneClienteInput.addEventListener('input', formatInputAsPhone);
             
@@ -2784,7 +3103,8 @@
                 valorImovelInput, descontoMCMVInput, valorFinanciadoInput,
                 descontoConstrutoraInput, valorFGTSInput, sinalConstrutoraInput,
                 maximoConstrParcInput, parcelasEntradaInput, correcaoINCCInput,
-                valorIntercaladasInput, quantidadeIntercaladasInput
+                valorIntercaladasInput, quantidadeIntercaladasInput,
+                taxaObraInput, percentualObraInput
             ];
             
             inputsParaCalcular.forEach(input => {
