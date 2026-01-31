@@ -1007,34 +1007,6 @@
             }
         }
 
-        #btnImprimirSimulacao {
-            position: relative;
-            z-index: 1;
-            padding: 10px;
-            overflow: hidden;
-            border: 2px solid transparent;
-            background: linear-gradient(to right, var(--gold-light), var(--success-color), var(--gold-light)) border-box;
-            background-size: 200% auto;
-            animation: gradientBorder 3s linear infinite;
-        }
-
-        #btnImprimirSimulacao::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--dark-detail);
-            z-index: -1;
-            border-radius: var(--border-radius);
-        }
-
-        #btnImprimirSimulacao i {
-            margin-right: 0 !important;
-            color: var(--light-text);
-        }
-
         #btnDocumentos {
             position: relative;
             z-index: 1;
@@ -1061,342 +1033,6 @@
         #btnDocumentos i {
             margin-right: 0 !important;
             color: var(--light-text);
-        }
-
-        .print-only {
-            display: none;
-        }
-
-        @media print {
-            body {
-                background-color: #fff;
-                color: #000;
-                padding: 0;
-                margin: 0;
-                font-size: 10pt;
-                font-family: 'Inter', sans-serif;
-            }
-
-            .container {
-                max-width: 100%;
-                margin: 0;
-                padding: 10mm;
-            }
-
-            .card {
-                box-shadow: none;
-                border: none;
-                background-color: #fff;
-                padding: 0;
-                margin-bottom: 0;
-                position: static;
-                z-index: auto;
-                border: none !important;
-                background: none !important;
-                background-size: auto !important;
-                animation: none !important;
-                overflow: visible !important;
-            }
-
-            .card::before {
-                content: none !important;
-            }
-
-            .print-only {
-                display: block !important;
-            }
-
-            .top-links,
-            .top-button-container,
-            .btn,
-            .btn-group,
-            #toggleNotasBtn,
-            #notasSection,
-            #secaoListaLeads,
-            .footer,
-            .fab,
-            .modal,
-            #partyEffectContainer {
-                display: none !important;
-            }
-
-            #simuladorCard {
-                display: block !important;
-            }
-
-            .print-header {
-                text-align: center;
-                margin-bottom: 15px;
-                font-size: 1.4rem;
-                font-weight: bold;
-                text-transform: uppercase;
-                color: #333;
-                border-bottom: 2px solid #333;
-                padding-bottom: 10px;
-            }
-
-            .print-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 15px;
-                margin-bottom: 20px;
-            }
-
-            .print-section {
-                background-color: #f9f9f9;
-                border-radius: 8px;
-                padding: 15px;
-                border: 1px solid #ddd;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                page-break-inside: avoid;
-            }
-
-            .print-section h3 {
-                font-size: 1.1rem;
-                color: #333;
-                margin-bottom: 12px;
-                padding-bottom: 5px;
-                border-bottom: 1px solid #ddd;
-                font-weight: 600;
-            }
-
-            .print-section p {
-                margin: 8px 0;
-                font-size: 0.9rem;
-                display: flex;
-                justify-content: space-between;
-            }
-
-            .print-section strong {
-                color: #333;
-                font-weight: 600;
-            }
-
-            .print-section .value {
-                font-weight: 600;
-                color: #000;
-                text-align: right;
-            }
-
-            .print-section.highlight {
-                background-color: #f0f8ff;
-                border: 1px solid #4cc9f0;
-            }
-
-            .print-section.highlight h3 {
-                color: #4cc9f0;
-                border-bottom-color: #4cc9f0;
-            }
-
-            .print-section.warning {
-                background-color: #fffaf0;
-                border: 1px solid #f8961e;
-            }
-
-            .print-section.warning h3 {
-                color: #f8961e;
-                border-bottom-color: #f8961e;
-            }
-
-            .print-section.success {
-                background-color: #f0fff4;
-                border: 1px solid #4cc9f0;
-            }
-
-            .print-section.success h3 {
-                color: #4cc9f0;
-                border-bottom-color: #4cc9f0;
-            }
-
-            .print-section.full-width {
-                grid-column: 1 / -1;
-            }
-
-            .print-notes {
-                background-color: #fff;
-                border: 1px dashed #999;
-                border-radius: 8px;
-                padding: 15px;
-                margin-top: 15px;
-                min-height: 120px;
-            }
-
-            .print-notes h4 {
-                font-size: 1rem;
-                color: #333;
-                margin-bottom: 10px;
-                font-weight: 600;
-            }
-
-            .print-footer {
-                margin-top: 30px;
-                padding-top: 20px;
-                border-top: 1px solid #ccc;
-                font-size: 0.9rem;
-                color: #000;
-                page-break-before: avoid;
-            }
-            
-            .print-footer .footer-info {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 30px;
-                padding: 0 20px;
-                flex-wrap: wrap;
-                gap: 20px;
-            }
-
-            .print-footer .footer-info span {
-                flex-grow: 1;
-                flex-basis: 0;
-            }
-            
-            .print-footer .footer-info span:last-child {
-                flex-grow: 0;
-                flex-basis: auto;
-                text-align: right;
-            }
-
-            .print-footer .signature-area {
-                display: flex;
-                justify-content: space-around;
-                align-items: flex-start;
-                padding: 0 20px;
-                flex-wrap: wrap;
-                gap: 30px;
-            }
-
-            .print-footer .signature-block {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                width: 45%;
-                text-align: center;
-                box-sizing: border-box;
-                flex-grow: 1;
-                flex-basis: 0;
-            }
-
-            .print-footer .signature-line {
-                display: block;
-                width: 100%;
-                border-top: 1px solid #000;
-                margin-bottom: 5px;
-            }
-
-            .print-footer .signature-block p {
-                margin: 0;
-                font-size: 0.9rem;
-            }
-
-            @media print and (max-width: 400px) {
-                .print-grid {
-                    grid-template-columns: 1fr;
-                }
-                
-                .print-footer .footer-info,
-                .print-footer .signature-area {
-                    flex-direction: column;
-                    gap: 15px;
-                    padding: 0;
-                }
-                
-                .print-footer .footer-info span,
-                .print-footer .signature-block {
-                    width: 100%;
-                    flex-basis: auto;
-                }
-                
-                .print-footer .footer-info span:last-child {
-                    text-align: left;
-                }
-            }
-        }
-
-        .documents-print-layout {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff !important;
-            color: #000000 !important;
-            padding: 15mm 20mm !important;
-            box-shadow: none !important;
-            border-radius: 0 !important;
-            width: auto !important;
-            max-width: none !important;
-            margin: 0 !important;
-            max-height: none !important;
-            overflow: visible !important;
-        }
-
-        .documents-print-layout .modal-header,
-        .documents-print-layout .modal-buttons,
-        .documents-print-layout .developer-info-modal,
-        .documents-print-layout .editable-header-info {
-            display: none !important;
-        }
-
-        .documents-print-layout h3 {
-            font-size: 1.5rem !important;
-            color: #333333 !important;
-            text-align: center !important;
-            margin-bottom: 15px !important;
-            padding-bottom: 0 !important;
-            border-bottom: none !important;
-            line-height: 1.2 !important;
-        }
-
-        .documents-print-layout .document-header-info {
-            margin-bottom: 20px !important;
-            text-align: center !important;
-        }
-        
-        .documents-print-layout .document-header-info h2 {
-            font-size: 1.2rem !important;
-            margin-bottom: 5px !important;
-            color: #000000 !important;
-            line-height: 1.1 !important;
-        }
-        
-        .documents-print-layout .document-header-info p {
-            font-size: 0.8rem !important;
-            margin-bottom: 10px !important;
-            color: #333333 !important;
-            line-height: 1.1 !important;
-        }
-
-        .documents-print-layout .document-section {
-            margin-bottom: 20px !important;
-            padding-bottom: 10px !important;
-            border-bottom: 1px dashed #dddddd !important;
-        }
-        
-        .documents-print-layout .document-section:last-child {
-            border-bottom: none !important;
-        }
-
-        .documents-print-layout .document-section h4 {
-            font-size: 1.05rem !important;
-            color: #444444 !important;
-            margin-bottom: 10px !important;
-            font-weight: bold !important;
-            text-transform: uppercase;
-            line-height: 1.2 !important;
-        }
-
-        .documents-print-layout .document-section ul li {
-            font-size: 0.9rem !important;
-            margin-bottom: 5px !important;
-            color: #111111 !important;
-            line-height: 1.2 !important;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .documents-print-layout .document-section ul li i {
-            color: #006400 !important;
-            margin-right: 8px !important;
-            font-size: 1rem !important;
-            flex-shrink: 0;
-            padding-top: 1px;
         }
 
         #partyEffectContainer {
@@ -1493,6 +1129,101 @@
                 opacity: 0.5;
             }
         }
+
+        /* Estilo para o indicador de INCC */
+        .incc-indicator {
+            background-color: var(--dark-detail);
+            border-radius: var(--border-radius);
+            padding: 10px 15px;
+            margin-top: 10px;
+            border-left: 4px solid var(--success-color);
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .incc-indicator .incc-value {
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .incc-indicator .incc-update-time {
+            color: var(--grey-detail);
+            font-size: 0.8rem;
+            text-align: right;
+        }
+
+        .incc-loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid var(--grey-detail);
+            border-top: 2px solid var(--success-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 5px;
+        }
+
+        /* Botão de download PDF */
+        #btnBaixarResumoPDF {
+            position: relative;
+            z-index: 1;
+            padding: 10px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            background: linear-gradient(to right, var(--gold-light), var(--success-color), var(--gold-light)) border-box;
+            background-size: 200% auto;
+            animation: gradientBorder 3s linear infinite;
+        }
+
+        #btnBaixarResumoPDF::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--dark-detail);
+            z-index: -1;
+            border-radius: var(--border-radius);
+        }
+
+        #btnBaixarResumoPDF i {
+            margin-right: 0 !important;
+            color: var(--light-text);
+        }
+
+        /* Botão para baixar lista de leads em PDF */
+        #btnBaixarListaLeadsPDF {
+            position: relative;
+            z-index: 1;
+            padding: 10px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            background: linear-gradient(to right, var(--success-color), var(--gold-light), var(--success-color)) border-box;
+            background-size: 200% auto;
+            animation: gradientBorder 3s linear infinite;
+        }
+
+        #btnBaixarListaLeadsPDF::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--dark-detail);
+            z-index: -1;
+            border-radius: var(--border-radius);
+        }
+
+        #btnBaixarListaLeadsPDF i {
+            margin-right: 0 !important;
+            color: var(--light-text);
+        }
     </style>
 </head>
 <body>
@@ -1500,10 +1231,6 @@
         <div class="top-links"></div>
 
         <div class="card" id="simuladorCard">
-            <div class="print-header print-only">
-                SIMULAÇÃO DE PLANO DE PAGAMENTO
-            </div>
-
             <div class="top-button-container">
                 <button id="btnAbrirListaLeads" class="btn btn-secondary btn-auto-width" title="Ver Leads Salvos">
                     <i class="fas fa-users"></i>
@@ -1521,8 +1248,9 @@
                 <a href="https://dinheiroeplanejamento.blogspot.com/2025/04/guia-completo-para-corretores-de.html" target="_blank" id="blogLink" title="Acesse o Blog">
                     <i class="fas fa-book"></i>
                 </a>
-                <button id="btnImprimirSimulacao" class="btn btn-secondary btn-auto-width" title="Imprimir Simulação">
-                    <i class="fas fa-print"></i>
+                <!-- NOVO BOTÃO PARA BAIXAR RESUMO PDF -->
+                <button id="btnBaixarResumoPDF" class="btn btn-success btn-auto-width" title="Baixar Resumo PDF">
+                    <i class="fas fa-file-pdf"></i>
                 </button>
             </div>
 
@@ -1538,6 +1266,16 @@
             <div class="form-group" id="form-group-telefoneCliente">
                 <label for="telefoneCliente" class="highlight-label">Telefone do Cliente</label>
                 <input type="text" id="telefoneCliente" class="form-control" placeholder="(00) 99999-9999">
+            </div>
+
+            <!-- INDICADOR DE INCC ATUAL -->
+            <div class="incc-indicator" id="inccIndicator">
+                <div>
+                    <strong>INCC Atual:</strong> 
+                    <span id="inccCurrentValue">Carregando...</span>
+                    <span class="incc-loading" id="inccLoading"></span>
+                </div>
+                <div class="incc-update-time" id="inccUpdateTime"></div>
             </div>
 
             <div class="divider"></div>
@@ -1605,6 +1343,9 @@
                     <span class="prefix">%</span>
                     <input type="number" id="correcaoINCC" class="form-control" step="0.01" value="0" inputmode="decimal">
                 </div>
+                <p style="font-size: 0.85rem; color: var(--grey-detail); margin-top: 5px;">
+                    <i class="fas fa-info-circle"></i> O valor das parcelas de entrada é corrigido mensalmente pelo INCC e após a obra pelo IPCA mais 1%.
+                </p>
             </div>
 
             <div class="divider"></div>
@@ -1632,7 +1373,9 @@
 
             <div class="result-card">
                 <p><strong>Valor da Entrada Parcelado:</strong> <span id="valorParcelaEntradaInicial">R$ 0,00</span></p>
-                <p style="font-size: 0.9rem; color: var(--grey-detail);">O valor das parcelas de entrada é corrigido mensalmente pelo INCC</p>
+                <p style="font-size: 0.9rem; color: var(--grey-detail);">
+                    <i class="fas fa-info-circle"></i> O valor das parcelas de entrada é corrigido mensalmente pelo INCC e após a obra pelo IPCA mais 1%.
+                </p>
             </div>
 
             <div class="form-group" id="form-group-observacoesCliente">
@@ -1681,72 +1424,6 @@
                     </button>
                 </div>
             </div>
-
-            <div class="print-only">
-                <div class="print-grid">
-                    <div class="print-section">
-                        <h3>Informações do Cliente</h3>
-                        <p><strong>Nome:</strong> <span class="value" id="print-nomeCliente"></span></p>
-                        <p><strong>Telefone:</strong> <span class="value" id="print-telefoneCliente"></span></p>
-                        <p><strong>Empreendimento:</strong> <span class="value" id="print-nomeEmpreendimento"></span></p>
-                    </div>
-                    
-                    <div class="print-section">
-                        <h3>Valores do Imóvel</h3>
-                        <p><strong>Valor do Imóvel:</strong> <span class="value" id="print-valorImovel"></span></p>
-                        <p><strong>Desconto (Subsídio):</strong> <span class="value" id="print-descontoMCMV"></span></p>
-                        <p><strong>Desconto Construtora:</strong> <span class="value" id="print-descontoConstrutora"></span></p>
-                        <p><strong>FGTS:</strong> <span class="value" id="print-valorFGTS"></span></p>
-                        <p><strong>Valor Financiado:</strong> <span class="value" id="print-valorFinanciado"></span></p>
-                    </div>
-                    
-                    <div class="print-section">
-                        <h3>Entrada</h3>
-                        <p><strong>Sinal para Construtora:</strong> <span class="value" id="print-sinalConstrutora"></span></p>
-                        <p><strong>Valor Parcelado:</strong> <span class="value" id="print-maximoConstrParc"></span></p>
-                        <p><strong>Parcelas:</strong> <span class="value" id="print-parcelasEntrada"></span></p>
-                        <p><strong>Correção INCC:</strong> <span class="value" id="print-correcaoINCC"></span></p>
-                        <p><strong>1ª Parcela:</strong> <span class="value" id="print-valorParcelaEntradaInicial"></span></p>
-                    </div>
-                    
-                    <div class="print-section">
-                        <h3>Intercaladas</h3>
-                        <p><strong>Valor das Intercaladas:</strong> <span class="value" id="print-valorIntercaladas"></span></p>
-                        <p><strong>Quantidade:</strong> <span class="value" id="print-quantidadeIntercaladas"></span></p>
-                        <p><strong>Total:</strong> <span class="value" id="print-totalIntercaladas"></span></p>
-                    </div>
-                    
-                    <div class="print-section highlight full-width">
-                        <h3>Resumo Financeiro</h3>
-                        <p><strong>Saldo Remanescente:</strong> <span class="value" id="print-saldoRemanescente"></span></p>
-                        <p id="print-saldoNota" style="font-size: 0.8rem; margin-top: 8px; color: #555;"></p>
-                    </div>
-                    
-                    <div class="print-section full-width">
-                        <h3>Observações</h3>
-                        <div class="print-notes">
-                            <p id="print-observacoes"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="print-footer print-only">
-                <div class="footer-info">
-                    <span>Cidade:_________________________</span>
-                    <span>Data: _____/_____/_________</span>
-                </div>
-                <div class="signature-area">
-                    <div class="signature-block">
-                        <span class="signature-line"></span>
-                        <p>Assinatura do Cliente</p>
-                    </div>
-                    <div class="signature-block">
-                        <span class="signature-line"></span>
-                        <p>Assinatura do Corretor</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div id="secaoListaLeads" class="card" style="display: none; margin-top: 30px;">
@@ -1764,6 +1441,10 @@
 
                     <button id="btnBaixarListaLeads" class="btn btn-primary btn-auto-width" style="margin-bottom:0;">
                         <i class="fas fa-download"></i> Baixar Lista
+                    </button>
+                    <!-- NOVO BOTÃO PARA BAIXAR LISTA DE LEADS EM PDF -->
+                    <button id="btnBaixarListaLeadsPDF" class="btn btn-success btn-auto-width" style="margin-bottom:0;">
+                        <i class="fas fa-file-pdf"></i> Baixar PDF
                     </button>
                 </div>
             </div>
@@ -1905,6 +1586,7 @@
     <script>
         const { jsPDF } = window.jspdf;
 
+        // Variáveis existentes
         const valorImovelInput = document.getElementById('valorImovel');
         const descontoMCMVInput = document.getElementById('descontoMCMV');
         const valorFinanciadoInput = document.getElementById('valorFinanciado');
@@ -1926,6 +1608,7 @@
         const modalTitle = document.getElementById('modalTitle');
         const modalMessage = document.getElementById('modalMessage');
         const modalCancelBtn = document.getElementById('modalCancelBtn');
+        const modalConfirmBtn = document.getElementById('modalConfirmBtn');
         const closeModalBtns = document.querySelectorAll('.close-modal');
         const toggleNotasBtn = document.getElementById('toggleNotasBtn');
         const notasSection = document.getElementById('notasSection');
@@ -1943,7 +1626,6 @@
         const btnImportarBackup = document.getElementById('btnImportarBackup');
         const importFileInput = document.getElementById('importFile');
         const blogLink = document.getElementById('blogLink');
-        const btnImprimirSimulacao = document.getElementById('btnImprimirSimulacao');
         const btnAbrirListaLeads = document.getElementById('btnAbrirListaLeads');
         const secaoListaLeads = document.getElementById('secaoListaLeads');
         const corpoTabelaLeads = document.getElementById('corpoTabelaLeads');
@@ -1974,142 +1656,118 @@
         const valorIntercaladasInput = document.getElementById('valorIntercaladas');
         const quantidadeIntercaladasInput = document.getElementById('quantidadeIntercaladas');
         const totalIntercaladasSpan = document.getElementById('totalIntercaladas');
-        const printNomeCliente = document.getElementById('print-nomeCliente');
-        const printTelefoneCliente = document.getElementById('print-telefoneCliente');
-        const printNomeEmpreendimento = document.getElementById('print-nomeEmpreendimento');
-        const printValorImovel = document.getElementById('print-valorImovel');
-        const printDescontoMCMV = document.getElementById('print-descontoMCMV');
-        const printDescontoConstrutora = document.getElementById('print-descontoConstrutora');
-        const printValorFGTS = document.getElementById('print-valorFGTS');
-        const printValorFinanciado = document.getElementById('print-valorFinanciado');
-        const printSinalConstrutora = document.getElementById('print-sinalConstrutora');
-        const printMaximoConstrParc = document.getElementById('print-maximoConstrParc');
-        const printParcelasEntrada = document.getElementById('print-parcelasEntrada');
-        const printCorrecaoINCC = document.getElementById('print-correcaoINCC');
-        const printValorParcelaEntradaInicial = document.getElementById('print-valorParcelaEntradaInicial');
-        const printValorIntercaladas = document.getElementById('print-valorIntercaladas');
-        const printQuantidadeIntercaladas = document.getElementById('print-quantidadeIntercaladas');
-        const printTotalIntercaladas = document.getElementById('print-totalIntercaladas');
-        const printSaldoRemanescente = document.getElementById('print-saldoRemanescente');
-        const printSaldoNota = document.getElementById('print-saldoNota');
-        const printObservacoes = document.getElementById('print-observacoes');
+        const btnBaixarResumoPDF = document.getElementById('btnBaixarResumoPDF');
+        const btnBaixarListaLeadsPDF = document.getElementById('btnBaixarListaLeadsPDF');
 
-        const documentosPorProfissao = {
-            'carteira-assinada': {
-                titulo: 'CARTEIRA ASSINADA',
-                documentos: [
-                    'RG (ou CNH) + CPF',
-                    'Comprovante de residência',
-                    'Certidão de estado civil',
-                    'Carteira de trabalho',
-                    '2 Últimos contracheques',
-                    'Extrato do FGTS'
-                ]
-            },
-            'servidor-publico': {
-                titulo: 'SERVIDOR PÚBLICO (CONCURSADO OU COMISSIONADO)',
-                documentos: [
-                    'RG + CPF ou CNH',
-                    'Comprovante de residência - atualizado',
-                    'Certidão de nascimento/casamento/divórcio + averbação',
-                    'Carteira de trabalho',
-                    'Portaria ou nomeação',
-                    '03 últimos contracheques',
-                    '03 últimos extratos bancários',
-                    'Declaração de imposto de renda + recibo'
-                ],
-                observacao: 'Obs.: Se possuir dependentes: RG+CPF e Certidão de nascimento. Caso tenha o contra cheque, não precisa da nomeação.'
-            },
-            'empresario': {
-                titulo: 'EMPRESÁRIO',
-                documentos: [
-                    'RG (ou CNH) + CPF',
-                    'Comprovante de residência',
-                    'Certidão de estado civil',
-                    'Cartão CNPJ',
-                    'Contrato social',
-                    'Pró labore',
-                    '3 Últimos extratos bancários'
-                ]
-            },
-            'forcas-armadas': {
-                titulo: 'FORÇAS ARMADAS',
-                documentos: [
-                    'RG (ou CNH) + CPF',
-                    'Comprovante de residência',
-                    'Certidão de estado civil',
-                    'Carteira de trabalho',
-                    '2 Últimos contracheques',
-                    'Declaração do engajamento'
-                ]
-            },
-            'autonomo': {
-                titulo: 'AUTÔNOMO',
-                documentos: [
-                    'RG (ou CNH) + CPF',
-                    'Comprovante de residência',
-                    'Certidão de estado civil',
-                    'Rede social',
-                    'Despesas em nome do cliente',
-                    'Notas fiscais',
-                    '3 Últimos extratos de maquineta',
-                    '3 Últimos extratos bancários'
-                ]
-            },
-            'motorista-aplicativo': {
-                titulo: 'MOTORISTA DE APLICATIVO',
-                documentos: [
-                    'RG (ou CNH) + CPF',
-                    'Comprovante de residência',
-                    'Certidão de estado civil',
-                    '3 Últimos meses do relatório',
-                    '3 Últimos extratos bancários',
-                    'Despesas em nome do cliente'
-                ]
-            },
-            'pensionista': {
-                titulo: 'PENSIONISTA',
-                documentos: [
-                    'RG (ou CNH) + CPF',
-                    'Comprovante de residência',
-                    'Certidão de estado civil',
-                    'Carteira de Trabalho',
-                    'Carta de concessão do benefício',
-                    '3 Últimos extratos do benefício',
-                    '3 Últimos extratos bancários'
-                ]
+        // NOVAS VARIÁVEIS PARA INCC
+        const inccIndicator = document.getElementById('inccIndicator');
+        const inccCurrentValue = document.getElementById('inccCurrentValue');
+        const inccLoading = document.getElementById('inccLoading');
+        const inccUpdateTime = document.getElementById('inccUpdateTime');
+
+        // Funções utilitárias
+        function formatCurrencyDisplay(value) {
+            if (isNaN(value)) return 'R$ 0,00';
+            return 'R$ ' + value.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        function cleanCurrencyFormat(value) {
+            if (!value) return 0;
+            const cleaned = value.toString()
+                .replace('R$', '')
+                .replace(/\./g, '')
+                .replace(',', '.')
+                .trim();
+            const num = parseFloat(cleaned);
+            return isNaN(num) ? 0 : num;
+        }
+
+        function formatInputAsCurrency(event) {
+            const input = event.target;
+            let value = input.value.replace(/\D/g, '');
+            if (value === '') {
+                input.value = '0,00';
+                return;
             }
-        };
+            
+            const intValue = parseInt(value, 10);
+            const formatted = (intValue / 100).toFixed(2);
+            
+            // Adicionar separadores de milhar
+            const parts = formatted.split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            input.value = 'R$ ' + parts.join(',');
+            
+            calcularValores();
+        }
 
-        function wordWrap(text, maxWidth) {
-            if (!text) return '';
-            const lines = text.split('\n');
-            const wrappedLines = [];
+        function formatPhoneNumberForOutput(phone) {
+            if (!phone) return 'Não Informado';
+            const cleaned = phone.replace(/\D/g, '');
+            if (cleaned.length === 11) {
+                return `(${cleaned.substring(0,2)}) ${cleaned.substring(2,7)}-${cleaned.substring(7)}`;
+            } else if (cleaned.length === 10) {
+                return `(${cleaned.substring(0,2)}) ${cleaned.substring(2,6)}-${cleaned.substring(6)}`;
+            }
+            return phone;
+        }
 
-            lines.forEach(line => {
-                if (line.length <= maxWidth) {
-                    wrappedLines.push(line);
-                } else {
-                    let currentLine = '';
-                    const words = line.split(' ');
+        function formatInputAsPhone(event) {
+            const input = event.target;
+            let value = input.value.replace(/\D/g, '');
+            
+            if (value.length > 11) {
+                value = value.substring(0, 11);
+            }
+            
+            if (value.length > 10) {
+                value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+            } else if (value.length > 6) {
+                value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+            } else if (value.length > 2) {
+                value = value.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+            } else if (value.length > 0) {
+                value = value.replace(/^(\d{0,2})/, '($1');
+            }
+            
+            input.value = value;
+        }
 
-                    words.forEach(word => {
-                        if (currentLine.length + word.length + (currentLine.length > 0 ? 1 : 0) <= maxWidth) {
-                            if (currentLine.length > 0) {
-                                currentLine += ' ';
-                            }
-                            currentLine += word;
-                        } else {
-                            wrappedLines.push(currentLine);
-                            currentLine = word;
-                        }
-                    });
-                    if (currentLine.length > 0) {
-                        wrappedLines.push(currentLine);
+        function showToast(message, type = 'info', duration = 3000) {
+            // Remove toast existente
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) {
+                existingToast.remove();
+            }
+            
+            // Cria novo toast
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Mostra toast
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            // Remove toast após duração
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.remove();
                     }
-                }
-            });
-            return wrappedLines.join('\n');
+                }, 300);
+            }, duration);
+        }
+
+        function calcularIntercaladas() {
+            const valorIntercaladas = cleanCurrencyFormat(valorIntercaladasInput.value) || 0;
+            const quantidadeIntercaladas = parseInt(quantidadeIntercaladasInput.value) || 0;
+            const total = valorIntercaladas * quantidadeIntercaladas;
+            totalIntercaladasSpan.textContent = formatCurrencyDisplay(total);
+            return total;
         }
 
         function getFormattedValues() {
@@ -2136,468 +1794,465 @@
             };
         }
 
-        function atualizarDadosImpressao() {
-            const data = getFormattedValues();
-            
-            if (printNomeCliente) printNomeCliente.textContent = data.nomeCliente;
-            if (printTelefoneCliente) printTelefoneCliente.textContent = data.telefoneCliente;
-            if (printNomeEmpreendimento) printNomeEmpreendimento.textContent = data.nomeEmpreendimento;
-            if (printValorImovel) printValorImovel.textContent = data.valorImovel;
-            if (printDescontoMCMV) printDescontoMCMV.textContent = data.descontoMCMV;
-            if (printDescontoConstrutora) printDescontoConstrutora.textContent = data.descontoConstrutora;
-            if (printValorFGTS) printValorFGTS.textContent = data.valorFGTS;
-            if (printValorFinanciado) printValorFinanciado.textContent = data.valorFinanciado;
-            if (printSinalConstrutora) printSinalConstrutora.textContent = data.sinalConstrutora;
-            if (printMaximoConstrParc) printMaximoConstrParc.textContent = data.maximoConstrParc;
-            if (printParcelasEntrada) printParcelasEntrada.textContent = data.parcelasEntrada + 'x';
-            if (printCorrecaoINCC) printCorrecaoINCC.textContent = data.correcaoINCC;
-            if (printValorParcelaEntradaInicial) printValorParcelaEntradaInicial.textContent = data.valorParcelaEntradaInicial;
-            if (printValorIntercaladas) printValorIntercaladas.textContent = data.valorIntercaladas;
-            if (printQuantidadeIntercaladas) printQuantidadeIntercaladas.textContent = data.quantidadeIntercaladas;
-            if (printTotalIntercaladas) printTotalIntercaladas.textContent = data.totalIntercaladas;
-            if (printSaldoRemanescente) printSaldoRemanescente.textContent = data.saldoRemanescente;
-            
-            if (printSaldoNota) {
-                const saldoNumerico = cleanCurrencyFormat(data.saldoRemanescente);
-                if (saldoNumerico > 0) {
-                    printSaldoNota.textContent = 'Nota: Esse valor ou parte dele, pode ser pago na entrega das chaves, intercaladas ou de forma que a construtora aceite.';
-                } else {
-                    printSaldoNota.textContent = '';
-                }
-            }
-            
-            if (printObservacoes) {
-                printObservacoes.textContent = data.observacoesSimulacao || 'Nenhuma observação adicionada.';
-            }
-        }
-
-        function gerarConteudoSimulacaoTXT() {
-            const data = getFormattedValues();
-            const dataHora = new Date().toLocaleString('pt-BR');
-            const maxWidth = 70;
-
-            let txtContent = `SIMULAÇÃO DE PLANO DE PAGAMENTO (${dataHora})
---------------------------------------------------
-CLIENTE:
-Nome: ${data.nomeCliente}
-Telefone: ${data.telefoneCliente}
-
-EMPREENDIMENTO:
-Nome: ${data.nomeEmpreendimento}
---------------------------------------------------
-Plano de Pagamento:
-Valor do Imóvel (Tabela,Construtora): ${data.valorImovel}
-Desconto (Subsídio): ${data.descontoMCMV}
-Desconto da Construtora: ${data.descontoConstrutora}
-FGTS (se houver): ${data.valorFGTS}
-Valor Financiado (Caixa): ${data.valorFinanciado}
---------------------------------------------------
-(Sinal, Decontos, Parcelamento):
-Sinal para a Construtora: ${data.sinalConstrutora}
-Máximo que a Construtora Parcela: ${data.maximoConstrParc} em ${data.parcelasEntrada}x
-Correção Mensal (INCC): ${data.correcaoINCC}
---------------------------------------------------
-Intercaladas:
-Valor das Intercaladas: ${data.valorIntercaladas}
-Quantidade de Intercaladas: ${data.quantidadeIntercaladas}
-Total de Intercaladas: ${data.totalIntercaladas}
---------------------------------------------------
-Saldo Remanescente: ${data.saldoRemanescente}
-${cleanCurrencyFormat(saldoRemanescenteSpan.textContent) > 0.00 ? 'Nota: Esse valor ou parte dele, pode ser pago na entrega das chaves, intercaladas ou de forma que a construtora aceite.\n--------------------------------------------------\n' : ''}
-Valor da Entrada Parcelado: ${data.valorParcelaEntradaInicial}
---------------------------------------------------
-`;
-            
-            if (data.notasCliente) {
-                txtContent += `NOTAS DO CLIENTE:\n${wordWrap(data.notasCliente, maxWidth)}\n--------------------------------------------------\n`;
-            }
-
-            if (data.observacoesSimulacao) {
-                txtContent += `OBSERVACÕES DA SIMULAÇÃO:\n${wordWrap(data.observacoesSimulacao, maxWidth)}\n--------------------------------------------------\n`;
-            }
-
-            const observacaoFinal = `Observação: Esta é uma simulação. Valores sujeitos a alteração e aprovação.
-O valor das parcelas de entrada é corrigido mensalmente pelo INCC
-`;
-            txtContent += wordWrap(observacaoFinal, maxWidth) + '\n';
-
-            return txtContent;
-        }
-
-        function gerarConteudoSimulacaoWhatsApp() {
-            const data = getFormattedValues();
-            const saldoRemanescenteNumerico = cleanCurrencyFormat(saldoRemanescenteSpan.textContent);
-            let msg = `*Simulação de Plano de Pagamento*%0A%0A`;
-            msg += `*Cliente:* ${data.nomeCliente}%0A`;
-            if (data.telefoneCliente !== 'Não Informado' && data.telefoneCliente !== '(Formato Inválido)') {
-                msg += `*Telefone:* ${data.telefoneCliente}%0A`;
-            }
-            msg += `*Empreendimento:* ${data.nomeEmpreendimento}%0A%0A`;
-            msg += `*Plano de Pagamento:*%0A`;
-            msg += `Valor do Imóvel (Tabela,Construtora): ${data.valorImovel}%0A`;
-            if (cleanCurrencyFormat(data.descontoMCMV) > 0) msg += `Desconto (Subsídio): ${data.descontoMCMV}%0A`;
-            if (cleanCurrencyFormat(data.descontoConstrutora) > 0) msg += `Desconto Construtora: ${data.descontoConstrutora}%0A`;
-            if (cleanCurrencyFormat(data.valorFGTS) > 0) msg += `FGTS: ${data.valorFGTS}%0A`;
-            msg += `Valor Financiado (Caixa): ${data.valorFinanciado}%0A%0A`;
-
-            msg += `*(Sinal, Decontos, Parcelamento):*%0A`;
-            if (cleanCurrencyFormat(data.sinalConstrutora) > 0) msg += `  Sinal: ${data.sinalConstrutora}%0A`;
-            msg += `  Parcelado Construtora: ${data.maximoConstrParc} em ${data.parcelasEntrada}x%0A`;
-            msg += `  *1ª Parcela (com INCC ${data.correcaoINCC}):* ${data.valorParcelaEntradaInicial}%0A`;
-            
-            if (cleanCurrencyFormat(data.valorIntercaladas) > 0 && data.quantidadeIntercaladas > 0) {
-                msg += `%0A*Intercaladas:*%0A`;
-                msg += `  Valor: ${data.valorIntercaladas}%0A`;
-                msg += `  Quantidade: ${data.quantidadeIntercaladas}%0A`;
-                msg += `  Total: ${data.totalIntercaladas}%0A`;
-            }
-            
-            if (saldoRemanescenteNumerico > 0.00) {
-                msg += `  Saldo Remanescente: ${data.saldoRemanescente}%0A`;
-                msg += `  _Esse valor ou parte dele, pode ser pago na entrega das chaves, intercaladas ou de forma que a construtora aceite._%0A`;
-            } else {
-                msg += `  Saldo Remanescente: ${data.saldoRemanescente}%0A`;
-            }
-            
-            msg += `%0A${encodeURIComponent("O valor das parcelas de entrada é corrigido mensalmente pelo INCC")}%0A`;
-            
-            if (data.observacoesSimulacao) {
-                msg += `%0A*OBSERVACÕES DA SIMULAÇÃO:*%0A${encodeURIComponent(data.observacoesSimulacao)}`;
-            }
-
-            msg += `%0A%0A*Atenção:* Simulação sujeita a alterações e aprovação.`;
-            return msg;
-        }
-
-        function gerarConteudoDocumentosTXT() {
-            const imobiliaria = imobiliariaNomeInput.value.trim() || 'IMOBILIÁRIA';
-            const corretor = corretorNomeInput.value.trim() || 'Corretor(a)';
-            const creci = corretorCreciInput.value.trim() || 'CRECI';
-            const nomeClienteVal = nomeClienteInput.value.trim();
-            const profissaoSelecionada = profissaoClienteSelect.value;
-            const dadosProfissao = documentosPorProfissao[profissaoSelecionada];
-
-            let txtContent = `DOCUMENTOS PARA SIMULAÇÃO\n\n`;
-            txtContent += `--------------------------------------------------\n`;
-            txtContent += `${imobiliaria.toUpperCase()}\n`;
-            txtContent += `${corretor.toUpperCase()} - ${creci.toUpperCase()}\n`;
-            txtContent += `--------------------------------------------------\n\n`;
-
-            txtContent += `Para darmos andamento à sua simulação, precisaremos dos seguintes documentos para o cliente ${nomeClienteVal || 'identificado'}:\n\n`;
-
-            txtContent += `--- ${dadosProfissao.titulo} ---\n`;
-            dadosProfissao.documentos.forEach(documento => {
-                txtContent += `- ${documento}\n`;
-            });
-            
-            if (dadosProfissao.observacao) {
-                txtContent += `\n*OBSERVAÇÃO:* ${dadosProfissao.observacao}\n`;
-            }
-            
-            txtContent += `\n--- OBSERVAÇÃO GERAL ---\n`;
-            txtContent += `- Apresentar Imposto de Renda caso tenha declarado\n\n`;
-
-            txtContent += `Por favor, me envie fotos claras e legíveis de todos os documentos. Caso tenha alguma dúvida, estou à disposição para ajudar!\n\n`;
-            txtContent += `--------------------------------------------------\n`;
-            txtContent += `Gerado em: ${new Date().toLocaleString('pt-BR')}\n`;
-            txtContent += `Desenvolvedor - Alex Peixoto - (82) 996622036\n`;
-            txtContent += `--------------------------------------------------\n`;
-
-            return txtContent;
-        }
-
-        function baixarDocumentosComoTxt() {
-            const textoDosDocumentos = gerarConteudoDocumentosTXT();
-            const nomeClienteVal = nomeClienteInput.value.trim().replace(/\s+/g, '_') || 'Cliente';
-            const nomeArquivo = `Documentos_${nomeClienteVal}.txt`;
-            const blob = new Blob([textoDosDocumentos], { type: 'text/plain;charset=utf-8' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = nomeArquivo;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(link.href);
-            showToast('Lista de documentos baixada como TXT!', 'success');
-            documentsModal.classList.remove('show');
-        }
-
-        function gerarConteudoDocumentosWhatsApp() {
-            const imobiliaria = imobiliariaNomeInput.value.trim() || 'IMOBILIÁRIA';
-            const corretor = corretorNomeInput.value.trim() || 'Corretor(a)';
-            const creci = corretorCreciInput.value.trim() || 'CRECI';
-            const nomeClienteVal = nomeClienteInput.value.trim();
-            const profissaoSelecionada = profissaoClienteSelect.value;
-            const dadosProfissao = documentosPorProfissao[profissaoSelecionada];
-
-            let msg = `*DOCUMENTOS PARA SIMULAÇÃO*%0A%0A`;
-            msg += `*--------------------------------------------------*%0A`;
-            msg += `*${imobiliaria.toUpperCase()}*%0A`;
-            msg += `*${corretor.toUpperCase()} - ${creci.toUpperCase()}*%0A`;
-            msg += `*--------------------------------------------------*%0A%0A`;
-
-            msg += `Para darmos andamento à sua simulação, precisaremos dos seguintes documentos para o cliente ${nomeClienteVal ? `*${nomeClienteVal}*` : 'identificado'}:%0A%0A`;
-
-            msg += `*--- ${dadosProfissao.titulo} ---*%0A`;
-            dadosProfissao.documentos.forEach(documento => {
-                msg += `✅ ${documento}%0A`;
-            });
-            
-            if (dadosProfissao.observacao) {
-                msg += `%0A*OBSERVAÇÃO ESPECÍFICA:*%0A`;
-                msg += `✅ ${dadosProfissao.observacao}%0A`;
-            }
-            
-            msg += `%0A*--- OBSERVAÇÃO GERAL ---*%0A`;
-            msg += `✅ Apresentar Imposto de Renda caso tenha declarado%0A%0A`;
-
-            msg += `Por favor, me envie fotos claras e legíveis de todos os documentos. Caso tenha alguma dúvida, estou à disposição para ajudar!%0A%0A`;
-            msg += `*--------------------------------------------------*%0A`;
-            msg += `Gerado em: ${new Date().toLocaleString('pt-BR')}%0A`;
-            msg += `Desenvolvedor - Alex Peixoto - (82) 996622036%0A`;
-            msg += `*--------------------------------------------------*`;
-
-            return encodeURIComponent(msg);
-        }
-
-        function baixarSimulacaoComoTXT() {
-            const textoDaSimulacao = gerarConteudoSimulacaoTXT();
-            const nomeArquivoBase = nomeEmpreendimentoInput.value.trim().replace(/\s+/g, '_') || 'Simulacao';
-            const nomeClienteBase = nomeClienteInput.value.trim().replace(/\s+/g, '_') || 'Cliente';
-            const nomeArquivo = `${nomeArquivoBase}_${nomeClienteBase}.txt`;
-            const blob = new Blob([textoDaSimulacao], { type: 'text/plain;charset=utf-8' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = nomeArquivo;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(link.href);
-            showToast('Simulação baixada como TXT!', 'success');
-        }
-
-        function enviarSimulacaoPorWhatsApp() {
-            const mensagem = gerarConteudoSimulacaoWhatsApp();
-            const telefoneLimpo = getCleanPhoneNumberDigits(telefoneClienteInput.value.trim());
-            let urlWhatsApp = '';
-
-            if (telefoneLimpo) {
-                urlWhatsApp = `https://wa.me/55${telefoneLimpo}?text=${mensagem}`;
-            } else {
-                urlWhatsApp = `https://wa.me/?text=${mensagem}`;
-                showToast('Telefone do cliente não informado. A mensagem será aberta para você escolher o contato.', 'warning', 7000);
-            }
-
-            const newWindow = window.open(urlWhatsApp, '_blank');
-            if (!newWindow) {
-                showToast('Falha ao abrir o WhatsApp. Verifique se popups estão bloqueados.', 'danger', 5000);
-            }
-        }
-
-        function enviarDocumentosPorWhatsApp() {
-            const mensagemDocumentos = gerarConteudoDocumentosWhatsApp();
-            const telefoneLimpo = getCleanPhoneNumberDigits(telefoneClienteInput.value.trim());
-            let urlWhatsApp = '';
-
-            if (!telefoneLimpo) {
-                showToast('Telefone do cliente não preenchido no simulador. Por favor, insira o telefone do cliente.', 'warning', 7000);
-                return;
-            }
-
-            urlWhatsApp = `https://wa.me/55${telefoneLimpo}?text=${mensagemDocumentos}`;
-
-            const newWindow = window.open(urlWhatsApp, '_blank');
-            if (!newWindow) {
-                showToast('Falha ao abrir o WhatsApp. Verifique se popups estão bloqueados.', 'danger', 5000);
-            } else {
-                documentsModal.classList.remove('show');
-            }
-        }
-
-        async function baixarDocumentosComoPdf() {
-            if (!documentsModalBody) {
-                console.error("Elemento documentsModalBody não encontrado!");
-                showToast('Erro ao gerar PDF: conteúdo não encontrado.', 'danger');
-                return;
-            }
-
-            showToast('Gerando PDF... Aguarde um momento.', 'info', 3000);
-
-            const imobiliariaNome = imobiliariaNomeInput.value.trim();
-            const corretorNome = corretorNomeInput.value.trim();
-            const corretorCreci = corretorCreciInput.value.trim();
-
-            const originalPdfHeaderContent = pdfHeaderInfo.innerHTML;
-            
-            pdfHeaderInfo.innerHTML = `
-                <h2 style="color: #333; text-align: center; margin-bottom: 5px; font-size: 1.2rem; line-height: 1.1;">
-                    ${imobiliariaNome.toUpperCase() || 'IMOBILIÁRIA'}
-                </h2>
-                <p style="text-align: center; color: #555; font-size: 0.8rem; margin-bottom: 10px; line-height: 1.1;">
-                    ${corretorNome.toUpperCase() || 'CORRETOR(A)'} ${corretorCreci.toUpperCase() || ''}
-                </p>
-            `;
-            
-            documentsModalBody.classList.add('documents-print-layout');
-
+        // Função para buscar INCC do IBGE - AGORA ONLINE
+        async function fetchINCCData() {
             try {
-                const canvas = await html2canvas(documentsModalBody, {
-                    scale: 3,
-                    useCORS: true,
-                    backgroundColor: '#ffffff'
-                });
-
-                const imgData = canvas.toDataURL('image/jpeg', 1.0);
-                const pdf = new jsPDF('p', 'mm', 'a4');
-
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = pdf.internal.pageSize.getHeight();
-
-                const imgProps = pdf.getImageProperties(imgData);
-                const imgRatio = imgProps.width / imgProps.height;
-                const imgHeightInPdf = pdfWidth / imgRatio;
-
-                let heightLeft = imgHeightInPdf;
-                let position = 0;
-
-                pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, imgHeightInPdf);
-                heightLeft -= pdfHeight;
-
-                while (heightLeft > 0) {
-                    position = heightLeft - imgHeightInPdf;
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, imgHeightInPdf);
-                    heightLeft -= pdfHeight;
+                // Usar API do IBGE diretamente para INCC
+                const response = await fetch('https://apisidra.ibge.gov.br/values/t/1736/n1/all/v/2265/p/last%201/d/v2265%2013');
+                
+                if (!response.ok) {
+                    throw new Error('Falha na requisição ao IBGE');
                 }
-
-                const nomeClienteVal = nomeClienteInput.value.trim().replace(/\s+/g, '_') || 'Cliente';
-                pdf.save(`Documentos_${nomeClienteVal}.pdf`);
-                showToast('PDF dos documentos baixado com sucesso!', 'success');
-
-            } catch (error) {
-                console.error("Erro ao gerar PDF:", error);
-                showToast('Erro ao gerar PDF. Tente novamente mais tarde.', 'danger');
-            } finally {
-                documentsModalBody.classList.remove('documents-print-layout');
-                pdfHeaderInfo.innerHTML = originalPdfHeaderContent;
-                documentsModal.classList.remove('show');
-            }
-        }
-
-        function formatCurrencyDisplay(value) {
-            const numberValue = parseFloat(value);
-            if (isNaN(numberValue)) return 'R$ 0,00';
-            return numberValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        }
-
-        function cleanCurrencyFormat(text) {
-            if (!text) return 0;
-            let cleanedText = String(text).replace(/[R$\s.]/g, '').replace(',', '.');
-            if (cleanedText === '' || isNaN(parseFloat(cleanedText))) return 0;
-            return parseFloat(cleanedText);
-        }
-
-        function formatInputAsCurrency(event) {
-            const input = event.target;
-            let value = input.value.replace(/\D/g, '');
-
-            if (value === '') {
-                input.value = '';
-                return;
-            }
-            
-            const originalDigitsBeforeCursor = input.value.substring(0, input.selectionStart).replace(/\D/g, '').length;
-            const numberValue = parseFloat(value) / 100;
-            input.value = numberValue.toFixed(2).replace('.', ',');
-            const parts = input.value.split(',');
-            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-            input.value = parts.join(',');
-
-            let newCursorPosition = 0;
-            let digitsCount = 0;
-            
-            for(let i = 0; i < input.value.length; i++) {
-                if (/\d/.test(input.value[i])) {
-                    digitsCount++;
-                }
-                if (digitsCount <= originalDigitsBeforeCursor) {
-                    newCursorPosition = i + 1;
-                } else {
-                    break;
-                }
-            }
-            
-            if (input.value.startsWith('0,0') && value.length > 1) {
-                newCursorPosition = input.value.length;
-            }
-
-            try {
-                if (!(originalDigitsBeforeCursor === (value.length -1) && value.length <=2) ) {
-                    input.setSelectionRange(newCursorPosition, newCursorPosition);
-                }
-            } catch (e) {
-                console.warn("Erro ao definir posição do cursor:", e);
-            }
-        }
-
-        function formatInputAsPhone(event) {
-            const input = event.target;
-            let value = input.value.replace(/\D/g, '');
-            const originalLength = input.value.length;
-            const cursorPosition = input.selectionStart;
-            
-            if (value.length > 0) {
-                value = value.replace(/^(\d{2})/, '($1) ');
-                if (value.length > 5) {
-                    if (value.length <= 14 && value.charAt(5) === '9' && value.length > 6) {
-                        value = value.replace(/(\(\d{2}\)\s\d{5})(\d{0,4})/, '$1-$2');
-                    } else if (value.length <=14 && value.charAt(5) !== '9' && value.length > 5){
-                        value = value.replace(/(\(\d{2}\)\s\d{4})(\d{0,4})/, '$1-$2');
-                    } else if (value.length === 15 && value.charAt(5) === '9') {
-                        value = value.replace(/(\(\d{2}\)\s\d{5})(\d{4})/, '$1-$2');
-                    } else if (value.length === 14 && value.charAt(5) !== '9') {
-                        value = value.replace(/(\(\d{2}\)\s\d{4})(\d{4})/, '$1-$2');
+                
+                const data = await response.json();
+                
+                if (data && data.length > 1) {
+                    // O primeiro item é o cabeçalho, o segundo contém os dados
+                    const ultimoValor = parseFloat(data[1].V);
+                    const periodo = data[1].D3N; // Ex: "janeiro 2024"
+                    
+                    if (!isNaN(ultimoValor)) {
+                        // Atualizar interface
+                        inccCurrentValue.textContent = `${ultimoValor.toFixed(2)}%`;
+                        inccUpdateTime.textContent = `Período: ${periodo}`;
+                        inccLoading.style.display = 'none';
+                        
+                        // Armazenar no localStorage
+                        localStorage.setItem('lastINCCValue', ultimoValor.toString());
+                        localStorage.setItem('lastINCCDate', periodo);
+                        localStorage.setItem('lastINCCUpdate', new Date().toISOString());
+                        
+                        // Sugerir valor no campo de INCC se estiver em 0
+                        if (parseFloat(correcaoINCCInput.value) === 0) {
+                            correcaoINCCInput.value = ultimoValor.toFixed(2);
+                            calcularValores();
+                        }
+                        
+                        return ultimoValor;
                     }
                 }
-                if (value.length > 15) value = value.substring(0,15);
+                
+                throw new Error('Dados não disponíveis');
+            } catch (error) {
+                console.error('Erro ao buscar INCC:', error);
+                
+                // Fallback para API alternativa
+                try {
+                    const fallbackResponse = await fetch('https://api.bcb.gov.br/dados/serie/bcdata.sgs.11428/dados/ultimos/1?formato=json');
+                    if (fallbackResponse.ok) {
+                        const fallbackData = await fallbackResponse.json();
+                        if (fallbackData && fallbackData[0]) {
+                            const ultimoValor = parseFloat(fallbackData[0].valor);
+                            const data = fallbackData[0].data;
+                            
+                            inccCurrentValue.textContent = `${ultimoValor.toFixed(2)}%`;
+                            inccUpdateTime.textContent = `Data: ${data}`;
+                            inccLoading.style.display = 'none';
+                            
+                            localStorage.setItem('lastINCCValue', ultimoValor.toString());
+                            localStorage.setItem('lastINCCDate', data);
+                            
+                            if (parseFloat(correcaoINCCInput.value) === 0) {
+                                correcaoINCCInput.value = ultimoValor.toFixed(2);
+                                calcularValores();
+                            }
+                            
+                            return ultimoValor;
+                        }
+                    }
+                } catch (fallbackError) {
+                    console.error('Fallback também falhou:', fallbackError);
+                }
+                
+                // Tentar usar dados armazenados localmente
+                const lastINCC = localStorage.getItem('lastINCCValue');
+                const lastINCCDate = localStorage.getItem('lastINCCDate');
+                
+                if (lastINCC) {
+                    inccCurrentValue.textContent = `${parseFloat(lastINCC).toFixed(2)}%`;
+                    inccUpdateTime.textContent = `Último conhecido: ${lastINCCDate || 'N/D'}`;
+                    inccLoading.style.display = 'none';
+                    
+                    if (parseFloat(correcaoINCCInput.value) === 0) {
+                        correcaoINCCInput.value = parseFloat(lastINCC).toFixed(2);
+                        calcularValores();
+                    }
+                    
+                    return parseFloat(lastINCC);
+                } else {
+                    // Valor padrão se não conseguir buscar
+                    inccCurrentValue.textContent = '0,55% (padrão)';
+                    inccUpdateTime.textContent = 'Dados offline';
+                    inccLoading.style.display = 'none';
+                    
+                    if (parseFloat(correcaoINCCInput.value) === 0) {
+                        correcaoINCCInput.value = '0.55';
+                        calcularValores();
+                    }
+                    
+                    return 0.55;
+                }
             }
-            
-            input.value = value;
+        }
 
-            const newLength = input.value.length;
-            const diff = newLength - originalLength;
-            let newCursorPosition = cursorPosition + diff;
+        // Função para gerar PDF profissional
+        async function gerarResumoPDF() {
+            showToast('Gerando resumo em PDF...', 'info', 3000);
             
-            if (diff > 0 && cursorPosition === originalLength) {
-                newCursorPosition = newLength;
-            }
-
+            const data = getFormattedValues();
+            const dataAtual = new Date().toLocaleDateString('pt-BR');
+            const horaAtual = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            
             try {
-                input.setSelectionRange(newCursorPosition, newCursorPosition);
-            } catch (e) {
-                console.warn("Erro ao definir posição do cursor no telefone:", e);
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const margin = 15;
+                let yPos = margin;
+                
+                // Cabeçalho
+                pdf.setFillColor(41, 128, 185);
+                pdf.rect(0, 0, pageWidth, 25, 'F');
+                
+                pdf.setTextColor(255, 255, 255);
+                pdf.setFontSize(20);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text('RESUMO DA SIMULAÇÃO', pageWidth / 2, 15, { align: 'center' });
+                
+                pdf.setFontSize(10);
+                pdf.text(`Gerado em: ${dataAtual} às ${horaAtual}`, pageWidth / 2, 22, { align: 'center' });
+                
+                yPos = 35;
+                
+                // Informações do cliente
+                pdf.setTextColor(0, 0, 0);
+                pdf.setFontSize(14);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text('INFORMAÇÕES DO CLIENTE', margin, yPos);
+                
+                pdf.setDrawColor(41, 128, 185);
+                pdf.setLineWidth(0.5);
+                pdf.line(margin, yPos + 2, pageWidth - margin, yPos + 2);
+                
+                yPos += 10;
+                
+                pdf.setFontSize(11);
+                pdf.setFont('helvetica', 'normal');
+                pdf.text(`Nome: ${data.nomeCliente}`, margin, yPos);
+                pdf.text(`Telefone: ${data.telefoneCliente}`, pageWidth / 2, yPos);
+                yPos += 7;
+                pdf.text(`Empreendimento: ${data.nomeEmpreendimento}`, margin, yPos);
+                yPos += 10;
+                
+                // Valores do imóvel
+                pdf.setFontSize(14);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text('VALORES DO IMÓVEL', margin, yPos);
+                pdf.line(margin, yPos + 2, pageWidth - margin, yPos + 2);
+                
+                yPos += 10;
+                
+                pdf.setFontSize(11);
+                pdf.setFont('helvetica', 'normal');
+                
+                const valores = [
+                    ['Valor do Imóvel:', data.valorImovel],
+                    ['Desconto (Subsídio):', data.descontoMCMV],
+                    ['Desconto Construtora:', data.descontoConstrutora],
+                    ['FGTS:', data.valorFGTS],
+                    ['Valor Financiado:', data.valorFinanciado]
+                ];
+                
+                valores.forEach(item => {
+                    pdf.text(item[0], margin, yPos);
+                    pdf.text(item[1], pageWidth - margin - 40, yPos, { align: 'right' });
+                    yPos += 6;
+                });
+                
+                yPos += 5;
+                
+                // Entrada
+                pdf.setFontSize(14);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text('ENTRADA', margin, yPos);
+                pdf.line(margin, yPos + 2, pageWidth - margin, yPos + 2);
+                
+                yPos += 10;
+                
+                pdf.setFontSize(11);
+                pdf.setFont('helvetica', 'normal');
+                
+                const entrada = [
+                    ['Sinal para Construtora:', data.sinalConstrutora],
+                    ['Valor Parcelado:', data.maximoConstrParc],
+                    ['Parcelas:', `${data.parcelasEntrada}x`],
+                    ['Correção INCC:', data.correcaoINCC],
+                    ['1ª Parcela:', data.valorParcelaEntradaInicial]
+                ];
+                
+                entrada.forEach(item => {
+                    pdf.text(item[0], margin, yPos);
+                    pdf.text(item[1], pageWidth - margin - 40, yPos, { align: 'right' });
+                    yPos += 6;
+                });
+                
+                yPos += 5;
+                
+                // Intercaladas
+                if (cleanCurrencyFormat(data.valorIntercaladas) > 0 && parseInt(data.quantidadeIntercaladas) > 0) {
+                    pdf.setFontSize(14);
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.text('INTERCALADAS', margin, yPos);
+                    pdf.line(margin, yPos + 2, pageWidth - margin, yPos + 2);
+                    
+                    yPos += 10;
+                    
+                    pdf.setFontSize(11);
+                    pdf.setFont('helvetica', 'normal');
+                    
+                    const intercaladas = [
+                        ['Valor das Intercaladas:', data.valorIntercaladas],
+                        ['Quantidade:', data.quantidadeIntercaladas],
+                        ['Total:', data.totalIntercaladas]
+                    ];
+                    
+                    intercaladas.forEach(item => {
+                        pdf.text(item[0], margin, yPos);
+                        pdf.text(item[1], pageWidth - margin - 40, yPos, { align: 'right' });
+                        yPos += 6;
+                    });
+                    
+                    yPos += 5;
+                }
+                
+                // Resumo financeiro em destaque
+                pdf.setFillColor(240, 248, 255);
+                pdf.roundedRect(margin - 2, yPos - 2, pageWidth - 2 * margin + 4, 30, 3, 3, 'F');
+                
+                pdf.setFontSize(14);
+                pdf.setFont('helvetica', 'bold');
+                pdf.setTextColor(41, 128, 185);
+                pdf.text('RESUMO FINANCEIRO', margin, yPos);
+                
+                yPos += 10;
+                
+                pdf.setFontSize(12);
+                pdf.setTextColor(0, 0, 0);
+                pdf.text('Saldo Remanescente:', margin, yPos);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text(data.saldoRemanescente, pageWidth - margin - 40, yPos, { align: 'right' });
+                
+                yPos += 8;
+                
+                if (cleanCurrencyFormat(data.saldoRemanescente) > 0) {
+                    pdf.setFontSize(9);
+                    pdf.setFont('helvetica', 'italic');
+                    pdf.setTextColor(100, 100, 100);
+                    pdf.text('Esse valor ou parte dele, pode ser pago na entrega das chaves,', margin, yPos);
+                    yPos += 4;
+                    pdf.text('intercaladas ou de forma que a construtora aceite.', margin, yPos);
+                }
+                
+                yPos += 15;
+                
+                // Observações
+                if (data.observacoesSimulacao) {
+                    pdf.setFontSize(14);
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.text('OBSERVAÇÕES', margin, yPos);
+                    pdf.line(margin, yPos + 2, pageWidth - margin, yPos + 2);
+                    
+                    yPos += 10;
+                    
+                    pdf.setFontSize(10);
+                    pdf.setFont('helvetica', 'normal');
+                    
+                    const observacoesLines = pdf.splitTextToSize(data.observacoesSimulacao, pageWidth - 2 * margin);
+                    observacoesLines.forEach(line => {
+                        if (yPos > pageHeight - 20) {
+                            pdf.addPage();
+                            yPos = margin;
+                        }
+                        pdf.text(line, margin, yPos);
+                        yPos += 5;
+                    });
+                    
+                    yPos += 5;
+                }
+                
+                // Nota sobre correção
+                yPos = pageHeight - 25;
+                pdf.setFontSize(8);
+                pdf.setFont('helvetica', 'italic');
+                pdf.setTextColor(100, 100, 100);
+                pdf.text('* O valor das parcelas de entrada é corrigido mensalmente pelo INCC e após a obra pelo IPCA mais 1%.', 
+                        pageWidth / 2, yPos, { align: 'center' });
+                yPos += 4;
+                pdf.text('** Valores sujeitos a alteração e aprovação. Esta é uma simulação preliminar.', 
+                        pageWidth / 2, yPos, { align: 'center' });
+                
+                // Rodapé
+                pdf.setFontSize(7);
+                pdf.setTextColor(150, 150, 150);
+                pdf.text(`Simulador de Plano de Pagamento - Desenvolvido por Alex Peixoto - (82) 996622036`, 
+                        pageWidth / 2, pageHeight - 10, { align: 'center' });
+                
+                // Salvar PDF
+                const nomeArquivo = `Resumo_${data.nomeCliente.replace(/\s+/g, '_')}_${dataAtual.replace(/\//g, '-')}.pdf`;
+                pdf.save(nomeArquivo);
+                
+                showToast('Resumo PDF baixado com sucesso!', 'success');
+                
+            } catch (error) {
+                console.error('Erro ao gerar PDF:', error);
+                showToast('Erro ao gerar PDF. Tente novamente.', 'danger');
             }
         }
 
-        function validatePhoneNumber(phoneNumber) {
-            const digits = phoneNumber.replace(/\D/g, '');
-            return digits.length === 10 || digits.length === 11;
-        }
-
-        function getCleanPhoneNumberDigits(phoneNumber) {
-            return phoneNumber.replace(/\D/g, '');
-        }
-
-        function calcularIntercaladas() {
-            const valorIntercaladas = cleanCurrencyFormat(valorIntercaladasInput.value) || 0;
-            const quantidadeIntercaladas = parseInt(quantidadeIntercaladasInput.value) || 0;
-            const totalIntercaladas = valorIntercaladas * quantidadeIntercaladas;
+        // Função para gerar PDF da lista de leads
+        async function gerarListaLeadsPDF() {
+            showToast('Gerando lista de leads em PDF...', 'info', 3000);
             
-            totalIntercaladasSpan.textContent = formatCurrencyDisplay(totalIntercaladas);
+            const leads = JSON.parse(localStorage.getItem('leads') || '[]');
+            if (leads.length === 0) {
+                showToast('Nenhum lead para exportar.', 'warning');
+                return;
+            }
             
-            return totalIntercaladas;
+            const dataAtual = new Date().toLocaleDateString('pt-BR');
+            const horaAtual = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            
+            try {
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const margin = 15;
+                let yPos = margin;
+                
+                // Cabeçalho
+                pdf.setFillColor(41, 128, 185);
+                pdf.rect(0, 0, pageWidth, 25, 'F');
+                
+                pdf.setTextColor(255, 255, 255);
+                pdf.setFontSize(20);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text('LISTA DE LEADS', pageWidth / 2, 15, { align: 'center' });
+                
+                pdf.setFontSize(10);
+                pdf.text(`Gerado em: ${dataAtual} às ${horaAtual} | Total: ${leads.length} leads`, pageWidth / 2, 22, { align: 'center' });
+                
+                yPos = 35;
+                
+                // Tabela de leads
+                pdf.setTextColor(0, 0, 0);
+                pdf.setFontSize(12);
+                pdf.setFont('helvetica', 'bold');
+                
+                // Cabeçalho da tabela
+                const colWidths = [30, 25, 30, 15, 20, 20, 15, 15, 20];
+                const headers = ['Nome', 'Telefone', 'Empreendimento', 'Data', 'Subsídio', 'Financiado', 'FGTS', 'Notas', 'Obs.'];
+                
+                // Desenhar cabeçalho
+                let xPos = margin;
+                headers.forEach((header, index) => {
+                    pdf.setFillColor(240, 240, 240);
+                    pdf.rect(xPos, yPos, colWidths[index], 8, 'F');
+                    pdf.text(header, xPos + 2, yPos + 5);
+                    xPos += colWidths[index];
+                });
+                
+                yPos += 10;
+                
+                // Dados dos leads
+                pdf.setFontSize(9);
+                pdf.setFont('helvetica', 'normal');
+                
+                leads.forEach((lead, leadIndex) => {
+                    // Verificar se precisa de nova página
+                    if (yPos > pageHeight - 20) {
+                        pdf.addPage();
+                        yPos = margin;
+                        
+                        // Redesenhar cabeçalho
+                        xPos = margin;
+                        headers.forEach((header, index) => {
+                            pdf.setFillColor(240, 240, 240);
+                            pdf.rect(xPos, yPos, colWidths[index], 8, 'F');
+                            pdf.setFont('helvetica', 'bold');
+                            pdf.text(header, xPos + 2, yPos + 5);
+                            xPos += colWidths[index];
+                        });
+                        yPos += 10;
+                        pdf.setFont('helvetica', 'normal');
+                    }
+                    
+                    // Dados do lead
+                    const rowData = [
+                        lead.nome?.substring(0, 15) || '',
+                        lead.telefone || '',
+                        lead.empreendimento?.substring(0, 15) || '',
+                        lead.data || '',
+                        lead.subsidio || '',
+                        lead.financiado || '',
+                        lead.fgts || '',
+                        lead.notas ? 'Sim' : 'Não',
+                        lead.observacoes ? 'Sim' : 'Não'
+                    ];
+                    
+                    xPos = margin;
+                    rowData.forEach((cell, cellIndex) => {
+                        pdf.text(cell.substring(0, 15), xPos + 2, yPos + 4);
+                        xPos += colWidths[cellIndex];
+                    });
+                    
+                    yPos += 6;
+                    
+                    // Linha divisória
+                    if (leadIndex < leads.length - 1) {
+                        pdf.setDrawColor(200, 200, 200);
+                        pdf.line(margin, yPos - 1, pageWidth - margin, yPos - 1);
+                    }
+                });
+                
+                // Resumo
+                yPos += 10;
+                pdf.setFontSize(10);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text('RESUMO GERAL', margin, yPos);
+                
+                yPos += 7;
+                pdf.setFontSize(9);
+                pdf.setFont('helvetica', 'normal');
+                pdf.text(`Total de Leads: ${leads.length}`, margin, yPos);
+                yPos += 4;
+                
+                const leadsComNotas = leads.filter(lead => lead.notas && lead.notas.trim() !== '').length;
+                pdf.text(`Leads com notas: ${leadsComNotas}`, margin, yPos);
+                yPos += 4;
+                
+                const leadsComObservacoes = leads.filter(lead => lead.observacoes && lead.observacoes.trim() !== '').length;
+                pdf.text(`Leads com observações: ${leadsComObservacoes}`, margin, yPos);
+                
+                // Rodapé
+                pdf.setFontSize(7);
+                pdf.setTextColor(150, 150, 150);
+                pdf.text(`Simulador de Plano de Pagamento - Desenvolvido por Alex Peixoto - (82) 996622036`, 
+                        pageWidth / 2, pageHeight - 10, { align: 'center' });
+                
+                // Salvar PDF
+                const nomeArquivo = `Lista_Leads_${dataAtual.replace(/\//g, '-')}.pdf`;
+                pdf.save(nomeArquivo);
+                
+                showToast('Lista de leads exportada em PDF com sucesso!', 'success');
+                
+            } catch (error) {
+                console.error('Erro ao gerar PDF de leads:', error);
+                showToast('Erro ao gerar PDF. Tente novamente.', 'danger');
+            }
         }
 
+        // Função principal de cálculo
         function calcularValores() {
             const valorImovel = cleanCurrencyFormat(valorImovelInput.value) || 0;
             const descontoMCMV = cleanCurrencyFormat(descontoMCMVInput.value) || 0;
@@ -2638,27 +2293,14 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             }
             
             valorParcelaEntradaInicialSpan.textContent = formatCurrencyDisplay(valorParcelaEntradaInicialCalc);
-            
-            atualizarDadosImpressao();
         }
 
-        function formatPhoneNumberForOutput(phoneNumber) {
-            const digits = phoneNumber.replace(/\D/g, '');
-            if (digits.length === 0) return 'Não Informado';
-            if (digits.length === 11) {
-                return `(${digits.substring(0, 2)}) ${digits.substring(2, 7)}-${digits.substring(7)}`;
-            } else if (digits.length === 10) {
-                return `(${digits.substring(0, 2)}) ${digits.substring(2, 6)}-${digits.substring(6)}`;
-            }
-            return `${digits} (Formato Inválido)`;
-        }
-
+        // Função para limpar formulário
         function limparFormularioNovaSimulacao() {
             nomeEmpreendimentoInput.value = '';
             nomeClienteInput.value = '';
             telefoneClienteInput.value = '';
             parcelasEntradaInput.value = '1';
-            correcaoINCCInput.value = '0';
             
             const camposMoedaParaLimpar = [
                 valorImovelInput,
@@ -2704,1115 +2346,637 @@ O valor das parcelas de entrada é corrigido mensalmente pelo INCC
             nomeEmpreendimentoInput.focus();
         }
 
-        function exportarBackup() {
-            try {
-                const clientNotes = localStorage.getItem('clientNotes') || '[]';
-                const listaLeads = localStorage.getItem('listaLeads') || '[]';
+        // Função para carregar documentos por profissão
+        function carregarDocumentosPorProfissao(profissao) {
+            const documentos = {
+                'carteira-assinada': [
+                    'RG e CPF (cópia)',
+                    'Comprovante de Residência (atual)',
+                    'Carteira de Trabalho (cópia completa)',
+                    '3 últimos contracheques',
+                    'Declaração de rendimentos do empregador',
+                    'Certidão de Casamento ou Nascimento (se casado)',
+                    'Comprovante de renda do cônjuge (se casado)'
+                ],
+                'servidor-publico': [
+                    'RG e CPF (cópia)',
+                    'Comprovante de Residência (atual)',
+                    'Declaração de vínculo empregatício',
+                    '3 últimos contracheques ou extratos',
+                    'Certidão de Casamento ou Nascimento',
+                    'Comprovante de renda do cônjuge (se aplicável)'
+                ],
+                'empresario': [
+                    'RG e CPF (cópia)',
+                    'Comprovante de Residência (atual)',
+                    'CNPJ da empresa (cópia)',
+                    '3 últimos demonstrativos financeiros',
+                    'Declaração do contador',
+                    'IRPF dos últimos 3 anos',
+                    'Certidão de Casamento ou Nascimento'
+                ],
+                'forcas-armadas': [
+                    'RG e CPF (cópia)',
+                    'Comprovante de Residência (atual)',
+                    'Identidade militar',
+                    '3 últimos contracheques',
+                    'Declaração de serviço ativo',
+                    'Certidão de Casamento ou Nascimento'
+                ],
+                'autonomo': [
+                    'RG e CPF (cópia)',
+                    'Comprovante de Residência (atual)',
+                    'Declaração de Autônomo',
+                    'IRPF dos últimos 3 anos',
+                    'Comprovantes de renda (extratos bancários)',
+                    'Certidão de Casamento ou Nascimento'
+                ],
+                'motorista-aplicativo': [
+                    'RG e CPF (cópia)',
+                    'Comprovante de Residência (atual)',
+                    'CNH (cópia)',
+                    'Extratos da plataforma (últimos 3 meses)',
+                    'Comprovantes bancários',
+                    'IRPF (se tiver)',
+                    'Certidão de Casamento ou Nascimento'
+                ],
+                'pensionista': [
+                    'RG e CPF (cópia)',
+                    'Comprovante de Residência (atual)',
+                    'Comprovante de pensão',
+                    'Extratos bancários (últimos 3 meses)',
+                    'Certidão de óbito do segurado (se for o caso)',
+                    'Certidão de Casamento ou Nascimento'
+                ]
+            };
 
-                const backupData = {
-                    clientNotes: JSON.parse(clientNotes),
-                    listaLeads: JSON.parse(listaLeads),
-                    exportTimestamp: new Date().toISOString()
-                };
-                
-                const jsonData = JSON.stringify(backupData, null, 2);
-                const blob = new Blob([jsonData], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                const today = new Date().toISOString().slice(0, 10);
-                link.download = `simulador_backup_${today}.json`;
-                link.href = url;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-                showToast('Backup exportado com sucesso!', 'success');
-            } catch (error) {
-                console.error("Erro ao exportar backup:", error);
-                showToast('Erro ao exportar backup.', 'danger');
-            }
-        }
-
-        function processImportFile(event) {
-            console.log('processImportFile iniciado.');
-            const file = event.target.files[0];
-            if (!file) {
-                console.log('Nenhum arquivo selecionado.');
-                return;
-            }
+            documentosContainer.innerHTML = '';
             
-            console.log('Arquivo selecionado:', file.name, file.type);
-            if (file.type !== "application/json") {
-                showToast('Por favor, selecione um arquivo .json válido.', 'warning');
-                importFileInput.value = '';
-                console.log('Tipo de arquivo inválido.');
-                return;
+            if (documentos[profissao]) {
+                const section = document.createElement('div');
+                section.className = 'document-section';
+                section.innerHTML = `
+                    <h4>Documentos Necessários para ${profissao.replace('-', ' ').toUpperCase()}</h4>
+                    <ul>
+                        ${documentos[profissao].map(doc => `<li><i class="fas fa-check-circle"></i> ${doc}</li>`).join('')}
+                    </ul>
+                `;
+                documentosContainer.appendChild(section);
             }
+        }
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                console.log('FileReader carregado.');
-                try {
-                    const importedData = JSON.parse(e.target.result);
-                    console.log('Dados importados parseados:', importedData);
-                    
-                    if (typeof importedData !== 'object' || importedData === null ||
-                        (!importedData.hasOwnProperty('clientNotes') && !importedData.hasOwnProperty('listaLeads'))) {
-                        showToast('Arquivo de backup inválido ou formato incorreto.', 'danger');
-                        console.error('Formato de backup inválido.');
-                        importFileInput.value = '';
-                        return;
-                    }
-
-                    if (confirm("Atenção: Importar este backup substituirá todos os dados atuais de notas e leads. Deseja continuar?")) {
-                        console.log('Confirmação de importação aceita.');
-                        let notesImported = false;
-                        let leadsImported = false;
-
-                        if (importedData.hasOwnProperty('clientNotes') && Array.isArray(importedData.clientNotes)) {
-                            localStorage.setItem('clientNotes', JSON.stringify(importedData.clientNotes));
-                            notesImported = true;
-                            console.log('Notas importadas.');
-                            if (historyModal.classList.contains('show')) {
-                                loadHistoryNotes();
-                            }
-                            if (notasClienteTextArea) notasClienteTextArea.value = '';
-                        } else {
-                            console.log('Dados de notas inválidos ou não encontrados no backup.');
-                        }
-
-                        if (importedData.hasOwnProperty('listaLeads') && Array.isArray(importedData.listaLeads)) {
-                            const leadsToImport = importedData.listaLeads.map(lead => {
-                                if (!lead.hasOwnProperty('observacoes')) {
-                                    lead.observacoes = 'Sem observações.';
-                                }
-                                if (!lead.hasOwnProperty('descontoMCMV')) {
-                                    lead.descontoMCMV = 0;
-                                }
-                                if (!lead.hasOwnProperty('valorFinanciado')) {
-                                    lead.valorFinanciado = 0;
-                                }
-                                if (!lead.hasOwnProperty('valorFGTS')) {
-                                    lead.valorFGTS = 0;
-                                }
-                                return lead;
-                            });
-                            
-                            localStorage.setItem('listaLeads', JSON.stringify(leadsToImport));
-                            leadsImported = true;
-                            console.log('Leads importados (compatibilidade aplicada).');
-                            if (secaoListaLeads.style.display !== 'none') {
-                                carregarLeadsNaTabela();
-                            }
-                            updateLeadCountDisplay();
-                        } else {
-                            console.log('Dados de leads inválidos ou não encontrados no backup.');
-                        }
-
-                        if(notesImported && leadsImported){
-                            showToast('Backup de Notas e Leads importado com sucesso!', 'success', 6000);
-                        } else if (notesImported){
-                            showToast('Notas do backup importadas. Leads não encontrados/inválidos no backup.', 'warning', 6000);
-                        } else if (leadsImported){
-                            showToast('Leads do backup importados. Notas não encontradas/inválidas no backup.', 'warning', 6000);
-                        } else {
-                            showToast('Nenhum dado válido de Notas ou Leads encontrado no arquivo de backup.', 'danger', 6000);
-                            console.warn('Nenhum dado válido importado.');
-                        }
-
-                        limparFormularioNovaSimulacao();
-                        console.log('Formulário limpo após importação.');
-
-                    } else {
-                        showToast('Importação de backup cancelada.', 'info');
-                        console.log('Importação cancelada pelo usuário.');
-                    }
-                } catch (error) {
-                    console.error("Erro ao processar o arquivo de backup:", error);
-                    showToast('Erro ao processar o arquivo de backup.', 'danger');
-                } finally {
-                    importFileInput.value = '';
-                    console.log('Input file limpo.');
-                }
-            };
+        // Função para carregar informações do PDF
+        function loadPdfHeaderInfo() {
+            const imobiliariaNome = localStorage.getItem('imobiliariaNome') || '';
+            const corretorNome = localStorage.getItem('corretorNome') || '';
+            const corretorCreci = localStorage.getItem('corretorCreci') || '';
             
-            reader.onerror = function() {
-                console.error("Erro ao ler o arquivo de backup:", reader.error);
-                showToast('Erro ao ler o arquivo de backup.', 'danger');
-                importFileInput.value = '';
-            };
-            reader.readAsText(file);
-        }
-
-        function processImportLeadsFile(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            if (file.type !== "application/json") {
-                showToast('Por favor, selecione um arquivo .json válido.', 'warning');
-                importLeadsFileInput.value = '';
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const importedLeads = JSON.parse(e.target.result);
-
-                    if (!Array.isArray(importedLeads) || !importedLeads.every(lead => typeof lead === 'object' && lead !== null && lead.nome && lead.telefone)) {
-                        showToast('Arquivo de leads inválido ou formato incorreto. Esperado um array de objetos de lead.', 'danger');
-                        importLeadsFileInput.value = '';
-                        return;
-                    }
-
-                    if (confirm("Importar leads mesclará os novos registros com os leads existentes. Duplicatas (com base em Nome e Telefone) serão atualizadas. Deseja continuar?")) {
-                        let existingLeads = JSON.parse(localStorage.getItem('listaLeads')) || [];
-                        let newLeadsAdded = 0;
-                        let leadsUpdated = 0;
-
-                        importedLeads.forEach(importedLead => {
-                            importedLead.observacoes = importedLead.observacoes || 'Sem observações.';
-                            importedLead.descontoMCMV = importedLead.descontoMCMV || 0;
-                            importedLead.valorFinanciado = importedLead.valorFinanciado || 0;
-                            importedLead.valorFGTS = importedLead.valorFGTS || 0;
-                            
-                            if (!importedLead.dataSalvo) {
-                                importedLead.dataSalvo = new Date().toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-                            }
-                            if (!importedLead.dataISO) {
-                                importedLead.dataISO = new Date().toISOString();
-                            }
-
-                            const telefoneLimpoImportado = getCleanPhoneNumberDigits(importedLead.telefone);
-                            const existingLeadIndex = existingLeads.findIndex(lead =>
-                                lead.nome.toLowerCase() === (importedLead.nome || '').toLowerCase() &&
-                                getCleanPhoneNumberDigits(lead.telefone) === telefoneLimpoImportado
-                            );
-
-                            if (existingLeadIndex > -1) {
-                                existingLeads[existingLeadIndex] = { ...existingLeads[existingLeadIndex], ...importedLead };
-                                leadsUpdated++;
-                            } else {
-                                existingLeads.push(importedLead);
-                                newLeadsAdded++;
-                            }
-                        });
-
-                        localStorage.setItem('listaLeads', JSON.stringify(existingLeads));
-                        carregarLeadsNaTabela();
-                        updateLeadCountDisplay();
-                        showToast(`Importação de leads concluída! ${newLeadsAdded} novos leads adicionados, ${leadsUpdated} leads atualizados.`, 'success', 7000);
-                    } else {
-                        showToast('Importação de leads cancelada.', 'info');
-                    }
-                } catch (error) {
-                    console.error("Erro ao processar o arquivo de leads:", error);
-                    showToast('Erro ao processar o arquivo de leads. Verifique o formato.', 'danger');
-                } finally {
-                    importLeadsFileInput.value = '';
-                }
-            };
+            imobiliariaNomeInput.value = imobiliariaNome;
+            corretorNomeInput.value = corretorNome;
+            corretorCreciInput.value = corretorCreci;
             
-            reader.onerror = function() {
-                console.error("Erro ao ler o arquivo de leads:", reader.error);
-                showToast('Erro ao ler o arquivo de leads.', 'danger');
-                importLeadsFileInput.value = '';
-            };
-            reader.readAsText(file);
+            updatePdfHeaderInfo();
         }
 
-        function processImportLeadsCSVFile(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            if (file.type && !file.type.match(/(text\/csv|application\/vnd.ms-excel)/) && !file.name.endsWith('.csv')) {
-                showToast('Por favor, selecione um arquivo .csv válido.', 'warning');
-                importLeadsCSVFileInput.value = '';
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const csvContent = e.target.result;
-                    const parsedLeads = parseCSV(csvContent);
-
-                    if (parsedLeads.length === 0) {
-                        showToast('Nenhum lead válido encontrado no arquivo CSV ou formato de cabeçalho incorreto. Verifique o formato.', 'warning');
-                        importLeadsCSVFileInput.value = '';
-                        return;
-                    }
-
-                    if (confirm("Importar leads do CSV mesclará os novos registros com os leads existentes. Duplicatas (com base em Nome e Telefone) serão atualizadas. Deseja continuar?")) {
-                        let existingLeads = JSON.parse(localStorage.getItem('listaLeads')) || [];
-                        let newLeadsAdded = 0;
-                        let leadsUpdated = 0;
-                        let leadsIgnored = 0;
-
-                        parsedLeads.forEach(importedLead => {
-                            if (!importedLead.nome || !importedLead.telefone) {
-                                console.warn("Lead ignorado por falta de Nome ou Telefone:", importedLead);
-                                leadsIgnored++;
-                                return;
-                            }
-
-                            const telefoneLimpoImportado = getCleanPhoneNumberDigits(importedLead.telefone);
-                            const existingLeadIndex = existingLeads.findIndex(lead =>
-                                lead.nome.toLowerCase() === (importedLead.nome || '').toLowerCase() &&
-                                getCleanPhoneNumberDigits(lead.telefone) === telefoneLimpoImportado
-                            );
-
-                            const leadToSave = {
-                                nome: importedLead.nome,
-                                telefone: formatPhoneNumberForOutput(importedLead.telefone),
-                                imovel: importedLead.imovel || 'Não Informado',
-                                notas: importedLead.notas || 'Sem notas adicionadas.',
-                                observacoes: importedLead.observacoes || 'Sem observações.',
-                                descontoMCMV: cleanCurrencyFormat(importedLead.descontoMCMV),
-                                valorFinanciado: cleanCurrencyFormat(importedLead.valorFinanciado),
-                                valorFGTS: cleanCurrencyFormat(importedLead.valorFGTS),
-                                dataSalvo: importedLead.dataSalvo || new Date().toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
-                                dataISO: importedLead.dataISO || new Date().toISOString()
-                            };
-
-                            if (existingLeadIndex > -1) {
-                                existingLeads[existingLeadIndex] = { ...existingLeads[existingLeadIndex], ...leadToSave };
-                                leadsUpdated++;
-                            } else {
-                                existingLeads.push(leadToSave);
-                                newLeadsAdded++;
-                            }
-                        });
-
-                        localStorage.setItem('listaLeads', JSON.stringify(existingLeads));
-                        carregarLeadsNaTabela();
-                        updateLeadCountDisplay();
-                        let successMessage = `Importação CSV concluída! ${newLeadsAdded} novos leads adicionados, ${leadsUpdated} leads atualizados.`;
-                        if (leadsIgnored > 0) {
-                            successMessage += ` (${leadsIgnored} leads ignorados por dados incompletos)`;
-                            showToast(successMessage, 'warning', 10000);
-                        } else {
-                            showToast(successMessage, 'success', 7000);
-                        }
-                    } else {
-                        showToast('Importação de leads CSV cancelada.', 'info');
-                    }
-                } catch (error) {
-                    console.error("Erro ao processar o arquivo CSV:", error);
-                    showToast('Erro ao processar o arquivo CSV. Verifique o formato ou a codificação (UTF-8).', 'danger');
-                } finally {
-                    importLeadsCSVFileInput.value = '';
-                }
-            };
+        // Função para atualizar informações do PDF
+        function updatePdfHeaderInfo() {
+            const imobiliariaNome = imobiliariaNomeInput.value || 'Imobiliária';
+            const corretorNome = corretorNomeInput.value || 'Corretor';
+            const corretorCreci = corretorCreciInput.value || 'CRECI';
             
-            reader.onerror = function() {
-                console.error("Erro ao ler o arquivo CSV:", reader.error);
-                showToast('Erro ao ler o arquivo CSV.', 'danger');
-                importLeadsCSVFileInput.value = '';
-            };
-            reader.readAsText(file);
+            pdfHeaderInfo.querySelector('h2').textContent = `${imobiliariaNome}`;
+            pdfHeaderInfo.querySelector('p').textContent = `Corretor: ${corretorNome} - ${corretorCreci}`;
+            
+            // Salvar no localStorage
+            localStorage.setItem('imobiliariaNome', imobiliariaNome);
+            localStorage.setItem('corretorNome', corretorNome);
+            localStorage.setItem('corretorCreci', corretorCreci);
         }
 
-        function parseCSV(csvString) {
-            const lines = csvString.split('\n').filter(line => line.trim() !== '');
-            if (lines.length === 0) return [];
-
-            const headers = lines[0].split(';').map(h => h.trim().replace(/["\s]/g, ''));
-            const leads = [];
-
-            const headerMap = {
-                'Nome': 'nome',
-                'Telefone': 'telefone',
-                'Imovel': 'imovel',
-                'Notas': 'notas',
-                'Observacoes': 'observacoes',
-                'Subsidio': 'descontoMCMV',
-                'Financiado': 'valorFinanciado',
-                'FGTS': 'valorFGTS',
-                'DataSalvo': 'dataSalvo',
-                'DataISO': 'dataISO'
-            };
-
-            for (let i = 1; i < lines.length; i++) {
-                const values = lines[i].split(';');
-                if (values.length !== headers.length) {
-                    console.warn(`Linha CSV ignorada devido a número inconsistente de colunas: "${lines[i]}"`);
-                    continue;
-                }
-
-                const lead = {};
-                headers.forEach((header, index) => {
-                    const key = headerMap[header];
-                    if (key) {
-                        let value = values[index].trim().replace(/^"|"$/g, '');
-                        if (['descontoMCMV', 'valorFinanciado', 'valorFGTS'].includes(key)) {
-                            value = cleanCurrencyFormat(value);
-                        }
-                        lead[key] = value;
-                    }
-                });
-
-                if (!lead.dataSalvo) {
-                    lead.dataSalvo = new Date().toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-                }
-                if (!lead.dataISO) {
-                    lead.dataISO = new Date().toISOString();
-                }
-
-                if (lead.nome && lead.telefone) {
-                    leads.push(lead);
-                } else {
-                    console.warn("Linha CSV ignorada por falta de Nome ou Telefone:", lines[i]);
-                }
-            }
-            return leads;
-        }
-
-        if (typeof encodeHTML !== 'function') {
-            window.encodeHTML = function(str) {
-                if (typeof str !== 'string') return '';
-                return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&#039;');
-            }
-        }
-
+        // Função para atualizar contador de leads
         function updateLeadCountDisplay() {
-            const leads = JSON.parse(localStorage.getItem('listaLeads')) || [];
-            if (leadCountSpan) {
-                leadCountSpan.textContent = leads.length;
-            }
+            const leads = JSON.parse(localStorage.getItem('leads') || '[]');
+            leadCountSpan.textContent = leads.length;
         }
 
+        // Função para exportar backup
+        function exportarBackup() {
+            const leads = JSON.parse(localStorage.getItem('leads') || '[]');
+            const notas = JSON.parse(localStorage.getItem('notasHistory') || '[]');
+            const config = {
+                imobiliariaNome: localStorage.getItem('imobiliariaNome'),
+                corretorNome: localStorage.getItem('corretorNome'),
+                corretorCreci: localStorage.getItem('corretorCreci'),
+                lastINCCValue: localStorage.getItem('lastINCCValue'),
+                lastINCCDate: localStorage.getItem('lastINCCDate')
+            };
+            
+            const backupData = {
+                leads: leads,
+                notas: notas,
+                config: config,
+                exportDate: new Date().toISOString(),
+                version: '1.0'
+            };
+            
+            const dataStr = JSON.stringify(backupData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `backup_simulador_${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showToast('Backup exportado com sucesso!', 'success');
+        }
+
+        // Função para importar backup
+        function importarBackup(file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(event) {
+                try {
+                    const backupData = JSON.parse(event.target.result);
+                    
+                    if (backupData.leads) {
+                        localStorage.setItem('leads', JSON.stringify(backupData.leads));
+                    }
+                    
+                    if (backupData.notas) {
+                        localStorage.setItem('notasHistory', JSON.stringify(backupData.notas));
+                    }
+                    
+                    if (backupData.config) {
+                        if (backupData.config.imobiliariaNome) {
+                            localStorage.setItem('imobiliariaNome', backupData.config.imobiliariaNome);
+                        }
+                        if (backupData.config.corretorNome) {
+                            localStorage.setItem('corretorNome', backupData.config.corretorNome);
+                        }
+                        if (backupData.config.corretorCreci) {
+                            localStorage.setItem('corretorCreci', backupData.config.corretorCreci);
+                        }
+                        if (backupData.config.lastINCCValue) {
+                            localStorage.setItem('lastINCCValue', backupData.config.lastINCCValue);
+                        }
+                        if (backupData.config.lastINCCDate) {
+                            localStorage.setItem('lastINCCDate', backupData.config.lastINCCDate);
+                        }
+                    }
+                    
+                    updateLeadCountDisplay();
+                    loadPdfHeaderInfo();
+                    showToast('Backup importado com sucesso!', 'success');
+                    
+                    if (secaoListaLeads.style.display === 'block') {
+                        carregarLeadsNaTabela();
+                    }
+                    
+                } catch (error) {
+                    console.error('Erro ao importar backup:', error);
+                    showToast('Erro ao importar backup. Arquivo inválido.', 'danger');
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+
+        // Função para baixar simulação em TXT
+        function baixarSimulacaoTXT() {
+            const data = getFormattedValues();
+            const dataAtual = new Date().toLocaleDateString('pt-BR');
+            const horaAtual = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            
+            let texto = '='.repeat(50) + '\n';
+            texto += 'SIMULAÇÃO DE PLANO DE PAGAMENTO\n';
+            texto += `Gerado em: ${dataAtual} às ${horaAtual}\n`;
+            texto += '='.repeat(50) + '\n\n';
+            
+            texto += 'INFORMAÇÕES DO CLIENTE:\n';
+            texto += `Nome: ${data.nomeCliente}\n`;
+            texto += `Telefone: ${data.telefoneCliente}\n`;
+            texto += `Empreendimento: ${data.nomeEmpreendimento}\n\n`;
+            
+            texto += 'VALORES DO IMÓVEL:\n';
+            texto += `Valor do Imóvel: ${data.valorImovel}\n`;
+            texto += `Desconto (Subsídio): ${data.descontoMCMV}\n`;
+            texto += `Desconto Construtora: ${data.descontoConstrutora}\n`;
+            texto += `FGTS: ${data.valorFGTS}\n`;
+            texto += `Valor Financiado: ${data.valorFinanciado}\n\n`;
+            
+            texto += 'ENTRADA:\n';
+            texto += `Sinal para Construtora: ${data.sinalConstrutora}\n`;
+            texto += `Valor Parcelado: ${data.maximoConstrParc}\n`;
+            texto += `Parcelas: ${data.parcelasEntrada}x\n`;
+            texto += `Correção INCC: ${data.correcaoINCC}\n`;
+            texto += `1ª Parcela: ${data.valorParcelaEntradaInicial}\n\n`;
+            
+            if (cleanCurrencyFormat(data.valorIntercaladas) > 0 && parseInt(data.quantidadeIntercaladas) > 0) {
+                texto += 'INTERCALADAS:\n';
+                texto += `Valor: ${data.valorIntercaladas}\n`;
+                texto += `Quantidade: ${data.quantidadeIntercaladas}\n`;
+                texto += `Total: ${data.totalIntercaladas}\n\n`;
+            }
+            
+            texto += 'RESUMO FINANCEIRO:\n';
+            texto += `Saldo Remanescente: ${data.saldoRemanescente}\n`;
+            
+            if (cleanCurrencyFormat(data.saldoRemanescente) > 0) {
+                texto += 'Nota: Esse valor ou parte dele, pode ser pago na entrega das chaves, intercaladas ou de forma que a construtora aceite.\n\n';
+            }
+            
+            if (data.observacoesSimulacao) {
+                texto += 'OBSERVAÇÕES:\n';
+                texto += `${data.observacoesSimulacao}\n\n`;
+            }
+            
+            texto += 'NOTAS:\n';
+            texto += `${data.notasCliente || 'Nenhuma nota adicionada.'}\n\n`;
+            
+            texto += '-' .repeat(50) + '\n';
+            texto += 'O valor das parcelas de entrada é corrigido mensalmente pelo INCC e após a obra pelo IPCA mais 1%.\n';
+            texto += 'Valores sujeitos a alteração e aprovação. Esta é uma simulação preliminar.\n';
+            texto += '-' .repeat(50) + '\n\n';
+            texto += 'Desenvolvido por Alex Peixoto - (82) 996622036\n';
+            
+            const blob = new Blob([texto], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `simulacao_${data.nomeCliente.replace(/\s+/g, '_')}_${dataAtual.replace(/\//g, '-')}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            showToast('Simulação baixada em TXT com sucesso!', 'success');
+        }
+
+        // Função para baixar lista de leads
+        function baixarListaLeads() {
+            const leads = JSON.parse(localStorage.getItem('leads') || '[]');
+            if (leads.length === 0) {
+                showToast('Nenhum lead para exportar.', 'warning');
+                return;
+            }
+            
+            let csv = 'Nome,Telefone,Empreendimento,Data,Subsídio,Financiado,FGTS,Notas,Observações\n';
+            
+            leads.forEach(lead => {
+                csv += `"${lead.nome || ''}","${lead.telefone || ''}","${lead.empreendimento || ''}","${lead.data || ''}","${lead.subsidio || ''}","${lead.financiado || ''}","${lead.fgts || ''}","${lead.notas || ''}","${lead.observacoes || ''}"\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `lista_leads_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            showToast('Lista de leads exportada em CSV!', 'success');
+        }
+
+        // Função para carregar leads na tabela
         function carregarLeadsNaTabela() {
-            const leads = JSON.parse(localStorage.getItem('listaLeads')) || [];
+            const leads = JSON.parse(localStorage.getItem('leads') || '[]');
             corpoTabelaLeads.innerHTML = '';
             
             if (leads.length === 0) {
                 semLeadsMensagem.style.display = 'block';
-                if(tabelaLeadsElement) tabelaLeadsElement.style.display = 'none';
+                tabelaLeadsElement.style.display = 'none';
             } else {
                 semLeadsMensagem.style.display = 'none';
-                if(tabelaLeadsElement) tabelaLeadsElement.style.display = 'table';
-                leads.sort((a, b) => new Date(b.dataISO) - new Date(a.dataISO));
+                tabelaLeadsElement.style.display = 'table';
                 
                 leads.forEach((lead, index) => {
-                    const descontoMCMVDisplay = formatCurrencyDisplay(lead.descontoMCMV || 0);
-                    const valorFinanciadoDisplay = formatCurrencyDisplay(lead.valorFinanciado || 0);
-                    const valorFGTSDisplay = formatCurrencyDisplay(lead.valorFGTS || 0);
-                    
-                    const row = corpoTabelaLeads.insertRow();
-                    row.innerHTML = `<td style="padding: 8px; border: 1px solid #555;">${encodeHTML(lead.nome)}</td>
-                                     <td style="padding: 8px; border: 1px solid #555;">${encodeHTML(lead.telefone)}</td>
-                                     <td style="padding: 8px; border: 1px solid #555;">${encodeHTML(lead.imovel)}</td>
-                                     <td style="padding: 8px; border: 1px solid #555;">${lead.dataSalvo}</td>
-                                     <td style="padding: 8px; border: 1px solid #555;">${descontoMCMVDisplay}</td>
-                                     <td style="padding: 8px; border: 1px solid #555;">${valorFinanciadoDisplay}</td>
-                                     <td style="padding: 8px; border: 1px solid #555;">${valorFGTSDisplay}</td>
-                                     <td style="padding: 8px; border: 1px solid #555;">${encodeHTML(lead.notas || '').replace(/\n/g, '<br>')}</td>
-                                     <td style="padding: 8px; border: 1px solid #555;">${encodeHTML(lead.observacoes || '').replace(/\n/g, '<br>')}</td>
-                                     <td style="padding: 8px; border: 1px solid #555; text-align: center;">
-                                         <button class="btn btn-danger btn-sm" onclick="confirmDeleteLead('${lead.dataISO}', '${encodeURIComponent(encodeHTML(lead.nome))}')" title="Excluir Lead" style="padding: 5px 8px; font-size: 0.8rem; margin-bottom: 0;">
-                                             <i class="fas fa-trash"></i>
-                                         </button>
-                                     </td>`;
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${lead.nome || ''}</td>
+                        <td>${lead.telefone || ''}</td>
+                        <td>${lead.empreendimento || ''}</td>
+                        <td>${lead.data || ''}</td>
+                        <td>${lead.subsidio || ''}</td>
+                        <td>${lead.financiado || ''}</td>
+                        <td>${lead.fgts || ''}</td>
+                        <td>${lead.notas ? 'Sim' : 'Não'}</td>
+                        <td>${lead.observacoes ? (lead.observacoes.length > 50 ? lead.observacoes.substring(0, 50) + '...' : lead.observacoes) : ''}</td>
+                        <td style="text-align: center;">
+                            <button class="btn btn-danger btn-auto-width" onclick="excluirLead(${index})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    corpoTabelaLeads.appendChild(row);
                 });
             }
             
             updateLeadCountDisplay();
         }
 
-        window.confirmDeleteLead = function(leadDataISO, leadNomeEncodado) {
-            const leadNome = decodeURIComponent(leadNomeEncodado);
-            showConfirmationModal(`Tem certeza que deseja excluir o lead: <strong>${encodeHTML(leadNome)}</strong>?`, () => {
-                excluirLead(leadDataISO);
-            });
-        }
-
-        function showConfirmationModal(message, onConfirm) {
-            modalTitle.textContent = 'Confirmação';
-            modalMessage.innerHTML = message;
-            confirmationModal.classList.add('show');
-
-            if (historyModal.classList.contains('show')) {
-                historyModal.classList.remove('show');
-            }
-
-            const confirmAction = () => {
-                onConfirm();
-                confirmationModal.classList.remove('show');
-                modalConfirmBtn.removeEventListener('click', confirmAction);
-                modalCancelBtn.removeEventListener('click', cancelAction);
-                
-                if (historyModalWasOpen) {
-                    historyModal.classList.add('show');
-                    historyModalWasOpen = false;
-                }
-            };
-            
-            const cancelAction = () => {
-                showToast('Ação cancelada.', 'info');
-                confirmationModal.classList.remove('show');
-                modalConfirmBtn.removeEventListener('click', confirmAction);
-                modalCancelBtn.removeEventListener('click', cancelAction);
-                
-                if (historyModalWasOpen) {
-                    historyModal.classList.add('show');
-                    historyModalWasOpen = false;
-                }
-            };
-            
-            let historyModalWasOpen = historyModal.classList.contains('show');
-            modalConfirmBtn.removeEventListener('click', confirmAction);
-            modalCancelBtn.removeEventListener('click', cancelAction);
-
-            modalConfirmBtn.addEventListener('click', confirmAction);
-            modalCancelBtn.addEventListener('click', cancelAction);
-        }
-
-        function excluirLead(leadDataISO) {
-            let todosLeads = JSON.parse(localStorage.getItem('listaLeads')) || [];
-            todosLeads = todosLeads.filter(lead => lead.dataISO !== leadDataISO);
-            localStorage.setItem('listaLeads', JSON.stringify(todosLeads));
-            carregarLeadsNaTabela();
-            showToast('Lead excluído.', 'danger');
-        }
-
-        function salvarLead() {
-            const nomeClienteVal = nomeClienteInput.value.trim();
-            const telefoneClienteOriginal = telefoneClienteInput.value.trim();
-            const nomeEmpreendimentoVal = nomeEmpreendimentoInput.value.trim();
-            const notasClienteVal = notasClienteTextArea.value.trim();
-            const observacoesSimulacaoVal = observacoesClienteTextArea.value.trim();
-            const descontoMCMVVal = cleanCurrencyFormat(descontoMCMVInput.value) || 0;
-            const valorFinanciadoVal = cleanCurrencyFormat(valorFinanciadoInput.value) || 0;
-            const valorFGTSVal = cleanCurrencyFormat(valorFGTSInput.value) || 0;
-            const valorIntercaladasVal = cleanCurrencyFormat(valorIntercaladasInput.value) || 0;
-            const quantidadeIntercaladasVal = parseInt(quantidadeIntercaladasInput.value) || 0;
-
-            if (!nomeClienteVal && !telefoneClienteOriginal) {
-                console.warn("Nome ou telefone não preenchido. Lead não salvo.");
-                return;
-            }
-
-            const telefoneClienteFormatado = formatPhoneNumberForOutput(telefoneClienteOriginal) || 'Não Informado';
-            const telefoneLimpoParaComparacao = getCleanPhoneNumberDigits(telefoneClienteOriginal);
-
-            let leads = JSON.parse(localStorage.getItem('listaLeads')) || [];
-            const dataAtual = new Date();
-            
-            const existingLeadIndex = leads.findIndex(lead =>
-                lead.nome.toLowerCase() === nomeClienteVal.toLowerCase() &&
-                getCleanPhoneNumberDigits(lead.telefone) === telefoneLimpoParaComparacao &&
-                (nomeClienteVal !== '' || telefoneLimpoParaComparacao !== '')
-            );
-            
-            if (existingLeadIndex > -1) {
-                leads[existingLeadIndex].imovel = nomeEmpreendimentoVal || 'Não Informado';
-                leads[existingLeadIndex].observacoes = observacoesSimulacaoVal || 'Sem observações.';
-                leads[existingLeadIndex].dataSalvo = dataAtual.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-                leads[existingLeadIndex].dataISO = dataAtual.toISOString();
-                leads[existingLeadIndex].descontoMCMV = descontoMCMVVal;
-                leads[existingLeadIndex].valorFinanciado = valorFinanciadoVal;
-                leads[existingLeadIndex].valorFGTS = valorFGTSVal;
-                leads[existingLeadIndex].valorIntercaladas = valorIntercaladasVal;
-                leads[existingLeadIndex].quantidadeIntercaladas = quantidadeIntercaladasVal;
-                console.log(`Lead existente atualizado para: ${nomeClienteVal}`);
-            } else {
-                if (!nomeClienteVal && !telefoneClienteOriginal && !nomeEmpreendimentoVal && !notasClienteVal && !observacoesSimulacaoVal && descontoMCMVVal === 0 && valorFinanciadoVal === 0 && valorFGTSVal === 0 && valorIntercaladasVal === 0 && quantidadeIntercaladasVal === 0) {
-                    console.warn("Nenhum dado suficiente para salvar um novo lead.");
-                    return;
-                }
-                
-                const novoLead = {
-                    nome: nomeClienteVal || 'Não Informado',
-                    telefone: telefoneClienteFormatado,
-                    imovel: nomeEmpreendimentoVal || 'Não Informado',
-                    notas: notasClienteVal || 'Sem notas adicionadas.',
-                    observacoes: observacoesSimulacaoVal || 'Sem observações.',
-                    dataSalvo: dataAtual.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
-                    dataISO: dataAtual.toISOString(),
-                    descontoMCMV: descontoMCMVVal,
-                    valorFinanciado: valorFinanciadoVal,
-                    valorFGTS: valorFGTSVal,
-                    valorIntercaladas: valorIntercaladasVal,
-                    quantidadeIntercaladas: quantidadeIntercaladasVal
-                };
-                
-                const leadRecenteDuplicado = leads.find(lead =>
-                    lead.nome === novoLead.nome &&
-                    getCleanPhoneNumberDigits(lead.telefone) === getCleanPhoneNumberDigits(novoLead.telefone) &&
-                    lead.imovel === novoLead.imovel &&
-                    lead.notas === novoLead.notas &&
-                    lead.observacoes === novoLead.observacoes &&
-                    lead.descontoMCMV === novoLead.descontoMCMV &&
-                    lead.valorFinanciado === novoLead.valorFinanciado &&
-                    lead.valorFGTS === novoLead.valorFGTS &&
-                    lead.valorIntercaladas === novoLead.valorIntercaladas &&
-                    lead.quantidadeIntercaladas === novoLead.quantidadeIntercaladas &&
-                    (new Date() - new Date(lead.dataISO)) < (10 * 1000)
-                );
-                
-                if (leadRecenteDuplicado) {
-                    return;
-                }
-
-                leads.push(novoLead);
-                console.log(`Novo lead salvo para: ${nomeClienteVal}`);
-                triggerPartyEffect();
-            }
-
-            localStorage.setItem('listaLeads', JSON.stringify(leads));
-            updateLeadCountDisplay();
-            
-            if (secaoListaLeads.style.display !== 'none') {
+        // Função para excluir lead
+        window.excluirLead = function(index) {
+            if (confirm('Tem certeza que deseja excluir este lead?')) {
+                const leads = JSON.parse(localStorage.getItem('leads') || '[]');
+                leads.splice(index, 1);
+                localStorage.setItem('leads', JSON.stringify(leads));
                 carregarLeadsNaTabela();
+                showToast('Lead excluído com sucesso!', 'success');
             }
-        }
+        };
 
-        let partyEffectTimeout;
-
-        function triggerPartyEffect() {
-            if (!partyEffectContainer) {
-                console.error("Elemento #partyEffectContainer não encontrado!");
-                return;
-            }
-
-            clearTimeout(partyEffectTimeout);
-            clearPartyElements();
-            partyEffectContainer.classList.add('show');
-            generatePartyElements(50, 100);
-
-            partyEffectTimeout = setTimeout(() => {
-                partyEffectContainer.classList.remove('show');
-                setTimeout(clearPartyElements, 500);
-            }, 10000);
-        }
-
-        function generatePartyElements(numBalloons, numConfetti) {
-            const colors = ['#ff7e5f', '#feb47b', '#ffb347', '#ffcc33', '#ffff33', '#a7cf4f', '#7acb91', '#56b870', '#29a84a', '#008080', '#0000ff', '#4b0082', '#9400d3', '#ff00ff'];
-            const confettiColors = ['#f00', '#0f0', '#00f', '#ff0', '#0ff', '#f0f', '#fff'];
-
-            for (let i = 0; i < numBalloons; i++) {
-                const balloon = document.createElement('div');
-                balloon.classList.add('balloon');
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                balloon.style.backgroundColor = randomColor;
-                balloon.style.left = `${Math.random() * 100}vw`;
-                balloon.style.animationDuration = `${10 + Math.random() * 5}s`;
-                balloon.style.animationDelay = `${Math.random() * 2}s`;
-                partyEffectContainer.appendChild(balloon);
-            }
-
-            for (let i = 0; i < numConfetti; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                const randomColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-                confetti.style.backgroundColor = randomColor;
-                confetti.style.left = `${Math.random() * 100}vw`;
-                confetti.style.top = `${Math.random() * -20}vh`;
-                const randomSize = Math.random() * 10 + 5;
-                confetti.style.width = `${randomSize}px`;
-                confetti.style.height = `${randomSize * (0.8 + Math.random()*0.4)}px`;
-                confetti.style.animationDuration = `${6 + Math.random() * 4}s`;
-                confetti.style.animationDelay = `${Math.random() * 3}s`;
-                confetti.style.opacity = `${0.5 + Math.random() * 0.5}`;
-                partyEffectContainer.appendChild(confetti);
-            }
-        }
-
-        function clearPartyElements() {
-            const elementsToRemove = partyEffectContainer.querySelectorAll('.balloon, .confetti');
-            elementsToRemove.forEach(element => element.remove());
-        }
-
-        function carregarDocumentosPorProfissao(profissao) {
-            const dadosProfissao = documentosPorProfissao[profissao];
+        // Função para salvar lead
+        function salvarLead() {
+            const data = getFormattedValues();
             
-            if (!dadosProfissao) {
-                console.error('Profissão não encontrada:', profissao);
-                return;
-            }
-
-            documentosContainer.innerHTML = '';
-
-            const documentSection = document.createElement('div');
-            documentSection.classList.add('document-section');
-
-            const title = document.createElement('h4');
-            title.textContent = dadosProfissao.titulo;
-            documentSection.appendChild(title);
-
-            const documentList = document.createElement('ul');
-            
-            dadosProfissao.documentos.forEach(documento => {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `<i class="fas fa-check-circle"></i> ${documento}`;
-                documentList.appendChild(listItem);
-            });
-
-            documentSection.appendChild(documentList);
-            documentosContainer.appendChild(documentSection);
-
-            if (dadosProfissao.observacao) {
-                const obsSection = document.createElement('div');
-                obsSection.classList.add('document-section');
-                obsSection.innerHTML = `
-                    <h4>OBSERVAÇÃO ESPECÍFICA</h4>
-                    <p><strong>OBS:</strong> ${dadosProfissao.observacao}</p>
-                `;
-                documentosContainer.appendChild(obsSection);
-            }
-
-            const obsGeralSection = document.createElement('div');
-            obsGeralSection.classList.add('document-section');
-            obsGeralSection.innerHTML = `
-                <h4>OBSERVAÇÃO GERAL</h4>
-                <p><strong>OBS:</strong> Apresentar Imposto de Renda caso tenha declarado</p>
-            `;
-            documentosContainer.appendChild(obsGeralSection);
-        }
-
-        [parcelasEntradaInput, correcaoINCCInput].forEach(input => {
-            input.addEventListener('input', calcularValores);
-        });
-        
-        currencyInputs.forEach(input => {
-            input.addEventListener('input', (event) => {
-                formatInputAsCurrency(event);
-                calcularValores();
-            });
-            formatInputAsCurrency({ target: input });
-        });
-        
-        [valorIntercaladasInput, quantidadeIntercaladasInput].forEach(input => {
-            if (input.type === 'text') {
-                input.addEventListener('input', (event) => {
-                    formatInputAsCurrency(event);
-                    calcularValores();
-                });
-                formatInputAsCurrency({ target: input });
-            } else {
-                input.addEventListener('input', calcularValores);
-            }
-        });
-        
-        telefoneClienteInput.addEventListener('input', formatInputAsPhone);
-
-        if (btnNovaSimulacao) {
-            btnNovaSimulacao.addEventListener('click', limparFormularioNovaSimulacao);
-        }
-        
-        if (btnExportarBackup) {
-            btnExportarBackup.addEventListener('click', exportarBackup);
-        }
-
-        if (btnImportarBackup) {
-            btnImportarBackup.addEventListener('click', () => {
-                if (importFileInput) {
-                    importFileInput.click();
-                } else {
-                    console.error('Erro: Elemento input#importFile não encontrado!');
-                }
-            });
-        }
-
-        if (importFileInput) {
-            importFileInput.addEventListener('change', processImportFile);
-        }
-
-        toggleNotasBtn.addEventListener('click', () => {
-            const isHidden = notasSection.style.display === 'none';
-            notasSection.style.display = isHidden ? 'block' : 'none';
-            const icon = toggleNotasBtn.querySelector('i');
-            const btnTextSpan = toggleNotasBtn.querySelector('.btn-text');
-
-            if (isHidden) {
-                if (icon) icon.classList.replace('fa-clipboard', 'fa-clipboard-list');
-                if (btnTextSpan) btnTextSpan.textContent = ' Fechar Notas Restritas';
-                loadNoteForCurrentClient();
-            } else {
-                if (icon) icon.classList.replace('fa-clipboard-list', 'fa-clipboard');
-                if (btnTextSpan) btnTextSpan.textContent = ' Notas Restritas';
-            }
-        });
-        
-        function loadNoteForCurrentClient() {
-            const nomeClienteAtual = nomeClienteInput.value.trim();
-            const telefoneClienteAtual = formatPhoneNumberForOutput(telefoneClienteInput.value.trim());
-            const savedNotes = JSON.parse(localStorage.getItem('clientNotes')) || [];
-            
-            const noteToLoad = savedNotes.find(note =>
-                note.nome.toLowerCase() === (nomeClienteAtual || '').toLowerCase() &&
-                getCleanPhoneNumberDigits(note.telefone) === getCleanPhoneNumberDigits(telefoneClienteInput.value.trim())
-            );
-            
-            if (noteToLoad) {
-                notasClienteTextArea.value = noteToLoad.notas === 'Sem notas adicionadas.' ? '' : noteToLoad.notas;
-                console.log(`Nota carregada para cliente: ${nomeClienteAtual}`);
-            } else {
-                notasClienteTextArea.value = '';
-                console.log(`Nenhuma nota encontrada para cliente: ${nomeClienteAtual}`);
-            }
-        }
-
-        salvarNotasBtn.addEventListener('click', () => {
-            const nomeCliente = nomeClienteInput.value.trim();
-            const telefoneClienteOriginal = telefoneClienteInput.value.trim();
-            const notasContent = notasClienteTextArea.value.trim();
-
-            if (!nomeCliente && !telefoneClienteOriginal) {
-                showToast('Preencha Nome ou Telefone para salvar a nota.', 'warning');
-                return;
-            }
-
-            const telefoneClienteFormatado = formatPhoneNumberForOutput(telefoneClienteOriginal);
-            const telefoneLimpoParaComparacao = getCleanPhoneNumberDigits(telefoneClienteOriginal);
-
-            const savedNotes = JSON.parse(localStorage.getItem('clientNotes')) || [];
-
-            const existingNoteIndex = savedNotes.findIndex(n =>
-                n.nome.toLowerCase() === nomeCliente.toLowerCase() &&
-                getCleanPhoneNumberDigits(n.telefone) === telefoneLimpoParaComparacao &&
-                (nomeCliente !== '' || telefoneLimpoParaComparacao !== '')
-            );
-            
-            if(existingNoteIndex > -1) {
-                savedNotes[existingNoteIndex].notas = notasContent || 'Sem notas adicionadas.';
-                savedNotes[existingNoteIndex].timestamp = new Date().toLocaleString('pt-BR');
-                console.log(`Nota atualizada para cliente: ${nomeCliente || 'Não Informado'}`);
-            } else {
-                const note = {
-                    id: Date.now(),
-                    nome: nomeCliente || 'Cliente Não Informado',
-                    telefone: telefoneClienteFormatado,
-                    notas: notasContent || 'Sem notas adicionadas.',
-                    timestamp: new Date().toLocaleString('pt-BR')
-                };
-                savedNotes.push(note);
-                console.log(`Nova nota histórica salva para cliente: ${nomeCliente || 'Não Informado'}`);
-            }
-
-            localStorage.setItem('clientNotes', JSON.stringify(savedNotes));
-            showToast('Nota salva com sucesso!', 'success');
-            
-            if (historyModal.classList.contains('show')) {
-                loadHistoryNotes();
-            }
-            
-            loadNoteForCurrentClient();
-        });
-
-        baixarNotasBtn.addEventListener('click', () => {
-            const nomeClienteVal = nomeClienteInput.value || 'Não Informado';
-            const telefoneClienteVal = formatPhoneNumberForOutput(telefoneClienteInput.value);
-            const notasContent = notasClienteTextArea.value || 'Nenhuma nota adicionada.';
-            
-            if (nomeClienteVal === 'Não Informado' && telefoneClienteVal === 'Não Informado' && notasContent === 'Nenhuma nota adicionada.') {
-                showToast('Não há conteúdo para baixar.', 'warning');
+            if (!data.nomeCliente || data.nomeCliente === 'Não informado') {
+                showToast('Preencha o nome do cliente para salvar o lead.', 'warning');
                 return;
             }
             
-            const textContent = `Notas do Cliente\n\nCliente: ${nomeClienteVal}\nTelefone: ${telefoneClienteVal}\n\n--- Notas ---\n${notasContent}\n\nNotas geradas em ${new Date().toLocaleString('pt-BR')}`;
-            const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = `Notas_${nomeClienteVal.replace(/\s+/g, '_') || 'Cliente'}.txt`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(a.href);
-            showToast('Notas baixadas.', 'success');
-        });
-
-        function loadHistoryNotes() {
-            const savedNotes = JSON.parse(localStorage.getItem('clientNotes')) || [];
-            historyList.innerHTML = '';
-            
-            if (savedNotes.length === 0) {
-                emptyHistoryMessage.style.display = 'block';
-            } else {
-                emptyHistoryMessage.style.display = 'none';
-                savedNotes.sort((a,b) => new Date(b.id) - new Date(a.id));
-                
-                savedNotes.forEach(note => {
-                    const noteElement = document.createElement('div');
-                    noteElement.classList.add('history-item');
-                    noteElement.innerHTML = `<h4>${encodeHTML(note.nome)}<span class="badge">${encodeHTML(note.timestamp)}</span></h4><p><strong>Telefone:</strong> ${encodeHTML(note.telefone)}</p><div class="note-content">${encodeHTML(note.notas).replace(/\n/g, '<br>')}</div><div class="history-actions"><button class="btn btn-danger btn-sm" onclick="confirmDeleteNote(${note.id})" title="Excluir Nota"><i class="fas fa-trash"></i> Excluir</button><button class="btn btn-secondary btn-sm" onclick="loadNoteFromHistory(${note.id})" title="Carregar para Formulário"><i class="fas fa-edit"></i> Carregar</button></div>`;
-                    historyList.appendChild(noteElement);
-                });
-            }
-        }
-
-        window.confirmDeleteNote = function(noteId) {
-            showConfirmationModal(`Tem certeza que deseja excluir esta nota?`, () => {
-                deleteHistoryNote(noteId);
-            });
-        }
-
-        function deleteHistoryNote(id) {
-            let savedNotes = JSON.parse(localStorage.getItem('clientNotes')) || [];
-            savedNotes = savedNotes.filter(note => note.id !== id);
-            localStorage.setItem('clientNotes', JSON.stringify(savedNotes));
-            showToast('Nota excluída.', 'danger');
-            loadHistoryNotes();
-            
-            const nomeClienteAtual = nomeClienteInput.value.trim();
-            const telefoneClienteAtual = formatPhoneNumberForOutput(telefoneClienteInput.value.trim());
-            const noteStillExists = savedNotes.some(note =>
-                note.nome === (nomeClienteAtual || 'Cliente Não Informado') &&
-                note.telefone === (telefoneClienteAtual || 'Não Informado')
-            );
-        }
-
-        window.loadNoteFromHistory = function(id) {
-            const savedNotes = JSON.parse(localStorage.getItem('clientNotes')) || [];
-            const noteToLoad = savedNotes.find(note => note.id === id);
-            
-            if (noteToLoad) {
-                nomeClienteInput.value = noteToLoad.nome === 'Cliente Não Informado' ? '' : noteToLoad.nome;
-                telefoneClienteInput.value = noteToLoad.telefone.replace(/\D/g, '');
-                formatInputAsPhone({ target: telefoneClienteInput });
-                notasClienteTextArea.value = noteToLoad.notas === 'Sem notas adicionadas.' ? '' : noteToLoad.notas;
-                showToast('Nota carregada para o formulário.', 'info');
-                const historyModalElement = document.getElementById('historyModal');
-                if(historyModalElement) historyModalElement.classList.remove('show');
-                
-                if (notasSection.style.display === 'none') {
-                    notasSection.style.display = 'block';
-                    const icon = toggleNotasBtn.querySelector('i');
-                    const btnTextSpan = toggleNotasBtn.querySelector('.btn-text');
-                    if (icon) icon.classList.replace('fa-clipboard','fa-clipboard-list');
-                    if(btnTextSpan) btnTextSpan.textContent = ' Fechar Notas Restritas';
-                }
-                
-                notasSection.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                showToast('Erro ao carregar nota.', 'danger');
-            }
-        }
-
-        openHistoryBtn.addEventListener('click', () => {
-            loadHistoryNotes();
-            historyModal.classList.add('show');
-        });
-        
-        closeModalBtns.forEach(button => {
-            button.addEventListener('click', (event) => {
-                const modalToClose = event.target.closest('.modal');
-                if (modalToClose) modalToClose.classList.remove('show');
-                
-                if (modalToClose.id === 'historyModal' && confirmationModal.classList.contains('show')) {
-                    confirmationModal.classList.remove('show');
-                }
-            });
-        });
-        
-        window.addEventListener('click', (event) => {
-            if (event.target.classList.contains('modal')) {
-                event.target.classList.remove('show');
-                
-                if (confirmationModal.classList.contains('show')) confirmationModal.classList.remove('show');
-                if (historyModal.classList.contains('show')) historyModal.classList.remove('show');
-                if (documentsModal.classList.contains('show')) documentsModal.classList.remove('show');
-            }
-        });
-        
-        window.addEventListener('scroll', () => {
-            scrollToTopBtn.style.display = (window.pageYOffset > 300) ? 'flex' : 'none';
-        });
-        
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        
-        function showToast(message, type = 'info', duration = 5000) {
-            let toast = document.getElementById('liveToast');
-            if (!toast) {
-                toast = document.createElement('div');
-                toast.id = 'liveToast';
-                document.body.appendChild(toast);
-            }
-            
-            toast.className = 'toast';
-            toast.classList.add(`toast-${type}`);
-            toast.textContent = message;
-            toast.classList.add('show');
-
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, duration);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            calcularValores();
-            formatInputAsPhone({ target: telefoneClienteInput });
-            nomeClienteInput.addEventListener('input', loadNoteForCurrentClient);
-            telefoneClienteInput.addEventListener('input', loadNoteForCurrentClient);
-            loadNoteForCurrentClient();
-            updateLeadCountDisplay();
-            loadPdfHeaderInfo();
-            carregarDocumentosPorProfissao('carteira-assinada');
-            atualizarDadosImpressao();
-        });
-
-        function savePdfHeaderInfo() {
-            const headerInfo = {
-                imobiliariaNome: imobiliariaNomeInput.value.trim(),
-                corretorNome: corretorNomeInput.value.trim(),
-                corretorCreci: corretorCreciInput.value.trim()
+            const lead = {
+                nome: data.nomeCliente,
+                telefone: telefoneClienteInput.value.replace(/\D/g, ''),
+                empreendimento: data.nomeEmpreendimento,
+                data: new Date().toLocaleDateString('pt-BR'),
+                subsidio: data.descontoMCMV,
+                financiado: data.valorFinanciado,
+                fgts: data.valorFGTS,
+                notas: data.notasCliente,
+                observacoes: data.observacoesSimulacao
             };
-            localStorage.setItem('pdfHeaderInfo', JSON.stringify(headerInfo));
+            
+            const leads = JSON.parse(localStorage.getItem('leads') || '[]');
+            leads.push(lead);
+            localStorage.setItem('leads', JSON.stringify(leads));
+            
+            updateLeadCountDisplay();
+            showToast('Lead salvo com sucesso!', 'success');
         }
 
-        function loadPdfHeaderInfo() {
-            const savedHeaderInfo = JSON.parse(localStorage.getItem('pdfHeaderInfo'));
-            if (savedHeaderInfo) {
-                imobiliariaNomeInput.value = savedHeaderInfo.imobiliariaNome || '';
-                corretorNomeInput.value = savedHeaderInfo.corretorNome || '';
-                corretorCreciInput.value = savedHeaderInfo.corretorCreci || '';
-            } else {
-                imobiliariaNomeInput.value = '';
-                corretorNomeInput.value = '';
-                corretorCreciInput.value = 'CRECI/AL 5794';
+        // Função para gerar conteúdo WhatsApp
+        function gerarConteudoSimulacaoWhatsApp() {
+            const data = getFormattedValues();
+            const saldoRemanescenteNumerico = cleanCurrencyFormat(saldoRemanescenteSpan.textContent);
+            let msg = `*Simulação de Plano de Pagamento*%0A%0A`;
+            msg += `*Cliente:* ${data.nomeCliente}%0A`;
+            if (data.telefoneCliente !== 'Não Informado' && data.telefoneCliente !== '(Formato Inválido)') {
+                msg += `*Telefone:* ${data.telefoneCliente}%0A`;
             }
+            msg += `*Empreendimento:* ${data.nomeEmpreendimento}%0A%0A`;
+            msg += `*Plano de Pagamento:*%0A`;
+            msg += `Valor do Imóvel (Tabela,Construtora): ${data.valorImovel}%0A`;
+            if (cleanCurrencyFormat(data.descontoMCMV) > 0) msg += `Desconto (Subsídio): ${data.descontoMCMV}%0A`;
+            if (cleanCurrencyFormat(data.descontoConstrutora) > 0) msg += `Desconto Construtora: ${data.descontoConstrutora}%0A`;
+            if (cleanCurrencyFormat(data.valorFGTS) > 0) msg += `FGTS: ${data.valorFGTS}%0A`;
+            msg += `Valor Financiado (Caixa): ${data.valorFinanciado}%0A%0A`;
+
+            msg += `*(Sinal, Decontos, Parcelamento):*%0A`;
+            if (cleanCurrencyFormat(data.sinalConstrutora) > 0) msg += `  Sinal: ${data.sinalConstrutora}%0A`;
+            msg += `  Parcelado Construtora: ${data.maximoConstrParc} em ${data.parcelasEntrada}x%0A`;
+            msg += `  *1ª Parcela (com INCC ${data.correcaoINCC}):* ${data.valorParcelaEntradaInicial}%0A`;
+            
+            if (cleanCurrencyFormat(data.valorIntercaladas) > 0 && data.quantidadeIntercaladas > 0) {
+                msg += `%0A*Intercaladas:*%0A`;
+                msg += `  Valor: ${data.valorIntercaladas}%0A`;
+                msg += `  Quantidade: ${data.quantidadeIntercaladas}%0A`;
+                msg += `  Total: ${data.totalIntercaladas}%0A`;
+            }
+            
+            if (saldoRemanescenteNumerico > 0.00) {
+                msg += `  Saldo Remanescente: ${data.saldoRemanescente}%0A`;
+                msg += `  _Esse valor ou parte dele, pode ser pago na entrega das chaves, intercaladas ou de forma que a construtora aceite._%0A`;
+            } else {
+                msg += `  Saldo Remanescente: ${data.saldoRemanescente}%0A`;
+            }
+            
+            msg += `%0A${encodeURIComponent("O valor das parcelas de entrada é corrigido mensalmente pelo INCC e após a obra pelo IPCA mais 1%.")}%0A`;
+            
+            if (data.observacoesSimulacao) {
+                msg += `%0A*OBSERVACÕES DA SIMULAÇÃO:*%0A${encodeURIComponent(data.observacoesSimulacao)}`;
+            }
+
+            msg += `%0A%0A*Atenção:* Simulação sujeita a alterações e aprovação.`;
+            return msg;
         }
 
-        imobiliariaNomeInput.addEventListener('input', savePdfHeaderInfo);
-        corretorNomeInput.addEventListener('input', savePdfHeaderInfo);
-        corretorCreciInput.addEventListener('input', savePdfHeaderInfo);
-
-        if (profissaoClienteSelect) {
-            profissaoClienteSelect.addEventListener('change', function() {
-                carregarDocumentosPorProfissao(this.value);
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializar formatação de moeda
+            currencyInputs.forEach(input => {
+                input.addEventListener('input', formatInputAsCurrency);
+                input.addEventListener('blur', formatInputAsCurrency);
+                formatInputAsCurrency({ target: input });
             });
-        }
-
-        if (btnAbrirListaLeads) {
-            btnAbrirListaLeads.addEventListener('click', () => {
-                if (simuladorCardElement) simuladorCardElement.style.display = 'none';
-                if (notasSection) notasSection.style.display = 'none';
-                if (toggleNotasBtn) {
-                    const icon = toggleNotasBtn.querySelector('i');
-                    const btnTextSpan = toggleNotasBtn.querySelector('.btn-text');
-                    if (icon) {
-                        icon.classList.replace('fa-clipboard-list','fa-clipboard');
-                    }
-                    if(btnTextSpan) btnTextSpan.textContent = ' Notas Restritas';
+            
+            // Inicializar formatação de telefone
+            telefoneClienteInput.addEventListener('input', formatInputAsPhone);
+            
+            // Inicializar cálculo
+            calcularValores();
+            
+            // Event listeners para inputs que disparam cálculo
+            const inputsParaCalcular = [
+                valorImovelInput, descontoMCMVInput, valorFinanciadoInput,
+                descontoConstrutoraInput, valorFGTSInput, sinalConstrutoraInput,
+                maximoConstrParcInput, parcelasEntradaInput, correcaoINCCInput,
+                valorIntercaladasInput, quantidadeIntercaladasInput
+            ];
+            
+            inputsParaCalcular.forEach(input => {
+                input.addEventListener('input', calcularValores);
+            });
+            
+            // Botão nova simulação
+            btnNovaSimulacao.addEventListener('click', limparFormularioNovaSimulacao);
+            
+            // Botão PDF
+            btnBaixarResumoPDF.addEventListener('click', () => {
+                gerarResumoPDF();
+                salvarLead();
+            });
+            
+            // Botão WhatsApp
+            enviarWhatsappBtn.addEventListener('click', () => {
+                const mensagem = gerarConteudoSimulacaoWhatsApp();
+                const telefoneCorretor = "5582996622036";
+                const url = `https://wa.me/${telefoneCorretor}?text=${encodeURIComponent(mensagem)}`;
+                window.open(url, '_blank');
+            });
+            
+            // Botão baixar TXT
+            baixarSimulacaoAtualBtn.addEventListener('click', baixarSimulacaoTXT);
+            
+            // Toggle notas
+            toggleNotasBtn.addEventListener('click', () => {
+                const isVisible = notasSection.style.display === 'block';
+                notasSection.style.display = isVisible ? 'none' : 'block';
+                const icon = toggleNotasBtn.querySelector('i');
+                const btnTextSpan = toggleNotasBtn.querySelector('.btn-text');
+                
+                if (isVisible) {
+                    icon.classList.replace('fa-clipboard-list', 'fa-clipboard');
+                    btnTextSpan.textContent = ' Notas Restritas';
+                } else {
+                    icon.classList.replace('fa-clipboard', 'fa-clipboard-list');
+                    btnTextSpan.textContent = ' Fechar Notas';
                 }
-
+            });
+            
+            // Botão abrir lista de leads
+            btnAbrirListaLeads.addEventListener('click', () => {
+                simuladorCardElement.style.display = 'none';
                 secaoListaLeads.style.display = 'block';
                 carregarLeadsNaTabela();
-                window.scrollTo({ top: secaoListaLeads.offsetTop - 20, behavior: 'smooth' });
             });
-        }
-
-        if (btnVoltarSimulador) {
+            
+            // Botão voltar para simulador
             btnVoltarSimulador.addEventListener('click', () => {
                 secaoListaLeads.style.display = 'none';
-                if (simuladorCardElement) simuladorCardElement.style.display = 'block';
-                loadNoteForCurrentClient();
-                updateLeadCountDisplay();
-                window.scrollTo({ top: simuladorCardElement.offsetTop - 20, behavior: 'smooth' });
+                simuladorCardElement.style.display = 'block';
             });
-        }
-
-        if (btnBaixarListaLeads) {
-            btnBaixarListaLeads.addEventListener('click', () => {
-                const leads = JSON.parse(localStorage.getItem('listaLeads')) || [];
-                if (leads.length === 0) {
-                    showToast('Nenhum lead para baixar.', 'warning');
-                    return;
-                }
-                
-                leads.sort((a, b) => new Date(b.dataISO) - new Date(a.dataISO));
-                let csvContent = "Nome;Telefone;Imovel;Data Salvo;Subsidio;Financiado;FGTS;Notas;Observacoes\n";
-                
-                leads.forEach(lead => {
-                    const descontoMCMVValue = lead.descontoMCMV || 0;
-                    const valorFinanciadoValue = lead.valorFinanciado || 0;
-                    const valorFGTSValue = lead.valorFGTS || 0;
-                    const observacoesLead = lead.observacoes || 'Sem observações.';
-                    
-                    const row = [`"${encodeHTML(lead.nome).replace(/"/g, '""')}"`, `"${encodeHTML(lead.telefone).replace(/"/g, '""')}"`, `"${encodeHTML(lead.imovel).replace(/"/g, '""')}"`, `"${lead.dataSalvo}"`, `${descontoMCMVValue}`, `${valorFinanciadoValue}`, `${valorFGTSValue}`, `"${encodeHTML(lead.notas || '').replace(/"/g, '""')}"`, `"${encodeHTML(observacoesLead).replace(/"/g, '""')}"`].join(";");
-                    csvContent += row + "\n";
-                });
-                
-                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-                const link = document.createElement("a");
-                const url = URL.createObjectURL(blob);
-                link.setAttribute("href", url);
-                link.setAttribute("download", "lista_leads.csv");
-                link.style.visibility = 'hidden';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-                showToast('Lista de leads baixada.', 'success');
-            });
-        }
-
-        if (baixarSimulacaoAtualBtn) {
-            baixarSimulacaoAtualBtn.addEventListener('click', () => {
-                baixarSimulacaoComoTXT();
-                salvarLead();
-            });
-        }
-
-        if (enviarWhatsappBtn) {
-            enviarWhatsappBtn.addEventListener('click', () => {
-                salvarLead();
-                enviarSimulacaoPorWhatsApp();
-            });
-        }
-
-        if (btnImprimirSimulacao) {
-            btnImprimirSimulacao.addEventListener('click', () => {
-                atualizarDadosImpressao();
-                window.print();
-            });
-        }
-
-        if (btnDocumentos) {
+            
+            // Botão documentos
             btnDocumentos.addEventListener('click', () => {
-                if (documentsModal) {
-                    loadPdfHeaderInfo();
-                    documentsModal.classList.add('show');
-                } else {
-                    console.error('Erro: Elemento modal #documentsModal não encontrado!');
-                }
+                documentsModal.classList.add('show');
             });
-        }
-
-        if (enviarDocumentosWhatsappBtn) {
-            enviarDocumentosWhatsappBtn.addEventListener('click', enviarDocumentosPorWhatsApp);
-        }
-
-        if (baixarDocumentosPdfBtn) {
-            baixarDocumentosPdfBtn.addEventListener('click', baixarDocumentosComoPdf);
-        }
-
-        if (btnImportarLeads) {
-            btnImportarLeads.addEventListener('click', () => {
-                importLeadsFileInput.click();
-            });
-        }
-        
-        if (importLeadsFileInput) {
-            importLeadsFileInput.addEventListener('change', processImportLeadsFile);
-        }
-
-        if (btnImportarLeadsCSV) {
+            
+            // Botão baixar lista de leads
+            btnBaixarListaLeads.addEventListener('click', baixarListaLeads);
+            
+            // Botão baixar lista de leads em PDF
+            btnBaixarListaLeadsPDF.addEventListener('click', gerarListaLeadsPDF);
+            
+            // Botão importar leads CSV
             btnImportarLeadsCSV.addEventListener('click', () => {
                 importLeadsCSVFileInput.click();
             });
-        }
-        
-        if (importLeadsCSVFileInput) {
-            importLeadsCSVFileInput.addEventListener('change', processImportLeadsCSVFile);
-        }
-
-        if (baixarDocumentosTxtBtn) {
-            baixarDocumentosTxtBtn.addEventListener('click', baixarDocumentosComoTxt);
-        }
+            
+            importLeadsCSVFileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const csv = event.target.result;
+                        const lines = csv.split('\n');
+                        const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+                        const leads = [];
+                        
+                        for (let i = 1; i < lines.length; i++) {
+                            if (lines[i].trim() === '') continue;
+                            
+                            const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
+                            const lead = {};
+                            
+                            headers.forEach((header, index) => {
+                                lead[header.toLowerCase()] = values[index] || '';
+                            });
+                            
+                            leads.push(lead);
+                        }
+                        
+                        const existingLeads = JSON.parse(localStorage.getItem('leads') || '[]');
+                        const allLeads = [...existingLeads, ...leads];
+                        localStorage.setItem('leads', JSON.stringify(allLeads));
+                        
+                        carregarLeadsNaTabela();
+                        showToast(`${leads.length} leads importados do CSV!`, 'success');
+                        importLeadsCSVFileInput.value = '';
+                    };
+                    reader.readAsText(file);
+                }
+            });
+            
+            // Botão importar leads JSON
+            btnImportarLeads.addEventListener('click', () => {
+                importLeadsFileInput.click();
+            });
+            
+            importLeadsFileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        try {
+                            const importedLeads = JSON.parse(event.target.result);
+                            const existingLeads = JSON.parse(localStorage.getItem('leads') || '[]');
+                            const allLeads = [...existingLeads, ...importedLeads];
+                            localStorage.setItem('leads', JSON.stringify(allLeads));
+                            
+                            carregarLeadsNaTabela();
+                            showToast(`${importedLeads.length} leads importados do JSON!`, 'success');
+                            importLeadsFileInput.value = '';
+                        } catch (error) {
+                            showToast('Erro ao importar arquivo JSON.', 'danger');
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            });
+            
+            // Botões de backup
+            btnExportarBackup.addEventListener('click', exportarBackup);
+            
+            btnImportarBackup.addEventListener('click', () => {
+                importFileInput.click();
+            });
+            
+            importFileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    importarBackup(file);
+                    importFileInput.value = '';
+                }
+            });
+            
+            // Fechar modais
+            closeModalBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = btn.getAttribute('data-target');
+                    if (target) {
+                        document.querySelector(target).classList.remove('show');
+                    } else {
+                        confirmationModal.classList.remove('show');
+                    }
+                });
+            });
+            
+            // Fechar modal ao clicar fora
+            window.addEventListener('click', (e) => {
+                if (e.target === documentsModal) {
+                    documentsModal.classList.remove('show');
+                }
+                if (e.target === historyModal) {
+                    historyModal.classList.remove('show');
+                }
+                if (e.target === confirmationModal) {
+                    confirmationModal.classList.remove('show');
+                }
+            });
+            
+            // Atualizar informações do PDF quando mudar
+            [imobiliariaNomeInput, corretorNomeInput, corretorCreciInput].forEach(input => {
+                input.addEventListener('input', updatePdfHeaderInfo);
+            });
+            
+            // Mudar documentos quando mudar profissão
+            profissaoClienteSelect.addEventListener('change', (e) => {
+                carregarDocumentosPorProfissao(e.target.value);
+            });
+            
+            // Inicializar dados
+            loadPdfHeaderInfo();
+            carregarDocumentosPorProfissao('carteira-assinada');
+            fetchINCCData();
+            updateLeadCountDisplay();
+            
+            // Atualizar INCC a cada hora
+            setInterval(fetchINCCData, 3600000);
+        });
 
     </script>
 </body>
