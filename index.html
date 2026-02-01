@@ -6,28 +6,29 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#1a1a1a">
-    <title> - Mobile</title>
+    <title>Simulador Corretor - Mobile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Biblioteca jsPDF para exportar PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <style>
         :root {
-            --primary: #4361ee;
-            --primary-dark: #3a56d4;
-            --secondary: #3f37c9;
-            --accent: #4895ef;
-            --gold: #FFD700;
-            --gold-dark: #DAA520;
-            --success: #4cc9f0;
-            --danger: #f72585;
-            --warning: #f8961e;
+            /* PALETA DE CORES DO FUNIL PRO RSI */
+            --primary-color: #4A574A; /* Verde mais escuro */
+            --secondary-color: #606C60; /* Tom correspondente */
+            --accent-color: #B4846C;
+            --success-color: #4CAF50;
+            --warning-color: #FFC107;
+            --danger-color: #D32F2F;
             
             --bg-dark: #0f0f0f;
             --card-dark: #1a1a1a;
             --border-dark: #2a2a2a;
             --text-light: #f8f9fa;
             --text-muted: #adb5bd;
+            
+            --gold: #FFD700;
+            --gold-dark: #DAA520;
             
             --radius: 16px;
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -59,66 +60,77 @@
             position: relative;
         }
 
-        /* Header com Navegação */
+        /* Header com Navegação - OTIMIZADO PARA MOBILE */
         .app-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 16px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 12px 16px;
             position: sticky;
             top: 0;
             z-index: 1000;
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 72px;
         }
 
         .header-content {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .app-title {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: white;
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-shrink: 0;
         }
 
         .app-title i {
             font-size: 1.2rem;
         }
 
+        /* BOTÕES DO HEADER OTIMIZADOS */
         .header-actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            width: 100%;
+            margin-top: 2px;
         }
 
         /* Botões Gerais */
         .btn {
-            padding: 12px 16px;
+            padding: 12px 14px;
             border-radius: var(--radius);
             border: none;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             cursor: pointer;
             transition: var(--transition);
             text-decoration: none;
             white-space: nowrap;
+            min-height: 44px;
+            min-width: 44px;
         }
 
         .btn-sm {
-            padding: 8px 12px;
-            font-size: 0.8rem;
+            padding: 10px 12px;
+            font-size: 0.85rem;
         }
 
         .btn-xs {
-            padding: 6px 10px;
-            font-size: 0.75rem;
+            padding: 8px 10px;
+            font-size: 0.8rem;
         }
 
         .btn-icon {
@@ -128,19 +140,20 @@
         }
 
         .btn-icon-sm {
-            padding: 8px;
-            width: 36px;
-            height: 36px;
+            padding: 10px;
+            width: 40px;
+            height: 40px;
         }
 
+        /* CORES DOS BOTÕES COM PALETA DO RSI */
         .btn-primary {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: #000;
+            background: linear-gradient(135deg, var(--accent-color), #C8A97E);
+            color: #fff;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 8px 24px rgba(180, 132, 108, 0.3);
         }
 
         .btn-secondary {
@@ -149,12 +162,12 @@
         }
 
         .btn-success {
-            background: linear-gradient(135deg, var(--success), #3ab7d8);
+            background: linear-gradient(135deg, var(--success-color), #388E3C);
             color: white;
         }
 
         .btn-danger {
-            background: linear-gradient(135deg, var(--danger), #d1145a);
+            background: linear-gradient(135deg, var(--danger-color), #C62828);
             color: white;
         }
 
@@ -164,31 +177,31 @@
         }
 
         .btn-info {
-            background: linear-gradient(135deg, var(--accent), #3a56d4);
+            background: linear-gradient(135deg, #4895ef, #3a56d4);
             color: white;
         }
 
         .btn-outline {
             background: transparent;
-            border: 2px solid var(--gold);
-            color: var(--gold);
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
         }
 
         .btn-outline:hover {
-            background: rgba(255, 215, 0, 0.1);
+            background: rgba(180, 132, 108, 0.1);
         }
 
         .btn-caixa {
-            background: linear-gradient(135deg, #004682, #0066b3);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             position: relative;
             padding-left: 40px;
         }
 
         .btn-caixa:hover {
-            background: linear-gradient(135deg, #0066b3, #004682);
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 102, 179, 0.3);
+            box-shadow: 0 8px 24px rgba(74, 87, 74, 0.3);
         }
 
         .btn-caixa::before {
@@ -208,7 +221,7 @@
         .main-content {
             padding: 16px;
             animation: fadeIn 0.4s ease;
-            padding-bottom: 80px; /* Espaço para a navegação inferior */
+            padding-bottom: 80px;
         }
 
         .card {
@@ -222,14 +235,14 @@
         }
 
         .card:hover {
-            border-color: var(--gold);
+            border-color: var(--accent-color);
         }
 
         .card-title {
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 16px;
-            color: var(--gold);
+            color: var(--accent-color);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -265,8 +278,8 @@
 
         .form-control:focus {
             outline: none;
-            border-color: var(--gold);
-            background: rgba(255, 215, 0, 0.05);
+            border-color: var(--accent-color);
+            background: rgba(180, 132, 108, 0.05);
         }
 
         .input-group {
@@ -298,7 +311,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 16px;
-            background: rgba(255, 215, 0, 0.1);
+            background: rgba(180, 132, 108, 0.1);
             border-radius: var(--radius);
             cursor: pointer;
             margin-bottom: 12px;
@@ -306,7 +319,7 @@
 
         .section-title {
             font-weight: 600;
-            color: var(--gold);
+            color: var(--accent-color);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -345,18 +358,18 @@
         }
 
         .tab.active {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: #000;
-            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+            background: linear-gradient(135deg, var(--accent-color), #C8A97E);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(180, 132, 108, 0.2);
         }
 
         /* Resultados */
         .result-card {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(76, 201, 240, 0.1));
+            background: linear-gradient(135deg, rgba(180, 132, 108, 0.1), rgba(76, 175, 80, 0.1));
             border-radius: var(--radius);
             padding: 16px;
             margin-top: 16px;
-            border-left: 4px solid var(--gold);
+            border-left: 4px solid var(--accent-color);
         }
 
         .result-item {
@@ -378,7 +391,7 @@
 
         .result-value {
             font-weight: 600;
-            color: var(--gold);
+            color: var(--accent-color);
             font-size: 1.1rem;
         }
 
@@ -399,7 +412,7 @@
         }
 
         .lead-item:hover {
-            border-color: var(--gold);
+            border-color: var(--accent-color);
             transform: translateY(-2px);
         }
 
@@ -412,7 +425,7 @@
 
         .lead-name {
             font-weight: 600;
-            color: var(--gold);
+            color: var(--accent-color);
             font-size: 1.1rem;
         }
 
@@ -487,7 +500,7 @@
         .modal-title {
             font-size: 1.2rem;
             font-weight: 600;
-            color: var(--gold);
+            color: var(--accent-color);
         }
 
         .modal-close {
@@ -517,7 +530,7 @@
             border-radius: var(--radius);
             padding: 16px;
             margin-bottom: 10px;
-            border-left: 4px solid var(--gold);
+            border-left: 4px solid var(--accent-color);
             box-shadow: var(--shadow);
             display: flex;
             align-items: center;
@@ -533,11 +546,11 @@
         }
 
         .toast-success {
-            border-left-color: var(--success);
+            border-left-color: var(--success-color);
         }
 
         .toast-error {
-            border-left-color: var(--danger);
+            border-left-color: var(--danger-color);
         }
 
         .toast-icon {
@@ -577,8 +590,8 @@
         }
 
         .nav-item.active {
-            color: var(--gold);
-            background: rgba(255, 215, 0, 0.1);
+            color: var(--accent-color);
+            background: rgba(180, 132, 108, 0.1);
         }
 
         .nav-icon {
@@ -597,7 +610,7 @@
             width: 20px;
             height: 20px;
             border: 3px solid var(--border-dark);
-            border-top-color: var(--gold);
+            border-top-color: var(--accent-color);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -622,11 +635,49 @@
             50% { opacity: 0.5; }
         }
 
-        /* Responsividade */
-        @media (max-width: 360px) {
-            .btn {
+        /* Responsividade OTIMIZADA para Mobile */
+        @media (max-width: 480px) {
+            .app-header {
                 padding: 10px 14px;
+                min-height: 68px;
+            }
+            
+            .header-actions {
+                gap: 4px;
+                margin-top: 4px;
+            }
+            
+            .btn {
+                padding: 10px 12px;
                 font-size: 0.85rem;
+                min-height: 42px;
+                min-width: 42px;
+            }
+            
+            .btn-icon-sm {
+                padding: 8px;
+                width: 38px;
+                height: 38px;
+            }
+            
+            .btn-caixa {
+                padding-left: 36px;
+                font-size: 0.8rem;
+            }
+            
+            .btn-caixa::before {
+                left: 10px;
+                width: 18px;
+                height: 18px;
+            }
+            
+            .app-title {
+                font-size: 1.2rem;
+            }
+            
+            .main-content {
+                padding: 14px;
+                padding-bottom: 80px;
             }
             
             .card {
@@ -637,24 +688,31 @@
                 padding: 12px 14px;
             }
             
-            .header-actions {
-                gap: 4px;
+            /* Ajuste para botões muito pequenos */
+            .btn-xs {
+                padding: 6px 8px;
+                font-size: 0.75rem;
+                min-height: 36px;
+                min-width: 36px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .btn {
+                padding: 8px 10px;
+                font-size: 0.8rem;
             }
             
-            .btn-icon-sm {
-                padding: 6px;
-                width: 32px;
-                height: 32px;
+            .header-actions {
+                gap: 3px;
             }
             
             .btn-caixa {
-                padding-left: 36px;
+                padding-left: 34px;
             }
             
             .btn-caixa::before {
-                left: 10px;
-                width: 18px;
-                height: 18px;
+                left: 8px;
             }
         }
 
@@ -673,14 +731,24 @@
             .lead-item {
                 margin-bottom: 0;
             }
+            
+            .header-content {
+                flex-wrap: nowrap;
+                align-items: center;
+            }
+            
+            .header-actions {
+                width: auto;
+                margin-top: 0;
+            }
         }
 
         /* Utilitários */
         .text-center { text-align: center; }
         .text-muted { color: var(--text-muted); }
-        .text-gold { color: var(--gold); }
-        .text-success { color: var(--success); }
-        .text-danger { color: var(--danger); }
+        .text-accent { color: var(--accent-color); }
+        .text-success { color: var(--success-color); }
+        .text-danger { color: var(--danger-color); }
         .mb-1 { margin-bottom: 8px; }
         .mb-2 { margin-bottom: 16px; }
         .mb-3 { margin-bottom: 24px; }
@@ -709,7 +777,7 @@
             <div class="header-content">
                 <div class="app-title">
                     <i class="fas fa-home"></i>
-                    <span></span>
+                    <span>Simulador Corretor</span>
                 </div>
                 <div class="header-actions">
                     <button class="btn btn-icon-sm btn-caixa" id="btnCaixa" title="Simulador Caixa" onclick="openCaixaSimulator()">
@@ -1096,7 +1164,7 @@
                     </div>
                     
                     <div class="mt-3 text-center text-muted">
-                        <p class="mb-1">Simulador v2.0</p>
+                        <p class="mb-1">Simulador Corretor v2.0</p>
                         <p class="mb-1">Desenvolvido para facilitar seu trabalho</p>
                         <p>Suporte: (82) 99662-2036</p>
                     </div>
@@ -1720,7 +1788,7 @@
             showToast('Dados do corretor salvos!', 'success');
         }
         
-        // Salvar configurações automaticamente
+        // Salvar configurações automaticamente ao sair dos campos
         async function saveConfigAuto() {
             await saveConfig('imobiliariaNome', document.getElementById('imobiliariaNome').value);
             await saveConfig('corretorNome', document.getElementById('corretorNome').value);
@@ -1814,7 +1882,7 @@
             const docs = documentos[profession] || [];
             
             let html = '<div class="result-card">';
-            html += '<div class="mb-2 text-gold"><i class="fas fa-list-check"></i> Documentos Necessários:</div>';
+            html += '<div class="mb-2 text-accent"><i class="fas fa-list-check"></i> Documentos Necessários:</div>';
             html += '<div style="font-size: 0.9rem;">';
             
             docs.forEach((doc, index) => {
@@ -2086,12 +2154,12 @@
                 
                 // Título
                 doc.setFontSize(20);
-                doc.setTextColor(67, 97, 238); // Cor primary
+                doc.setTextColor(74, 87, 74); // Cor primary-color
                 doc.text('SIMULAÇÃO DE PLANO DE PAGAMENTO', 105, yPos, { align: 'center' });
                 yPos += 10;
                 
                 // Linha decorativa
-                doc.setDrawColor(255, 215, 0); // Cor gold
+                doc.setDrawColor(180, 132, 108); // Cor accent-color
                 doc.setLineWidth(0.5);
                 doc.line(20, yPos, 190, yPos);
                 yPos += 10;
@@ -2138,7 +2206,7 @@
                     head: [valoresData[0]],
                     body: valoresData.slice(1),
                     theme: 'grid',
-                    headStyles: { fillColor: [67, 97, 238] },
+                    headStyles: { fillColor: [74, 87, 74] },
                     bodyStyles: { textColor: [0, 0, 0] },
                     margin: { left: 20, right: 20 }
                 });
@@ -2173,7 +2241,7 @@
                     head: [entradaData[0]],
                     body: entradaData.slice(1),
                     theme: 'grid',
-                    headStyles: { fillColor: [255, 215, 0] },
+                    headStyles: { fillColor: [180, 132, 108] },
                     bodyStyles: { textColor: [0, 0, 0] },
                     margin: { left: 20, right: 20 }
                 });
@@ -2198,7 +2266,7 @@
                         head: [intercaladasData[0]],
                         body: intercaladasData.slice(1),
                         theme: 'grid',
-                        headStyles: { fillColor: [76, 201, 240] },
+                        headStyles: { fillColor: [76, 175, 80] },
                         bodyStyles: { textColor: [0, 0, 0] },
                         margin: { left: 20, right: 20 }
                     });
@@ -2221,7 +2289,7 @@
                     head: [resumoData[0]],
                     body: resumoData.slice(1),
                     theme: 'grid',
-                    headStyles: { fillColor: [76, 201, 240] },
+                    headStyles: { fillColor: [76, 175, 80] },
                     bodyStyles: { textColor: [0, 0, 0] },
                     margin: { left: 20, right: 20 }
                 });
@@ -2364,7 +2432,7 @@
             content += `\n`;
             content += "=".repeat(50) + "\n";
             content += `Gerado em: ${formatDate()}\n`;
-            content += ` v2.0\n`;
+            content += `Simulador Corretor v2.0\n`;
             
             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
@@ -2400,7 +2468,7 @@
         
         // Abrir suporte
         function openSupport() {
-            const message = encodeURIComponent('Olá! Preciso de ajuda com o Simulador.');
+            const message = encodeURIComponent('Olá! Preciso de ajuda com o Simulador Corretor.');
             window.open(`https://wa.me/${SUPPORT_PHONE}?text=${message}`, '_blank');
         }
         
@@ -2800,4 +2868,3 @@
     </script>
 </body>
 </html>
-
