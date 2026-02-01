@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -53,12 +52,97 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Splash Screen do Blog */
+        .blog-splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-dark);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .blog-splash.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .blog-splash iframe {
+            width: 100%;
+            height: calc(100% - 100px);
+            border: none;
+            border-radius: var(--radius);
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .blog-splash-controls {
+            width: 100%;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: var(--radius);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-color);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .blog-splash-controls h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .blog-splash-controls p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .skip-blog-btn {
+            background: linear-gradient(135deg, var(--accent-color), #C8A97E);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skip-blog-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(180, 132, 108, 0.3);
+        }
+
+        .skip-blog-btn i {
+            font-size: 1.1rem;
+        }
+
         /* Container Principal */
         .app-container {
             max-width: 100%;
             min-height: 100vh;
             padding: 0;
             position: relative;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .app-container.visible {
+            opacity: 1;
         }
 
         /* Header com Navegação - OTIMIZADO PARA MOBILE */
@@ -638,6 +722,15 @@
 
         /* Responsividade OTIMIZADA para Mobile */
         @media (max-width: 480px) {
+            .blog-splash-controls {
+                padding: 15px;
+            }
+            
+            .skip-blog-btn {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+            }
+            
             .app-header {
                 padding: 10px 14px;
                 min-height: 68px;
@@ -773,7 +866,24 @@
     </style>
 </head>
 <body>
-    <div class="app-container">
+    <!-- Splash Screen do Blog -->
+    <div class="blog-splash" id="blogSplash">
+        <iframe src="https://dinheiroeplanejamento.blogspot.com/2025/04/guia-completo-para-corretores-de.html" 
+                title="Blog do Corretor"
+                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                allow="fullscreen">
+        </iframe>
+        <div class="blog-splash-controls">
+            <h3><i class="fas fa-exclamation-circle"></i> Para sair do blog e ir para o simulador:</h3>
+            <p>Clique no botão abaixo para acessar o simulador e começar a usar todas as funcionalidades!</p>
+            <button class="skip-blog-btn" id="skipBlogBtn">
+                <i class="fas fa-rocket"></i> Ir para o Simulador
+            </button>
+        </div>
+    </div>
+
+    <!-- Aplicativo Principal -->
+    <div class="app-container" id="appContainer">
         <!-- Header -->
         <header class="app-header">
             <div class="header-content">
@@ -1255,7 +1365,46 @@
         const TUTORIAL_URL = 'https://youtube.com/playlist?list=SUA_PLAYLIST';
         const SUPPORT_PHONE = '5582996622036';
         
+        // ============================================
+        // Gerenciamento do Splash Screen do Blog
+        // ============================================
+        
+        // Função para esconder o splash screen do blog e mostrar o aplicativo
+        function hideBlogSplash() {
+            const blogSplash = document.getElementById('blogSplash');
+            const appContainer = document.getElementById('appContainer');
+            
+            // Esconder splash screen
+            blogSplash.classList.add('hidden');
+            
+            // Mostrar aplicativo
+            setTimeout(() => {
+                appContainer.classList.add('visible');
+            }, 300);
+            
+            // Salvar preferência para não mostrar novamente
+            localStorage.setItem('skipBlogSplash', 'true');
+            
+            // Mostrar mensagem de boas-vindas
+            setTimeout(() => {
+                showToast('Simulador carregado! Comece a simular.', 'success');
+            }, 500);
+        }
+        
+        // Função para verificar se deve mostrar o splash screen
+        function shouldShowBlogSplash() {
+            // Verificar se o usuário já optou por pular o splash screen
+            const skipPref = localStorage.getItem('skipBlogSplash');
+            
+            // Sempre mostrar na primeira vez (para fins de demonstração)
+            // Na produção, você pode usar: return !skipPref;
+            return true; // Sempre mostrar para este exemplo
+        }
+        
+        // ============================================
         // Inicializar IndexedDB
+        // ============================================
+        
         function initDB() {
             return new Promise((resolve, reject) => {
                 const request = indexedDB.open(DB_NAME, DB_VERSION);
@@ -2535,6 +2684,20 @@
         // ============================================
         
         document.addEventListener('DOMContentLoaded', async function() {
+            // Configurar botão para sair do blog
+            document.getElementById('skipBlogBtn').addEventListener('click', hideBlogSplash);
+            
+            // Verificar se deve mostrar o splash screen do blog
+            if (shouldShowBlogSplash()) {
+                // Mostrar splash screen do blog
+                document.getElementById('blogSplash').style.display = 'flex';
+                document.getElementById('appContainer').classList.remove('visible');
+            } else {
+                // Pular direto para o aplicativo
+                document.getElementById('blogSplash').classList.add('hidden');
+                document.getElementById('appContainer').classList.add('visible');
+            }
+            
             // Inicializar banco de dados
             try {
                 await initDB();
@@ -2847,8 +3010,6 @@
             
             // Calcular valores iniciais
             calcularValores();
-            
-            showToast('Sistema pronto para uso!', 'success');
             
             // Adicionar listener para recarregar leads ao voltar para a aba
             window.addEventListener('focus', async function() {
