@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,8 +14,8 @@
     <style>
         :root {
             /* PALETA DE CORES DO FUNIL PRO RSI */
-            --primary-color: #4A574A; /* Verde mais escuro */
-            --secondary-color: #606C60; /* Tom correspondente */
+            --primary-color: #4A574A;
+            --secondary-color: #606C60;
             --accent-color: #B4846C;
             --success-color: #4CAF50;
             --warning-color: #FFC107;
@@ -139,91 +138,6 @@
             text-align: center;
         }
 
-        .advertisement-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 10001;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .advertisement-overlay.active {
-            display: flex;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .advertisement-content {
-            background: var(--card-dark);
-            border-radius: var(--radius);
-            padding: 25px;
-            max-width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            border: 2px solid var(--accent-color);
-            box-shadow: var(--shadow);
-            text-align: center;
-            position: relative;
-        }
-
-        .advertisement-content h3 {
-            color: var(--accent-color);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        .advertisement-content p {
-            color: var(--text-light);
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .advertisement-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--danger-color);
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .skip-blog-btn {
-            background: linear-gradient(135deg, var(--success-color), #388E3C);
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: var(--radius);
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .skip-blog-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(76, 175, 80, 0.3);
-        }
-
-        .skip-blog-btn i {
-            font-size: 1.1rem;
-        }
-
         .blog-loading {
             display: flex;
             flex-direction: column;
@@ -251,7 +165,7 @@
             opacity: 1;
         }
 
-        /* Header com Navegação - OTIMIZADO PARA MOBILE */
+        /* Header com Navegação */
         .app-header {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             padding: 12px 16px;
@@ -285,10 +199,9 @@
             font-size: 1.2rem;
         }
 
-        /* BOTÕES DO HEADER OTIMIZADOS */
         .header-actions {
             display: flex;
-            gap: 10px; /* AUMENTADO de 6px para 10px para mais espaçamento */
+            gap: 10px;
             flex-wrap: wrap;
             justify-content: flex-end;
             width: 100%;
@@ -336,7 +249,7 @@
             height: 40px;
         }
 
-        /* CORES DOS BOTÕES COM PALETA DO RSI */
+        /* CORES DOS BOTÕES */
         .btn-primary {
             background: linear-gradient(135deg, var(--accent-color), #C8A97E);
             color: #fff;
@@ -826,13 +739,7 @@
             50% { opacity: 0.8; transform: scale(1.05); }
         }
 
-        @keyframes adClick {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        /* Responsividade OTIMIZADA para Mobile */
+        /* Responsividade */
         @media (max-width: 480px) {
             .blog-splash-controls {
                 padding: 15px;
@@ -849,7 +756,7 @@
             }
             
             .header-actions {
-                gap: 8px; /* AUMENTADO de 4px para 8px para mais espaçamento */
+                gap: 8px;
                 margin-top: 4px;
             }
             
@@ -894,7 +801,6 @@
                 padding: 12px 14px;
             }
             
-            /* Ajuste para botões muito pequenos */
             .btn-xs {
                 padding: 6px 8px;
                 font-size: 0.75rem;
@@ -919,7 +825,7 @@
             }
             
             .header-actions {
-                gap: 6px; /* AUMENTADO de 3px para 6px para mais espaçamento */
+                gap: 6px;
             }
             
             .btn-caixa {
@@ -955,7 +861,7 @@
             .header-actions {
                 width: auto;
                 margin-top: 0;
-                gap: 12px; /* ESPAÇAMENTO ADICIONAL para desktop */
+                gap: 12px;
             }
         }
 
@@ -987,21 +893,6 @@
     </style>
 </head>
 <body>
-    <!-- Overlay de Anúncio -->
-    <div class="advertisement-overlay" id="advertisementOverlay">
-        <div class="advertisement-content">
-            <button class="advertisement-close" id="closeAdBtn">
-                <i class="fas fa-times"></i>
-            </button>
-            <h3><i class="fas fa-bullhorn"></i> Anúncio Visualizado!</h3>
-            <p>Você acaba de visualizar um anúncio do nosso blog. Obrigado pelo apoio!</p>
-            <p class="text-muted">O simulador será aberto automaticamente em <span id="adTimer">10</span> segundos.</p>
-            <button class="skip-blog-btn" id="skipAdBtn">
-                <i class="fas fa-forward"></i> Ir Direto para o Simulador
-            </button>
-        </div>
-    </div>
-
     <!-- Splash Screen do Blog -->
     <div class="blog-splash" id="blogSplash">
         <div class="blog-loading" id="blogLoading">
@@ -1043,16 +934,16 @@
                     <span>Simulador Corretor</span>
                 </div>
                 <div class="header-actions">
-                    <button class="btn btn-icon-sm btn-caixa" id="btnCaixa" title="Simulador Caixa" onclick="openCaixaSimulator()">
+                    <button class="btn btn-icon-sm btn-caixa" id="btnCaixa" title="Simulador Caixa">
                         Caixa
                     </button>
-                    <button class="btn btn-icon-sm btn-info" id="btnBlog" title="Blog" onclick="openBlog()">
+                    <button class="btn btn-icon-sm btn-info" id="btnBlog" title="Blog">
                         <i class="fas fa-blog"></i>
                     </button>
-                    <button class="btn btn-icon-sm btn-success" id="btnTutorial" title="Tutorial" onclick="openTutorial()">
+                    <button class="btn btn-icon-sm btn-success" id="btnTutorial" title="Tutorial">
                         <i class="fas fa-graduation-cap"></i>
                     </button>
-                    <button class="btn btn-icon-sm btn-whatsapp" id="btnSuporte" title="Suporte" onclick="openSupport()">
+                    <button class="btn btn-icon-sm btn-whatsapp" id="btnSuporte" title="Suporte">
                         <i class="fab fa-whatsapp"></i>
                     </button>
                     <button class="btn btn-icon btn-primary" id="btnNewSimulation" title="Nova Simulação">
@@ -1316,7 +1207,6 @@
                     </div>
                     
                     <div class="leads-list" id="leadsList">
-                        <!-- Leads carregados dinamicamente -->
                         <div class="text-center text-muted p-3">
                             <i class="fas fa-users fa-2x mb-2"></i>
                             <p>Nenhum lead salvo ainda</p>
@@ -1361,9 +1251,7 @@
                         <input type="text" class="form-control" id="corretorCreci" placeholder="CRECI/XX 0000">
                     </div>
                     
-                    <div id="documentosLista" class="mt-3">
-                        <!-- Documentos carregados dinamicamente -->
-                    </div>
+                    <div id="documentosLista" class="mt-3"></div>
                     
                     <div class="mt-3 d-flex gap-1">
                         <button class="btn btn-primary w-100" id="btnShareDocsWhatsApp">
@@ -1503,7 +1391,7 @@
     <!-- Scripts -->
     <script>
         // ============================================
-        // Configurações Iniciais e Banco de Dados
+        // Configurações Iniciais
         // ============================================
         
         let db;
@@ -1519,8 +1407,6 @@
         // Variáveis de controle do temporizador
         let countdownTimer;
         let countdownSeconds = 10;
-        let adTimerSeconds = 10;
-        let adTimer;
         
         // ============================================
         // Gerenciamento do Splash Screen do Blog
@@ -1529,7 +1415,6 @@
         // Função para esconder o splash screen do blog e mostrar o aplicativo
         function hideBlogSplash() {
             clearInterval(countdownTimer);
-            clearInterval(adTimer);
             
             const blogSplash = document.getElementById('blogSplash');
             const appContainer = document.getElementById('appContainer');
@@ -1554,62 +1439,7 @@
         // Função para verificar se deve mostrar o splash screen
         function shouldShowBlogSplash() {
             const skipPref = localStorage.getItem('skipBlogSplash');
-            return !skipPref || true; // Sempre mostrar para forçar visualização do anúncio
-        }
-        
-        // ============================================
-        // Funções para Interagir com Anúncios do Blog
-        // ============================================
-        
-        // Tentar clicar em anúncios do blog
-        function tryClickBlogAds() {
-            const iframe = document.getElementById('blogIframe');
-            
-            try {
-                // Primeiro tentamos com postMessage para comunicação cross-origin
-                iframe.contentWindow.postMessage('click_ads', '*');
-                
-                // Mostrar overlay de anúncio (simulando clique)
-                setTimeout(() => {
-                    showAdvertisementOverlay();
-                }, 2000);
-                
-                console.log('Tentativa de clique em anúncios enviada');
-            } catch (error) {
-                console.log('Não foi possível acessar iframe diretamente:', error);
-                
-                // Se não conseguir, mostramos o overlay de qualquer forma
-                setTimeout(() => {
-                    showAdvertisementOverlay();
-                }, 2000);
-            }
-        }
-        
-        // Mostrar overlay de anúncio
-        function showAdvertisementOverlay() {
-            const overlay = document.getElementById('advertisementOverlay');
-            overlay.classList.add('active');
-            
-            // Iniciar temporizador do overlay
-            adTimerSeconds = 10;
-            document.getElementById('adTimer').textContent = adTimerSeconds;
-            
-            adTimer = setInterval(() => {
-                adTimerSeconds--;
-                document.getElementById('adTimer').textContent = adTimerSeconds;
-                
-                if (adTimerSeconds <= 0) {
-                    clearInterval(adTimer);
-                    hideAdvertisementOverlay();
-                    hideBlogSplash();
-                }
-            }, 1000);
-        }
-        
-        // Esconder overlay de anúncio
-        function hideAdvertisementOverlay() {
-            const overlay = document.getElementById('advertisementOverlay');
-            overlay.classList.remove('active');
+            return !skipPref || true;
         }
         
         // Iniciar temporizador automático
@@ -1785,7 +1615,7 @@
                 const request = index.getAll();
                 
                 request.onsuccess = () => {
-                    resolve(request.result.reverse()); // Mais recentes primeiro
+                    resolve(request.result.reverse());
                 };
                 
                 request.onerror = () => {
@@ -1958,7 +1788,7 @@
             const totalIntercaladas = valorIntercaladas * quantidadeIntercaladas;
             const saldoRemanescente = valorEntrada - sinalConstrutora - maximoConstrParc - totalIntercaladas;
             
-            // Cálculo INCC (lógica especificada)
+            // Cálculo INCC
             let valorParcelaComINCC = 0;
             if (maximoConstrParc > 0 && parcelasEntrada > 0) {
                 if (correcaoINCC > 0) {
@@ -2341,7 +2171,7 @@
         // Compartilhar via WhatsApp
         function shareViaWhatsApp() {
             const message = generateWhatsAppContent();
-            const phone = "5582996622036"; // Número do corretor
+            const phone = "5582996622036";
             const url = `https://wa.me/${phone}?text=${message}`;
             window.open(url, '_blank');
         }
@@ -2534,12 +2364,12 @@
                 
                 // Título
                 doc.setFontSize(20);
-                doc.setTextColor(74, 87, 74); // Cor primary-color
+                doc.setTextColor(74, 87, 74);
                 doc.text('SIMULAÇÃO DE PLANO DE PAGAMENTO', 105, yPos, { align: 'center' });
                 yPos += 10;
                 
                 // Linha decorativa
-                doc.setDrawColor(180, 132, 108); // Cor accent-color
+                doc.setDrawColor(180, 132, 108);
                 doc.setLineWidth(0.5);
                 doc.line(20, yPos, 190, yPos);
                 yPos += 10;
@@ -2916,18 +2746,6 @@
             // Configurar botão para sair do blog
             document.getElementById('skipBlogBtn').addEventListener('click', hideBlogSplash);
             
-            // Configurar botão para fechar anúncio
-            document.getElementById('closeAdBtn').addEventListener('click', function() {
-                hideAdvertisementOverlay();
-                hideBlogSplash();
-            });
-            
-            // Configurar botão para pular anúncio
-            document.getElementById('skipAdBtn').addEventListener('click', function() {
-                hideAdvertisementOverlay();
-                hideBlogSplash();
-            });
-            
             // Verificar se deve mostrar o splash screen do blog
             if (shouldShowBlogSplash()) {
                 // Mostrar splash screen do blog
@@ -2945,11 +2763,6 @@
                     // Esconder loading
                     loadingDiv.style.display = 'none';
                     iframe.style.display = 'block';
-                    
-                    // Tentar clicar em anúncios após o blog carregar
-                    setTimeout(() => {
-                        tryClickBlogAds();
-                    }, 3000); // Esperar 3 segundos para o blog carregar completamente
                 };
                 
                 // Mostrar o iframe
@@ -3129,7 +2942,7 @@
                 };
                 
                 await saveLead(leadData);
-                await loadLeads(); // Atualizar lista de leads
+                await loadLeads();
             });
             
             // Botão compartilhar WhatsApp
@@ -3284,7 +3097,7 @@
         });
         
         // ============================================
-        // Variáveis Globais (para funções chamadas por onclick)
+        // Variáveis Globais
         // ============================================
         window.loadLeadToForm = loadLeadToForm;
         window.deleteLeadFromUI = deleteLeadFromUI;
