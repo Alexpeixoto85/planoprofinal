@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -1468,8 +1469,8 @@
             return new Promise((resolve, reject) => {
                 const request = indexedDB.open(DB_NAME, DB_VERSION);
                 
-                request.onerror = () => {
-                    console.error('Erro ao abrir banco de dados');
+                request.onerror = (event) => {
+                    console.error('Erro ao abrir banco de dados:', event.target.error);
                     reject('Erro no banco de dados');
                 };
                 
@@ -1480,6 +1481,7 @@
                 };
                 
                 request.onupgradeneeded = (event) => {
+                    console.log('Upgrade do banco de dados necessário');
                     db = event.target.result;
                     
                     // Criar store para leads
@@ -1490,16 +1492,19 @@
                         });
                         leadsStore.createIndex('data', 'data', { unique: false });
                         leadsStore.createIndex('nome', 'nome', { unique: false });
+                        console.log('Store "leads" criada');
                     }
                     
                     // Criar store para configurações
                     if (!db.objectStoreNames.contains('config')) {
-                        const configStore = db.createObjectStore('config', { keyPath: 'key' });
+                        db.createObjectStore('config', { keyPath: 'key' });
+                        console.log('Store "config" criada');
                     }
                     
                     // Criar store para notas
                     if (!db.objectStoreNames.contains('notas')) {
                         db.createObjectStore('notas', { keyPath: 'id', autoIncrement: true });
+                        console.log('Store "notas" criada');
                     }
                 };
             });
@@ -1511,10 +1516,10 @@
         
         // Formatar moeda
         function formatCurrency(value) {
-            if (!value && value !== 0) return 'R$ 0,00';
+            if (value === null || value === undefined || value === '') return 'R$ 0,00';
             const num = typeof value === 'string' ? 
                 parseFloat(value.replace('R$', '').replace(/\./g, '').replace(',', '.')) : 
-                value;
+                Number(value);
             return 'R$ ' + num.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
         
@@ -1582,110 +1587,188 @@
         // Salvar lead
         async function saveLead(leadData) {
             return new Promise((resolve, reject) => {
-                const transaction = db.transaction(['leads'], 'readwrite');
-                const store = transaction.objectStore('leads');
+                if (!db) {
+                    reject('Banco de dados não inicializado');
+                    showToast('Erro: Banco de dados não inicializado', 'error');
+                    return;
+                }
                 
-                // Adicionar data e id
-                const lead = {
-                    ...leadData,
-                    data: new Date().toISOString(),
-                    dataFormatada: formatDate()
-                };
-                
-                const request = store.add(lead);
-                
-                request.onsuccess = () => {
-                    resolve(request.result);
-                    showToast('Lead salvo com sucesso!', 'success');
-                };
-                
-                request.onerror = () => {
-                    reject('Erro ao salvar lead');
+                try {
+                    const transaction = db.transaction(['leads'], 'readwrite');
+                    const store = transaction.objectStore('leads');
+                    
+                    // Adicionar data e id
+                    const lead = {
+                        ...leadData,
+                        data: new Date().toISOString(),
+                        dataFormatada: formatDate()
+                    };
+                    
+                    const request = store.add(lead);
+                    
+                    request.onsuccess = () => {
+                        console.log('Lead salvo com ID:', request.result);
+                        resolve(request.result);
+                        showToast('Lead salvo com sucesso!', 'success');
+                    };
+                    
+                    request.onerror = (event) => {
+                        console.error('Erro ao salvar lead:', event.target.error);
+                        reject('Erro ao salvar lead');
+                        showToast('Erro ao salvar lead', 'error');
+                    };
+                } catch (error) {
+                    console.error('Erro na transação:', error);
+                    reject('Erro na transação');
                     showToast('Erro ao salvar lead', 'error');
-                };
+                }
             });
         }
         
         // Buscar todos os leads
         async function getAllLeads() {
             return new Promise((resolve, reject) => {
-                const transaction = db.transaction(['leads'], 'readonly');
-                const store = transaction.objectStore('leads');
-                const index = store.index('data');
-                const request = index.getAll();
+                if (!db) {
+                    reject('Banco de dados não inicializado');
+                    return;
+                }
                 
-                request.onsuccess = () => {
-                    resolve(request.result.reverse());
-                };
-                
-                request.onerror = () => {
-                    reject('Erro ao buscar leads');
-                };
+                try {
+                    const transaction = db.transaction(['leads'], 'readonly');
+                    const store = transaction.objectStore('leads');
+                    const request = store.getAll();
+                    
+                    request.onsuccess = () => {
+                        const leads = request.result;
+                        // Ordenar por data (mais recente primeiro)
+                        leads.sort((a, b) => new Date(b.data) - new Date(a.data));
+                        resolve(leads);
+                    };
+                    
+                    request.onerror = (event) => {
+                        console.error('Erro ao buscar leads:', event.target.error);
+                        reject('Erro ao buscar leads');
+                    };
+                } catch (error) {
+                    console.error('Erro na transação:', error);
+                    reject('Erro na transação');
+                }
             });
         }
         
         // Excluir lead
         async function deleteLead(id) {
             return new Promise((resolve, reject) => {
-                const transaction = db.transaction(['leads'], 'readwrite');
-                const store = transaction.objectStore('leads');
-                const request = store.delete(id);
+                if (!db) {
+                    reject('Banco de dados não inicializado');
+                    return;
+                }
                 
-                request.onsuccess = () => {
-                    resolve();
-                    showToast('Lead excluído!', 'success');
-                };
-                
-                request.onerror = () => {
-                    reject('Erro ao excluir lead');
-                    showToast('Erro ao excluir lead', 'error');
-                };
+                try {
+                    const transaction = db.transaction(['leads'], 'readwrite');
+                    const store = transaction.objectStore('leads');
+                    const request = store.delete(id);
+                    
+                    request.onsuccess = () => {
+                        console.log('Lead excluído com ID:', id);
+                        resolve();
+                        showToast('Lead excluído!', 'success');
+                    };
+                    
+                    request.onerror = (event) => {
+                        console.error('Erro ao excluir lead:', event.target.error);
+                        reject('Erro ao excluir lead');
+                        showToast('Erro ao excluir lead', 'error');
+                    };
+                } catch (error) {
+                    console.error('Erro na transação:', error);
+                    reject('Erro na transação');
+                }
             });
         }
         
         // Excluir todos os leads
         async function deleteAllLeads() {
             return new Promise((resolve, reject) => {
-                const transaction = db.transaction(['leads'], 'readwrite');
-                const store = transaction.objectStore('leads');
-                const request = store.clear();
+                if (!db) {
+                    reject('Banco de dados não inicializado');
+                    return;
+                }
                 
-                request.onsuccess = () => {
-                    resolve();
-                    showToast('Todos os leads foram excluídos!', 'success');
-                };
-                
-                request.onerror = () => {
-                    reject('Erro ao excluir leads');
-                    showToast('Erro ao excluir leads', 'error');
-                };
+                try {
+                    const transaction = db.transaction(['leads'], 'readwrite');
+                    const store = transaction.objectStore('leads');
+                    const request = store.clear();
+                    
+                    request.onsuccess = () => {
+                        console.log('Todos os leads excluídos');
+                        resolve();
+                        showToast('Todos os leads foram excluídos!', 'success');
+                    };
+                    
+                    request.onerror = (event) => {
+                        console.error('Erro ao excluir leads:', event.target.error);
+                        reject('Erro ao excluir leads');
+                        showToast('Erro ao excluir leads', 'error');
+                    };
+                } catch (error) {
+                    console.error('Erro na transação:', error);
+                    reject('Erro na transação');
+                }
             });
         }
         
         // Salvar configuração
         async function saveConfig(key, value) {
             return new Promise((resolve, reject) => {
-                const transaction = db.transaction(['config'], 'readwrite');
-                const store = transaction.objectStore('config');
-                const request = store.put({ key, value });
+                if (!db) {
+                    reject('Banco de dados não inicializado');
+                    return;
+                }
                 
-                request.onsuccess = () => resolve();
-                request.onerror = () => reject();
+                try {
+                    const transaction = db.transaction(['config'], 'readwrite');
+                    const store = transaction.objectStore('config');
+                    const request = store.put({ key, value });
+                    
+                    request.onsuccess = () => {
+                        console.log('Configuração salva:', key, value);
+                        resolve();
+                    };
+                    
+                    request.onerror = (event) => {
+                        console.error('Erro ao salvar configuração:', event.target.error);
+                        reject();
+                    };
+                } catch (error) {
+                    console.error('Erro na transação:', error);
+                    reject();
+                }
             });
         }
         
         // Buscar configuração
         async function getConfig(key, defaultValue = null) {
             return new Promise((resolve) => {
-                const transaction = db.transaction(['config'], 'readonly');
-                const store = transaction.objectStore('config');
-                const request = store.get(key);
+                if (!db) {
+                    resolve(defaultValue);
+                    return;
+                }
                 
-                request.onsuccess = () => {
-                    resolve(request.result ? request.result.value : defaultValue);
-                };
-                
-                request.onerror = () => resolve(defaultValue);
+                try {
+                    const transaction = db.transaction(['config'], 'readonly');
+                    const store = transaction.objectStore('config');
+                    const request = store.get(key);
+                    
+                    request.onsuccess = () => {
+                        resolve(request.result ? request.result.value : defaultValue);
+                    };
+                    
+                    request.onerror = () => resolve(defaultValue);
+                } catch (error) {
+                    console.error('Erro na transação:', error);
+                    resolve(defaultValue);
+                }
             });
         }
         
@@ -1719,6 +1802,7 @@
                 
                 showToast('Backup exportado com sucesso!', 'success');
             } catch (error) {
+                console.error('Erro ao exportar backup:', error);
                 showToast('Erro ao exportar backup', 'error');
             }
         }
@@ -1733,12 +1817,9 @@
                         const backup = JSON.parse(event.target.result);
                         
                         // Importar leads
-                        if (backup.leads) {
-                            const transaction = db.transaction(['leads'], 'readwrite');
-                            const store = transaction.objectStore('leads');
-                            
+                        if (backup.leads && backup.leads.length > 0) {
                             for (const lead of backup.leads) {
-                                store.put(lead);
+                                await saveLead(lead);
                             }
                         }
                         
@@ -1754,9 +1835,15 @@
                         loadConfig();
                         resolve();
                     } catch (error) {
+                        console.error('Erro ao importar backup:', error);
                         showToast('Erro ao importar backup. Arquivo inválido.', 'error');
                         reject(error);
                     }
+                };
+                
+                reader.onerror = () => {
+                    showToast('Erro ao ler arquivo', 'error');
+                    reject('Erro ao ler arquivo');
                 };
                 
                 reader.readAsText(file);
@@ -1909,6 +1996,7 @@
                 
                 container.innerHTML = html;
             } catch (error) {
+                console.error('Erro ao carregar leads:', error);
                 showToast('Erro ao carregar leads', 'error');
             }
         }
@@ -1916,93 +2004,134 @@
         // Carregar lead para formulário
         async function loadLeadToForm(id) {
             return new Promise((resolve) => {
-                const transaction = db.transaction(['leads'], 'readonly');
-                const store = transaction.objectStore('leads');
-                const request = store.get(id);
-                
-                request.onsuccess = () => {
-                    const lead = request.result;
-                    if (lead) {
-                        // Preencher formulário
-                        document.getElementById('nomeCliente').value = lead.nome || '';
-                        document.getElementById('telefoneCliente').value = lead.telefone || '';
-                        document.getElementById('nomeEmpreendimento').value = lead.empreendimento || '';
-                        document.getElementById('valorImovel').value = lead.valorImovel || '0,00';
-                        document.getElementById('descontoMCMV').value = lead.descontoMCMV || '0,00';
-                        document.getElementById('valorFinanciado').value = lead.valorFinanciado || '0,00';
-                        document.getElementById('descontoConstrutora').value = lead.descontoConstrutora || '0,00';
-                        document.getElementById('valorFGTS').value = lead.valorFGTS || '0,00';
-                        document.getElementById('sinalConstrutora').value = lead.sinalConstrutora || '0,00';
-                        document.getElementById('maximoConstrParc').value = lead.maximoConstrParc || '0,00';
-                        document.getElementById('parcelasEntrada').value = lead.parcelasEntrada || 1;
-                        document.getElementById('correcaoINCC').value = lead.correcaoINCC || 0.55;
-                        document.getElementById('taxaObra').value = lead.taxaObra || '0,00';
-                        document.getElementById('percentualObra').value = lead.percentualObra || 0;
-                        document.getElementById('valorIntercaladas').value = lead.valorIntercaladas || '0,00';
-                        document.getElementById('quantidadeIntercaladas').value = lead.quantidadeIntercaladas || 0;
-                        document.getElementById('observacoesCliente').value = lead.observacoes || '';
-                        
-                        // Ir para aba de simulação
-                        switchTab('simulation');
-                        calcularValores();
-                        
-                        showToast('Lead carregado com sucesso!', 'success');
-                    }
+                if (!db) {
+                    showToast('Banco de dados não inicializado', 'error');
                     resolve();
-                };
+                    return;
+                }
+                
+                try {
+                    const transaction = db.transaction(['leads'], 'readonly');
+                    const store = transaction.objectStore('leads');
+                    const request = store.get(id);
+                    
+                    request.onsuccess = () => {
+                        const lead = request.result;
+                        if (lead) {
+                            // Preencher formulário
+                            document.getElementById('nomeCliente').value = lead.nome || '';
+                            document.getElementById('telefoneCliente').value = lead.telefone || '';
+                            document.getElementById('nomeEmpreendimento').value = lead.empreendimento || '';
+                            document.getElementById('valorImovel').value = lead.valorImovel || '0,00';
+                            document.getElementById('descontoMCMV').value = lead.descontoMCMV || '0,00';
+                            document.getElementById('valorFinanciado').value = lead.valorFinanciado || '0,00';
+                            document.getElementById('descontoConstrutora').value = lead.descontoConstrutora || '0,00';
+                            document.getElementById('valorFGTS').value = lead.valorFGTS || '0,00';
+                            document.getElementById('sinalConstrutora').value = lead.sinalConstrutora || '0,00';
+                            document.getElementById('maximoConstrParc').value = lead.maximoConstrParc || '0,00';
+                            document.getElementById('parcelasEntrada').value = lead.parcelasEntrada || 1;
+                            document.getElementById('correcaoINCC').value = lead.correcaoINCC || 0.55;
+                            document.getElementById('taxaObra').value = lead.taxaObra || '0,00';
+                            document.getElementById('percentualObra').value = lead.percentualObra || 0;
+                            document.getElementById('valorIntercaladas').value = lead.valorIntercaladas || '0,00';
+                            document.getElementById('quantidadeIntercaladas').value = lead.quantidadeIntercaladas || 0;
+                            document.getElementById('observacoesCliente').value = lead.observacoes || '';
+                            
+                            // Ir para aba de simulação
+                            switchTab('simulation');
+                            calcularValores();
+                            
+                            showToast('Lead carregado com sucesso!', 'success');
+                        }
+                        resolve();
+                    };
+                    
+                    request.onerror = (event) => {
+                        console.error('Erro ao carregar lead:', event.target.error);
+                        showToast('Erro ao carregar lead', 'error');
+                        resolve();
+                    };
+                } catch (error) {
+                    console.error('Erro na transação:', error);
+                    showToast('Erro ao carregar lead', 'error');
+                    resolve();
+                }
             });
         }
         
         // Excluir lead da interface
         async function deleteLeadFromUI(id) {
             if (confirm('Tem certeza que deseja excluir este lead?')) {
-                await deleteLead(id);
-                await loadLeads();
+                try {
+                    await deleteLead(id);
+                    await loadLeads();
+                } catch (error) {
+                    console.error('Erro ao excluir lead:', error);
+                    showToast('Erro ao excluir lead', 'error');
+                }
             }
         }
         
         // Excluir todos os leads
         async function deleteAllLeadsFromUI() {
             if (confirm('Tem certeza que deseja excluir TODOS os leads? Esta ação não pode ser desfeita.')) {
-                await deleteAllLeads();
-                await loadLeads();
+                try {
+                    await deleteAllLeads();
+                    await loadLeads();
+                } catch (error) {
+                    console.error('Erro ao excluir todos os leads:', error);
+                    showToast('Erro ao excluir leads', 'error');
+                }
             }
         }
         
         // Carregar configurações
         async function loadConfig() {
-            // Carregar INCC
-            const inccAtual = await getConfig('inccAtual', '0.55');
-            const inccUpdateTime = await getConfig('inccUpdateTime', 'Nunca');
-            
-            document.getElementById('inccAtual').value = inccAtual;
-            document.getElementById('inccUpdateTime').textContent = inccUpdateTime;
-            
-            // Carregar dados do corretor
-            document.getElementById('imobiliariaNome').value = await getConfig('imobiliariaNome', '');
-            document.getElementById('corretorNome').value = await getConfig('corretorNome', '');
-            document.getElementById('corretorCreci').value = await getConfig('corretorCreci', '');
-            
-            // Atualizar INCC no formulário se estiver zerado
-            if (parseFloat(document.getElementById('correcaoINCC').value) === 0) {
-                document.getElementById('correcaoINCC').value = inccAtual;
-                calcularValores();
+            try {
+                // Carregar INCC
+                const inccAtual = await getConfig('inccAtual', '0.55');
+                const inccUpdateTime = await getConfig('inccUpdateTime', 'Nunca');
+                
+                document.getElementById('inccAtual').value = inccAtual;
+                document.getElementById('inccUpdateTime').textContent = inccUpdateTime;
+                
+                // Carregar dados do corretor
+                document.getElementById('imobiliariaNome').value = await getConfig('imobiliariaNome', '');
+                document.getElementById('corretorNome').value = await getConfig('corretorNome', '');
+                document.getElementById('corretorCreci').value = await getConfig('corretorCreci', '');
+                
+                // Atualizar INCC no formulário se estiver zerado
+                if (parseFloat(document.getElementById('correcaoINCC').value) === 0) {
+                    document.getElementById('correcaoINCC').value = inccAtual;
+                    calcularValores();
+                }
+            } catch (error) {
+                console.error('Erro ao carregar configurações:', error);
             }
         }
         
         // Salvar configurações do corretor
         async function saveCorretorData() {
-            await saveConfig('imobiliariaNome', document.getElementById('imobiliariaNome').value);
-            await saveConfig('corretorNome', document.getElementById('corretorNome').value);
-            await saveConfig('corretorCreci', document.getElementById('corretorCreci').value);
-            showToast('Dados do corretor salvos!', 'success');
+            try {
+                await saveConfig('imobiliariaNome', document.getElementById('imobiliariaNome').value);
+                await saveConfig('corretorNome', document.getElementById('corretorNome').value);
+                await saveConfig('corretorCreci', document.getElementById('corretorCreci').value);
+                showToast('Dados do corretor salvos!', 'success');
+            } catch (error) {
+                console.error('Erro ao salvar dados do corretor:', error);
+                showToast('Erro ao salvar dados do corretor', 'error');
+            }
         }
         
         // Salvar configurações automaticamente ao sair dos campos
         async function saveConfigAuto() {
-            await saveConfig('imobiliariaNome', document.getElementById('imobiliariaNome').value);
-            await saveConfig('corretorNome', document.getElementById('corretorNome').value);
-            await saveConfig('corretorCreci', document.getElementById('corretorCreci').value);
+            try {
+                await saveConfig('imobiliariaNome', document.getElementById('imobiliariaNome').value);
+                await saveConfig('corretorNome', document.getElementById('corretorNome').value);
+                await saveConfig('corretorCreci', document.getElementById('corretorCreci').value);
+            } catch (error) {
+                console.error('Erro ao salvar configuração automática:', error);
+            }
         }
         
         // Atualizar INCC
@@ -2013,15 +2142,20 @@
                 return;
             }
             
-            await saveConfig('inccAtual', inccValue);
-            await saveConfig('inccUpdateTime', formatDate());
-            
-            // Atualizar também no formulário
-            document.getElementById('correcaoINCC').value = inccValue;
-            calcularValores();
-            
-            showToast('INCC atualizado!', 'success');
-            loadConfig();
+            try {
+                await saveConfig('inccAtual', inccValue);
+                await saveConfig('inccUpdateTime', formatDate());
+                
+                // Atualizar também no formulário
+                document.getElementById('correcaoINCC').value = inccValue;
+                calcularValores();
+                
+                showToast('INCC atualizado!', 'success');
+                loadConfig();
+            } catch (error) {
+                console.error('Erro ao atualizar INCC:', error);
+                showToast('Erro ao atualizar INCC', 'error');
+            }
         }
         
         // Carregar documentos por profissão
@@ -2778,13 +2912,20 @@
             // Inicializar banco de dados
             try {
                 await initDB();
-                console.log('Banco de dados inicializado');
+                console.log('Banco de dados inicializado com sucesso');
+                showToast('Sistema inicializado com sucesso!', 'success');
             } catch (error) {
+                console.error('Erro ao inicializar banco de dados:', error);
                 showToast('Erro ao inicializar banco de dados. Algumas funcionalidades podem não estar disponíveis.', 'error');
             }
             
             // Configurar formatação de moeda
             document.querySelectorAll('.currency-input').forEach(input => {
+                // Inicializar valores
+                if (!input.value || input.value === '0') {
+                    input.value = '0,00';
+                }
+                
                 input.addEventListener('input', function() {
                     let value = this.value.replace(/\D/g, '');
                     if (value === '') value = '0';
@@ -2796,11 +2937,6 @@
                     this.value = formatted;
                     calcularValores();
                 });
-                
-                // Inicializar valores
-                if (!this.value) {
-                    this.value = '0,00';
-                }
             });
             
             // Configurar formatação de telefone
@@ -2901,7 +3037,7 @@
                 });
             });
             
-            // Botão salvar lead
+            // Botão salvar lead - CORRIGIDO
             document.getElementById('btnSaveLead').addEventListener('click', async function() {
                 const nomeCliente = document.getElementById('nomeCliente').value.trim();
                 if (!nomeCliente) {
@@ -2941,8 +3077,13 @@
                     totalIntercaladas: formatCurrency(data.totalIntercaladas)
                 };
                 
-                await saveLead(leadData);
-                await loadLeads();
+                try {
+                    await saveLead(leadData);
+                    await loadLeads();
+                } catch (error) {
+                    console.error('Erro ao salvar lead:', error);
+                    showToast('Erro ao salvar lead', 'error');
+                }
             });
             
             // Botão compartilhar WhatsApp
@@ -2975,8 +3116,13 @@
                         return;
                     }
                     
-                    await importBackup(file);
-                    this.value = '';
+                    try {
+                        await importBackup(file);
+                        this.value = '';
+                    } catch (error) {
+                        console.error('Erro ao importar backup:', error);
+                        this.value = '';
+                    }
                 }
             });
             
@@ -3078,15 +3224,19 @@
             });
             
             // Carregar dados iniciais
-            await loadConfig();
-            await loadLeads();
-            
-            // Carregar documentos iniciais
-            const initialProfession = document.getElementById('profissaoCliente').value;
-            loadDocumentsByProfession(initialProfession);
-            
-            // Calcular valores iniciais
-            calcularValores();
+            try {
+                await loadConfig();
+                await loadLeads();
+                
+                // Carregar documentos iniciais
+                const initialProfession = document.getElementById('profissaoCliente').value;
+                loadDocumentsByProfession(initialProfession);
+                
+                // Calcular valores iniciais
+                calcularValores();
+            } catch (error) {
+                console.error('Erro ao carregar dados iniciais:', error);
+            }
             
             // Adicionar listener para recarregar leads ao voltar para a aba
             window.addEventListener('focus', async function() {
