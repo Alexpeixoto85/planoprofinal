@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -53,8 +52,8 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Splash Screen do Blog */
-        .blog-splash {
+        /* Splash Screen */
+        .splash-screen {
             position: fixed;
             top: 0;
             left: 0;
@@ -65,91 +64,48 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             padding: 20px;
             transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
-        .blog-splash.hidden {
+        .splash-screen.hidden {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
 
-        .blog-splash iframe {
-            width: 100%;
-            height: calc(100% - 180px);
-            border: none;
-            border-radius: var(--radius);
-            background: white;
-            box-shadow: var(--shadow);
-        }
-
-        .blog-splash-controls {
-            width: 100%;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.9);
-            border-radius: var(--radius);
-            backdrop-filter: blur(10px);
-            border: 2px solid var(--accent-color);
+        .splash-content {
             text-align: center;
-            margin-top: 20px;
+            max-width: 300px;
         }
 
-        .blog-splash-controls h3 {
+        .splash-logo {
+            font-size: 3rem;
             color: var(--accent-color);
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-
-        .blog-splash-controls p {
-            color: var(--text-light);
             margin-bottom: 20px;
-            font-size: 1rem;
         }
 
-        .timer-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px 0;
-        }
-
-        .timer-circle {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-color), #C8A97E);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            animation: pulse 2s infinite;
-        }
-
-        .timer-circle span {
+        .splash-title {
             font-size: 1.8rem;
             font-weight: 700;
-            color: white;
-        }
-
-        .timer-text {
             color: var(--text-light);
-            font-size: 0.9rem;
-            text-align: center;
+            margin-bottom: 10px;
         }
 
-        .blog-loading {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-            background: var(--card-dark);
-            border-radius: var(--radius);
-            border: 1px solid var(--border-dark);
-            margin: 20px auto;
-            max-width: 300px;
+        .splash-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-dark);
+            border-top-color: var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
         }
 
         /* Container Principal */
@@ -297,16 +253,16 @@
         }
 
         .btn-caixa {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(135deg, #004B87, #0078C1);
             color: white;
             position: relative;
             padding-left: 40px;
         }
 
         .btn-caixa:hover {
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            background: linear-gradient(135deg, #0078C1, #004B87);
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(74, 87, 74, 0.3);
+            box-shadow: 0 8px 24px rgba(0, 120, 193, 0.3);
         }
 
         .btn-caixa::before {
@@ -317,7 +273,7 @@
             transform: translateY(-50%);
             width: 20px;
             height: 20px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%23ffffff" d="M24 6C14.06 6 6 14.06 6 24s8.06 18 18 18 18-8.06 18-18S33.94 6 24 6zm0 34c-8.84 0-16-7.16-16-16S15.16 8 24 8s16 7.16 16 16-7.16 16-16 16z"/><path fill="%23ffffff" d="M32.12 15.88l-14.24 8.42c-.88.52-1.18 1.68-.66 2.56s1.68 1.18 2.56.66l14.24-8.42c.88-.52 1.18-1.68.66-2.56-.52-.88-1.68-1.18-2.56-.66z"/><path fill="%23ffffff" d="M15.88 32.12l14.24-8.42c.88-.52 1.18-1.68.66-2.56s-1.68-1.18-2.56-.66l-14.24 8.42c-.88.52-1.18 1.68-.66 2.56.52.88 1.68 1.18 2.56.66z"/></svg>');
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M12 2L1 7v10l11 5 11-5V7L12 2m0 2.3l9 4.5v8.4l-9 4.1-9-4.1V8.8l9-4.5M12 7c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5m0 2c1.7 0 3 1.3 3 3s-1.3 3-3 3-3-1.3-3-3 1.3-3 3-3z'/%3E%3C/svg%3E");
             background-size: contain;
             background-repeat: no-repeat;
         }
@@ -403,6 +359,34 @@
 
         .input-group .form-control {
             padding-left: 40px;
+        }
+
+        /* Nova classe para cálculo do risco */
+        .risk-calc-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .risk-calc-group .form-control {
+            flex: 1;
+        }
+
+        .risk-calc-btn {
+            background: var(--border-dark);
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .risk-calc-btn:hover {
+            background: rgba(180, 132, 108, 0.1);
         }
 
         /* Seções Collapsible */
@@ -742,15 +726,6 @@
 
         /* Responsividade */
         @media (max-width: 480px) {
-            .blog-splash-controls {
-                padding: 15px;
-            }
-            
-            .skip-blog-btn {
-                padding: 12px 20px;
-                font-size: 0.95rem;
-            }
-            
             .app-header {
                 padding: 10px 14px;
                 min-height: 68px;
@@ -809,13 +784,13 @@
                 min-width: 36px;
             }
             
-            .timer-circle {
-                width: 60px;
-                height: 60px;
+            .risk-calc-group {
+                flex-direction: column;
+                gap: 8px;
             }
             
-            .timer-circle span {
-                font-size: 1.5rem;
+            .risk-calc-btn {
+                width: 100%;
             }
         }
 
@@ -864,6 +839,10 @@
                 margin-top: 0;
                 gap: 12px;
             }
+            
+            .risk-calc-group {
+                flex-wrap: nowrap;
+            }
         }
 
         /* Utilitários */
@@ -894,34 +873,15 @@
     </style>
 </head>
 <body>
-    <!-- Splash Screen do Blog -->
-    <div class="blog-splash" id="blogSplash">
-        <div class="blog-loading" id="blogLoading">
-            <div class="loading" style="width: 40px; height: 40px; margin-bottom: 20px;"></div>
-            <p>Carregando blog...</p>
-        </div>
-        
-        <iframe src="https://dinheiroeplanejamento.blogspot.com/2025/04/guia-completo-para-corretores-de.html" 
-                title="Blog do Corretor"
-                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-                allow="fullscreen"
-                id="blogIframe"
-                style="display: none;">
-        </iframe>
-        
-        <div class="blog-splash-controls">
-            <div class="timer-container" id="timerContainer">
-                <div class="timer-circle">
-                    <span id="countdownTimer">10</span>
-                </div>
-                <div class="timer-text">
-                    <p>O simulador será aberto automaticamente em <span id="countdownText">10</span> segundos</p>
-                </div>
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <i class="fas fa-home"></i>
             </div>
-            
-            <button class="skip-blog-btn" id="skipBlogBtn">
-                <i class="fas fa-forward"></i> Ir Direto para o Simulador
-            </button>
+            <h1 class="splash-title">Simulador Corretor</h1>
+            <p class="splash-subtitle">Versão 2.0</p>
+            <div class="loading-spinner"></div>
         </div>
     </div>
 
@@ -1064,11 +1024,18 @@
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label">Valor Parcelado</label>
+                                <label class="form-label">Cálculo do Valor Parcelado</label>
+                                <div class="risk-calc-group">
+                                    <input type="number" class="form-control" id="percentualRisco" placeholder="% do Risco" step="0.01" min="0" max="100">
+                                    <button class="risk-calc-btn" id="btnCalcularRisco">
+                                        <i class="fas fa-calculator"></i> Calcular
+                                    </button>
+                                </div>
                                 <div class="input-group">
                                     <span class="input-prefix">R$</span>
                                     <input type="text" class="form-control currency-input" id="maximoConstrParc" value="0,00">
                                 </div>
+                                <small class="text-muted">Informe o percentual de risco ou edite manualmente o valor</small>
                             </div>
                             
                             <div class="form-group">
@@ -1090,6 +1057,15 @@
                                     <span class="input-prefix">R$</span>
                                     <input type="text" class="form-control currency-input" id="taxaObra" value="0,00">
                                 </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Taxa de Assinatura Caixa (Informação)</label>
+                                <div class="input-group">
+                                    <span class="input-prefix">R$</span>
+                                    <input type="text" class="form-control currency-input" id="taxaAssinaturaCaixa" value="0,00">
+                                </div>
+                                <small class="text-muted">Valor pago apenas no ato da assinatura do contrato com a Caixa. Não afeta os cálculos.</small>
                             </div>
                             
                             <div class="form-group">
@@ -1405,60 +1381,27 @@
         const TUTORIAL_URL = 'https://youtube.com/playlist?list=SUA_PLAYLIST';
         const SUPPORT_PHONE = '5582996622036';
         
-        // Variáveis de controle do temporizador
-        let countdownTimer;
-        let countdownSeconds = 10;
-        
         // ============================================
-        // Gerenciamento do Splash Screen do Blog
+        // Gerenciamento do Splash Screen
         // ============================================
         
-        // Função para esconder o splash screen do blog e mostrar o aplicativo
-        function hideBlogSplash() {
-            clearInterval(countdownTimer);
-            
-            const blogSplash = document.getElementById('blogSplash');
+        // Função para esconder o splash screen e mostrar o aplicativo
+        function hideSplashScreen() {
+            const splashScreen = document.getElementById('splashScreen');
             const appContainer = document.getElementById('appContainer');
             
             // Esconder splash screen
-            blogSplash.classList.add('hidden');
+            splashScreen.classList.add('hidden');
             
             // Mostrar aplicativo
             setTimeout(() => {
                 appContainer.classList.add('visible');
             }, 300);
             
-            // Salvar preferência para não mostrar novamente
-            localStorage.setItem('skipBlogSplash', 'true');
-            
             // Mostrar mensagem de boas-vindas
             setTimeout(() => {
                 showToast('Simulador carregado! Comece a simular.', 'success');
             }, 500);
-        }
-        
-        // Função para verificar se deve mostrar o splash screen
-        function shouldShowBlogSplash() {
-            const skipPref = localStorage.getItem('skipBlogSplash');
-            return !skipPref || true;
-        }
-        
-        // Iniciar temporizador automático
-        function startAutoTimer() {
-            countdownSeconds = 10;
-            document.getElementById('countdownTimer').textContent = countdownSeconds;
-            document.getElementById('countdownText').textContent = countdownSeconds;
-            
-            countdownTimer = setInterval(() => {
-                countdownSeconds--;
-                document.getElementById('countdownTimer').textContent = countdownSeconds;
-                document.getElementById('countdownText').textContent = countdownSeconds;
-                
-                if (countdownSeconds <= 0) {
-                    clearInterval(countdownTimer);
-                    hideBlogSplash();
-                }
-            }, 1000);
         }
         
         // ============================================
@@ -1545,6 +1488,13 @@
                 return `(${cleaned.substring(0,2)}) ${cleaned.substring(2,6)}-${cleaned.substring(6)}`;
             }
             return phone;
+        }
+        
+        // Validar telefone
+        function isValidPhone(phone) {
+            if (!phone) return false;
+            const cleaned = phone.replace(/\D/g, '');
+            return cleaned.length >= 10 && cleaned.length <= 11;
         }
         
         // Formatar data
@@ -1851,7 +1801,7 @@
         }
         
         // ============================================
-        // Funções de Cálculo
+        // Funções de Cálculo (INCC CORRIGIDO)
         // ============================================
         
         function calcularValores() {
@@ -1869,20 +1819,34 @@
             const quantidadeIntercaladas = parseInt(document.getElementById('quantidadeIntercaladas').value) || 0;
             const taxaObra = parseCurrency(document.getElementById('taxaObra').value);
             const percentualObra = parseFloat(document.getElementById('percentualObra').value) || 0;
+            const taxaAssinaturaCaixa = parseCurrency(document.getElementById('taxaAssinaturaCaixa').value);
             
-            // Cálculos
+            // Cálculos básicos
             const valorEntrada = valorImovel - descontoMCMV - valorFinanciado - valorFGTS - descontoConstrutora;
             const totalIntercaladas = valorIntercaladas * quantidadeIntercaladas;
             const saldoRemanescente = valorEntrada - sinalConstrutora - maximoConstrParc - totalIntercaladas;
             
-            // Cálculo INCC
+            // CORREÇÃO DO CÁLCULO DO INCC - Fórmula correta de juros compostos mensais
             let valorParcelaComINCC = 0;
             if (maximoConstrParc > 0 && parcelasEntrada > 0) {
-                if (correcaoINCC > 0) {
-                    const valorCorrigido = maximoConstrParc + (maximoConstrParc * (correcaoINCC / 100));
-                    valorParcelaComINCC = valorCorrigido / parcelasEntrada;
+                const valorParcelaBase = maximoConstrParc / parcelasEntrada;
+                
+                if (correcaoINCC > 0 && parcelasEntrada > 1) {
+                    // Calcular valor corrigido usando fórmula de juros compostos para parcelas mensais
+                    // Valor corrigido = valor base * (1 + INCC/100)^n, onde n é o número da parcela
+                    // Vamos calcular a média das parcelas corrigidas
+                    let somaParcelasCorrigidas = 0;
+                    const fatorINCC = 1 + (correcaoINCC / 100);
+                    
+                    for (let i = 1; i <= parcelasEntrada; i++) {
+                        // A parcela i é corrigida por (i-1) meses
+                        const parcelaCorrigida = valorParcelaBase * Math.pow(fatorINCC, i - 1);
+                        somaParcelasCorrigidas += parcelaCorrigida;
+                    }
+                    
+                    valorParcelaComINCC = somaParcelasCorrigidas / parcelasEntrada;
                 } else {
-                    valorParcelaComINCC = maximoConstrParc / parcelasEntrada;
+                    valorParcelaComINCC = valorParcelaBase;
                 }
             }
             
@@ -1918,10 +1882,49 @@
                 taxaObra,
                 percentualObra,
                 taxaObraProporcional,
+                taxaAssinaturaCaixa,
                 saldoRemanescente,
                 valorParcelaComINCC,
                 valorParcelaComTaxaObra
             };
+        }
+        
+        // ============================================
+        // Calcular valor parcelado por percentual de risco
+        // ============================================
+        
+        function calcularPorPercentualRisco() {
+            const valorImovel = parseCurrency(document.getElementById('valorImovel').value);
+            const percentualRisco = parseFloat(document.getElementById('percentualRisco').value) || 0;
+            
+            if (valorImovel <= 0) {
+                showToast('Informe primeiro o valor do imóvel!', 'error');
+                document.getElementById('valorImovel').focus();
+                return;
+            }
+            
+            if (percentualRisco <= 0 || percentualRisco > 100) {
+                showToast('Informe um percentual de risco válido (entre 0.01 e 100)!', 'error');
+                document.getElementById('percentualRisco').focus();
+                return;
+            }
+            
+            // Calcular valor baseado no percentual
+            const valorCalculado = (valorImovel * percentualRisco) / 100;
+            
+            // Formatar e aplicar o valor
+            const valorFormatado = valorCalculado.toLocaleString('pt-BR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            
+            document.getElementById('maximoConstrParc').value = valorFormatado;
+            
+            // Mostrar mensagem de sucesso
+            showToast(`Valor calculado: ${formatCurrency(valorCalculado)} (${percentualRisco}% do imóvel)`, 'success');
+            
+            // Recalcular todos os valores
+            calcularValores();
         }
         
         // ============================================
@@ -2032,10 +2035,16 @@
                             document.getElementById('parcelasEntrada').value = lead.parcelasEntrada || 1;
                             document.getElementById('correcaoINCC').value = lead.correcaoINCC || 0.55;
                             document.getElementById('taxaObra').value = lead.taxaObra || '0,00';
+                            document.getElementById('taxaAssinaturaCaixa').value = lead.taxaAssinaturaCaixa || '0,00';
                             document.getElementById('percentualObra').value = lead.percentualObra || 0;
                             document.getElementById('valorIntercaladas').value = lead.valorIntercaladas || '0,00';
                             document.getElementById('quantidadeIntercaladas').value = lead.quantidadeIntercaladas || 0;
                             document.getElementById('observacoesCliente').value = lead.observacoes || '';
+                            
+                            // Calcular percentual de risco se disponível
+                            if (lead.percentualRisco) {
+                                document.getElementById('percentualRisco').value = lead.percentualRisco;
+                            }
                             
                             // Ir para aba de simulação
                             switchTab('simulation');
@@ -2238,7 +2247,7 @@
         }
         
         // ============================================
-        // Funções de Exportação/Compartilhamento
+        // FUNÇÕES DE WHATSAPP MELHORADAS
         // ============================================
         
         // Gerar conteúdo para WhatsApp
@@ -2248,11 +2257,21 @@
             const telefone = document.getElementById('telefoneCliente').value;
             const empreendimento = document.getElementById('nomeEmpreendimento').value || 'Empreendimento';
             const observacoes = document.getElementById('observacoesCliente').value;
+            const taxaAssinaturaCaixa = document.getElementById('taxaAssinaturaCaixa').value || '0,00';
+            const imobiliaria = document.getElementById('imobiliariaNome').value || '';
+            const corretor = document.getElementById('corretorNome').value || 'Corretor';
+            const creci = document.getElementById('corretorCreci').value || '';
             
             let message = `*Simulação de Plano de Pagamento*\n\n`;
             message += `*Cliente:* ${nomeCliente}\n`;
             if (telefone) message += `*Telefone:* ${formatPhone(telefone)}\n`;
-            message += `*Empreendimento:* ${empreendimento}\n\n`;
+            message += `*Empreendimento:* ${empreendimento}\n`;
+            
+            if (imobiliaria) message += `*Imobiliária:* ${imobiliaria}\n`;
+            if (corretor) message += `*Corretor:* ${corretor}\n`;
+            if (creci) message += `*CRECI:* ${creci}\n`;
+            
+            message += `*Data:* ${formatDate()}\n\n`;
             
             message += `*Valores do Imóvel:*\n`;
             message += `Valor do Imóvel: ${formatCurrency(data.valorImovel)}\n`;
@@ -2263,6 +2282,7 @@
             
             message += `*Entrada:*\n`;
             if (data.sinalConstrutora > 0) message += `Sinal: ${formatCurrency(data.sinalConstrutora)}\n`;
+            
             message += `Parcelado: ${formatCurrency(data.maximoConstrParc)} em ${data.parcelasEntrada}x\n`;
             message += `INCC: ${data.correcaoINCC}%\n`;
             message += `1ª Parcela (com INCC): ${formatCurrency(data.valorParcelaComINCC)}\n`;
@@ -2274,6 +2294,10 @@
                     message += `Taxa de Obra: ${formatCurrency(data.taxaObra)}\n`;
                 }
                 message += `Parcela com Taxa: ${formatCurrency(data.valorParcelaComTaxaObra)}\n`;
+            }
+            
+            if (parseCurrency(taxaAssinaturaCaixa) > 0) {
+                message += `*Taxa de Assinatura Caixa:* ${taxaAssinaturaCaixa} (pago no ato da assinatura)\n`;
             }
             
             if (data.valorIntercaladas > 0 && data.quantidadeIntercaladas > 0) {
@@ -2299,26 +2323,81 @@
             message += `Após a obra: correção pelo IGP-M + 1%\n`;
             message += `Valores sujeitos a alteração e aprovação\n`;
             
-            return encodeURIComponent(message);
+            return message;
         }
         
-        // Compartilhar via WhatsApp
+        // Compartilhar via WhatsApp - VERSÃO MELHORADA
         function shareViaWhatsApp() {
+            const telefoneCliente = document.getElementById('telefoneCliente').value;
+            const nomeCliente = document.getElementById('nomeCliente').value.trim();
+            
+            // Gerar mensagem
             const message = generateWhatsAppContent();
-            const phone = "5582996622036";
-            const url = `https://wa.me/${phone}?text=${message}`;
-            window.open(url, '_blank');
+            
+            // Verificar se tem telefone do cliente
+            if (isValidPhone(telefoneCliente)) {
+                // Tem telefone válido - perguntar se quer enviar para o cliente
+                const confirmMessage = `Deseja enviar a simulação para ${formatPhone(telefoneCliente)} (${nomeCliente})?`;
+                
+                if (confirm(confirmMessage)) {
+                    // Enviar para o cliente
+                    const phone = telefoneCliente.replace(/\D/g, '');
+                    const url = `https://wa.me/55${phone}?text=${encodeURIComponent(message)}`;
+                    window.open(url, '_blank');
+                    showToast(`Simulação enviada para ${formatPhone(telefoneCliente)}!`, 'success');
+                } else {
+                    // Abrir WhatsApp para escolher manualmente
+                    const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                    window.open(url, '_blank');
+                }
+            } else {
+                // Não tem telefone válido - perguntar se quer informar um
+                const userChoice = confirm("Nenhum telefone de cliente válido encontrado. Deseja informar um número agora?");
+                
+                if (userChoice) {
+                    // Pedir o número do cliente
+                    const phoneInput = prompt("Digite o número do cliente (com DDD):", "");
+                    
+                    if (phoneInput && isValidPhone(phoneInput)) {
+                        // Enviar para o número informado
+                        const phone = phoneInput.replace(/\D/g, '');
+                        const url = `https://wa.me/55${phone}?text=${encodeURIComponent(message)}`;
+                        window.open(url, '_blank');
+                        showToast(`Simulação enviada para ${formatPhone(phoneInput)}!`, 'success');
+                        
+                        // Salvar o telefone no campo
+                        document.getElementById('telefoneCliente').value = formatPhone(phoneInput);
+                    } else if (phoneInput) {
+                        // Número inválido
+                        showToast('Número inválido. Por favor, informe um número com DDD.', 'error');
+                        // Abrir WhatsApp para escolher manualmente
+                        const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                        window.open(url, '_blank');
+                    } else {
+                        // Usuário cancelou - abrir WhatsApp normalmente
+                        const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                        window.open(url, '_blank');
+                    }
+                } else {
+                    // Abrir WhatsApp normalmente
+                    const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                    window.open(url, '_blank');
+                }
+            }
         }
         
-        // Compartilhar documentos via WhatsApp
+        // Compartilhar documentos via WhatsApp - VERSÃO MELHORADA
         function shareDocsViaWhatsApp() {
             const profession = document.getElementById('profissaoCliente').value;
             const professionText = document.getElementById('profissaoCliente').options[document.getElementById('profissaoCliente').selectedIndex].text;
             const imobiliaria = document.getElementById('imobiliariaNome').value || 'Imobiliária';
             const corretor = document.getElementById('corretorNome').value || 'Corretor';
             const creci = document.getElementById('corretorCreci').value || '';
+            const telefoneCliente = document.getElementById('telefoneCliente').value;
+            const nomeCliente = document.getElementById('nomeCliente').value.trim();
             
             let message = `*Documentos Necessários - ${professionText}*\n\n`;
+            message += `*Cliente:* ${nomeCliente || 'A definir'}\n`;
             message += `*Imobiliária:* ${imobiliaria}\n`;
             message += `*Corretor:* ${corretor}\n`;
             if (creci) message += `*CRECI:* ${creci}\n`;
@@ -2388,16 +2467,37 @@
             
             const docs = documentos[profession] || [];
             
+            message += `*LISTA DE DOCUMENTOS:*\n\n`;
+            
             docs.forEach((doc, index) => {
                 message += `✓ ${doc}\n`;
             });
             
             message += `\n*Dúvidas? Entre em contato!*\n`;
-            message += `${corretor} - ${creci}\n`;
+            message += `${corretor} - ${creci || 'Corretor'}\n`;
             message += `📱 (82) 99662-2036`;
             
-            const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
+            // Verificar se tem telefone do cliente
+            if (isValidPhone(telefoneCliente) && nomeCliente) {
+                // Perguntar se quer enviar para o cliente
+                const confirmMessage = `Deseja enviar os documentos para ${formatPhone(telefoneCliente)} (${nomeCliente})?`;
+                
+                if (confirm(confirmMessage)) {
+                    // Enviar para o cliente
+                    const phone = telefoneCliente.replace(/\D/g, '');
+                    const url = `https://wa.me/55${phone}?text=${encodeURIComponent(message)}`;
+                    window.open(url, '_blank');
+                    showToast(`Documentos enviados para ${formatPhone(telefoneCliente)}!`, 'success');
+                } else {
+                    // Abrir WhatsApp para escolher manualmente
+                    const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                    window.open(url, '_blank');
+                }
+            } else {
+                // Abrir WhatsApp normalmente
+                const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                window.open(url, '_blank');
+            }
         }
         
         // Exportar simulação como TXT
@@ -2410,6 +2510,7 @@
             const imobiliaria = document.getElementById('imobiliariaNome').value || '';
             const corretor = document.getElementById('corretorNome').value || 'Corretor';
             const creci = document.getElementById('corretorCreci').value || '';
+            const taxaAssinaturaCaixa = document.getElementById('taxaAssinaturaCaixa').value || '0,00';
             
             let content = "=".repeat(50) + "\n";
             content += "SIMULAÇÃO DE PLANO DE PAGAMENTO\n";
@@ -2418,7 +2519,11 @@
             
             content += `CLIENTE: ${nomeCliente}\n`;
             if (telefone) content += `TELEFONE: ${formatPhone(telefone)}\n`;
-            content += `EMPREENDIMENTO: ${empreendimento}\n\n`;
+            content += `EMPREENDIMENTO: ${empreendimento}\n`;
+            if (imobiliaria) content += `IMOBILIÁRIA: ${imobiliaria}\n`;
+            if (corretor) content += `CORRETOR: ${corretor}\n`;
+            if (creci) content += `CRECI: ${creci}\n`;
+            content += `\n`;
             
             content += "VALORES DO IMÓVEL:\n";
             content += `Valor do Imóvel: ${formatCurrency(data.valorImovel)}\n`;
@@ -2429,6 +2534,7 @@
             
             content += "ENTRADA:\n";
             content += `Sinal: ${formatCurrency(data.sinalConstrutora)}\n`;
+            
             content += `Parcelado: ${formatCurrency(data.maximoConstrParc)} em ${data.parcelasEntrada}x\n`;
             content += `INCC: ${data.correcaoINCC}%\n`;
             content += `1ª Parcela (com INCC): ${formatCurrency(data.valorParcelaComINCC)}\n`;
@@ -2440,6 +2546,10 @@
                     content += `Taxa de Obra: ${formatCurrency(data.taxaObra)}\n`;
                 }
                 content += `Parcela com Taxa: ${formatCurrency(data.valorParcelaComTaxaObra)}\n`;
+            }
+            
+            if (parseCurrency(taxaAssinaturaCaixa) > 0) {
+                content += `Taxa de Assinatura Caixa: ${taxaAssinaturaCaixa} (pago no ato da assinatura)\n`;
             }
             
             if (data.valorIntercaladas > 0 && data.quantidadeIntercaladas > 0) {
@@ -2461,9 +2571,7 @@
             content += "Após a obra: correção pelo IGP-M + 1%\n";
             content += "Valores sujeitos a alteração e aprovação\n\n";
             
-            content += `Imobiliária: ${imobiliaria}\n`;
-            content += `Corretor: ${corretor}\n`;
-            content += `CRECI: ${creci || 'Não informado'}\n`;
+            content += `Gerado por: ${corretor} - ${creci || 'Sem CRECI'}\n`;
             content += `Data: ${formatDate()}\n`;
             
             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
@@ -2479,7 +2587,7 @@
             showToast('Simulação exportada como TXT!', 'success');
         }
         
-        // Exportar simulação como PDF
+        // Exportar simulação como PDF (SEM PERCENTUAL DE RISCO)
         async function exportAsPDF() {
             try {
                 const { jsPDF } = window.jspdf;
@@ -2493,6 +2601,7 @@
                 const imobiliaria = document.getElementById('imobiliariaNome').value || '';
                 const corretor = document.getElementById('corretorNome').value || 'Corretor';
                 const creci = document.getElementById('corretorCreci').value || '';
+                const taxaAssinaturaCaixa = document.getElementById('taxaAssinaturaCaixa').value || '0,00';
                 
                 let yPos = 20;
                 
@@ -2528,7 +2637,20 @@
                     yPos += 6;
                 }
                 doc.text(`Empreendimento: ${empreendimento}`, 20, yPos);
-                yPos += 10;
+                yPos += 6;
+                if (imobiliaria) {
+                    doc.text(`Imobiliária: ${imobiliaria}`, 20, yPos);
+                    yPos += 6;
+                }
+                if (corretor) {
+                    doc.text(`Corretor: ${corretor}`, 20, yPos);
+                    yPos += 6;
+                }
+                if (creci) {
+                    doc.text(`CRECI: ${creci}`, 20, yPos);
+                    yPos += 6;
+                }
+                yPos += 4;
                 
                 // Valores do Imóvel
                 doc.setFontSize(12);
@@ -2578,6 +2700,10 @@
                         entradaData.push(['Taxa de Obra', formatCurrency(data.taxaObra)]);
                     }
                     entradaData.push(['Parcela com Taxa', formatCurrency(data.valorParcelaComTaxaObra)]);
+                }
+                
+                if (parseCurrency(taxaAssinaturaCaixa) > 0) {
+                    entradaData.push(['Taxa Assinatura Caixa', `${taxaAssinaturaCaixa} (ato da assinatura)`]);
                 }
                 
                 doc.autoTable({
@@ -2667,9 +2793,7 @@
                 // Assinatura
                 doc.setFontSize(10);
                 doc.setTextColor(0, 0, 0);
-                if (imobiliaria) doc.text(`Imobiliária: ${imobiliaria}`, 20, yPos);
-                yPos += 6;
-                doc.text(`Corretor: ${corretor}`, 20, yPos);
+                doc.text(`Gerado por: ${corretor}`, 20, yPos);
                 yPos += 6;
                 if (creci) doc.text(`CRECI: ${creci}`, 20, yPos);
                 yPos += 6;
@@ -2692,6 +2816,7 @@
             const imobiliaria = document.getElementById('imobiliariaNome').value || 'Imobiliária';
             const corretor = document.getElementById('corretorNome').value || 'Corretor';
             const creci = document.getElementById('corretorCreci').value || '';
+            const nomeCliente = document.getElementById('nomeCliente').value || 'Cliente';
             
             const documentos = {
                 'carteira-assinada': [
@@ -2760,6 +2885,7 @@
             let content = "=".repeat(50) + "\n";
             content += "DOCUMENTOS NECESSÁRIOS\n";
             content += `Profissão: ${professionText}\n`;
+            content += `Cliente: ${nomeCliente}\n`;
             content += "=".repeat(50) + "\n\n";
             
             content += `Imobiliária: ${imobiliaria}\n`;
@@ -2777,12 +2903,13 @@
             content += "=".repeat(50) + "\n";
             content += `Gerado em: ${formatDate()}\n`;
             content += `Simulador Corretor v2.0\n`;
+            content += `Para dúvidas: (82) 99662-2036\n`;
             
             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = `documentos_${professionText.toLowerCase().replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.txt`;
+            link.download = `documentos_${nomeCliente.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.txt`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -2877,37 +3004,10 @@
         // ============================================
         
         document.addEventListener('DOMContentLoaded', async function() {
-            // Configurar botão para sair do blog
-            document.getElementById('skipBlogBtn').addEventListener('click', hideBlogSplash);
-            
-            // Verificar se deve mostrar o splash screen do blog
-            if (shouldShowBlogSplash()) {
-                // Mostrar splash screen do blog
-                document.getElementById('blogSplash').style.display = 'flex';
-                document.getElementById('appContainer').classList.remove('visible');
-                
-                // Iniciar temporizador automático
-                startAutoTimer();
-                
-                // Configurar o iframe para carregar o blog
-                const iframe = document.getElementById('blogIframe');
-                const loadingDiv = document.getElementById('blogLoading');
-                
-                iframe.onload = function() {
-                    // Esconder loading
-                    loadingDiv.style.display = 'none';
-                    iframe.style.display = 'block';
-                };
-                
-                // Mostrar o iframe
-                setTimeout(() => {
-                    iframe.style.display = 'block';
-                }, 1000);
-            } else {
-                // Pular direto para o aplicativo
-                document.getElementById('blogSplash').classList.add('hidden');
-                document.getElementById('appContainer').classList.add('visible');
-            }
+            // Mostrar splash screen por 1.5 segundos
+            setTimeout(() => {
+                hideSplashScreen();
+            }, 1500);
             
             // Inicializar banco de dados
             try {
@@ -2962,7 +3062,7 @@
                 'valorImovel', 'descontoMCMV', 'valorFinanciado', 'descontoConstrutora',
                 'valorFGTS', 'sinalConstrutora', 'maximoConstrParc', 'parcelasEntrada',
                 'correcaoINCC', 'valorIntercaladas', 'quantidadeIntercaladas',
-                'taxaObra', 'percentualObra'
+                'taxaObra', 'percentualObra', 'percentualRisco', 'taxaAssinaturaCaixa'
             ];
             
             calcularInputs.forEach(id => {
@@ -2997,6 +3097,7 @@
                 document.getElementById('telefoneCliente').value = '';
                 document.getElementById('nomeEmpreendimento').value = '';
                 document.getElementById('observacoesCliente').value = '';
+                document.getElementById('percentualRisco').value = '';
                 
                 // Manter valores monetários como 0,00
                 document.querySelectorAll('.currency-input').forEach(input => {
@@ -3037,7 +3138,18 @@
                 });
             });
             
-            // Botão salvar lead - CORRIGIDO
+            // Configurar botão para calcular valor parcelado por percentual de risco
+            document.getElementById('btnCalcularRisco').addEventListener('click', calcularPorPercentualRisco);
+            
+            // Permitir usar Enter no campo de percentual de risco
+            document.getElementById('percentualRisco').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    calcularPorPercentualRisco();
+                }
+            });
+            
+            // Botão salvar lead
             document.getElementById('btnSaveLead').addEventListener('click', async function() {
                 const nomeCliente = document.getElementById('nomeCliente').value.trim();
                 if (!nomeCliente) {
@@ -3047,6 +3159,8 @@
                 }
                 
                 const data = calcularValores();
+                const percentualRisco = parseFloat(document.getElementById('percentualRisco').value) || 0;
+                
                 const leadData = {
                     nome: nomeCliente,
                     telefone: document.getElementById('telefoneCliente').value.replace(/\D/g, ''),
@@ -3061,6 +3175,7 @@
                     valorFGTS: document.getElementById('valorFGTS').value,
                     sinalConstrutora: document.getElementById('sinalConstrutora').value,
                     maximoConstrParc: document.getElementById('maximoConstrParc').value,
+                    taxaAssinaturaCaixa: document.getElementById('taxaAssinaturaCaixa').value,
                     
                     // Outros valores
                     parcelasEntrada: data.parcelasEntrada,
@@ -3069,6 +3184,9 @@
                     percentualObra: data.percentualObra,
                     valorIntercaladas: document.getElementById('valorIntercaladas').value,
                     quantidadeIntercaladas: data.quantidadeIntercaladas,
+                    
+                    // Percentual de risco
+                    percentualRisco: percentualRisco,
                     
                     // Resultados
                     saldoRemanescente: formatCurrency(data.saldoRemanescente),
@@ -3086,7 +3204,7 @@
                 }
             });
             
-            // Botão compartilhar WhatsApp
+            // Botão compartilhar WhatsApp (VERSÃO MELHORADA)
             document.getElementById('btnShareWhatsApp').addEventListener('click', shareViaWhatsApp);
             
             // Botão exportar TXT
@@ -3209,7 +3327,7 @@
                 loadDocumentsByProfession(this.value);
             });
             
-            // Compartilhar documentos via WhatsApp
+            // Compartilhar documentos via WhatsApp (VERSÃO MELHORADA)
             document.getElementById('btnShareDocsWhatsApp').addEventListener('click', shareDocsViaWhatsApp);
             
             // Exportar documentos como TXT
@@ -3255,6 +3373,7 @@
         window.openTutorial = openTutorial;
         window.openSupport = openSupport;
         window.openCaixaSimulator = openCaixaSimulator;
+        window.calcularPorPercentualRisco = calcularPorPercentualRisco;
     </script>
 </body>
 </html>
