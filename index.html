@@ -917,7 +917,7 @@
             <div class="splash-logo">
                 <i class="fas fa-home"></i>
             </div>
-            <h1 class="splash-title">Simulador Corretor</h1>
+            <h1 class="splash-title">Simulador Plano Pro</h1>
             <p class="splash-subtitle">Versão 2.0</p>
             <div class="loading-spinner"></div>
         </div>
@@ -930,7 +930,7 @@
             <div class="header-content">
                 <div class="app-title">
                     <i class="fas fa-home"></i>
-                    <span>Simulador Corretor</span>
+                    <span>Simulador Plano Pro</span>
                 </div>
                 <div class="header-actions">
                     <button class="btn btn-sm btn-caixa" id="btnCaixa" title="Simulador Caixa">
@@ -1335,7 +1335,7 @@
                     </div>
                     
                     <div class="mt-3 text-center text-muted">
-                        <p class="mb-1">Simulador Corretor v2.0</p>
+                        <p class="mb-1">Simulador Plano Pro v2.0</p>
                         <p class="mb-1">Desenvolvido para facilitar seu trabalho</p>
                         <p>Suporte: (82) 99662-2036</p>
                     </div>
@@ -2855,7 +2855,7 @@
             content += `\n`;
             content += "=".repeat(50) + "\n";
             content += `Gerado em: ${formatDate()}\n`;
-            content += `Simulador Corretor v2.0\n`;
+            content += `Simulador Plano Pro v2.0\n`;
             content += `Para dúvidas: (82) 99662-2036\n`;
             
             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
@@ -2970,7 +2970,7 @@
                 yPos = 280;
                 doc.setFontSize(8);
                 doc.setTextColor(150, 150, 150);
-                doc.text('Simulador Corretor v2.0 - Gerado automaticamente', 105, yPos, { align: 'center' });
+                doc.text('Simulador Plano Pro v2.0 - Gerado automaticamente', 105, yPos, { align: 'center' });
                 yPos += 5;
                 doc.text('Para dúvidas: (82) 99662-2036', 105, yPos, { align: 'center' });
                 
@@ -3005,7 +3005,7 @@
         
         // Abrir suporte
         function openSupport() {
-            const message = encodeURIComponent('Olá! Preciso de ajuda com o Simulador Corretor.');
+            const message = encodeURIComponent('Olá! Preciso de ajuda com o Simulador Plano Pro.');
             window.open(`https://wa.me/${SUPPORT_PHONE}?text=${message}`, '_blank');
         }
         
@@ -3446,4 +3446,5 @@
     </script>
 </body>
 </html>
+
 
