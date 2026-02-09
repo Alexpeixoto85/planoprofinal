@@ -711,6 +711,62 @@
             50% { opacity: 0.8; transform: scale(1.05); }
         }
 
+        /* Documentos Template */
+        .documentos-container {
+            margin-top: 20px;
+        }
+
+        .documento-titulo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            text-align: center;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .documento-lista {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .documento-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .documento-item:hover {
+            background: rgba(180, 132, 108, 0.1);
+        }
+
+        .documento-checkbox {
+            margin-right: 10px;
+            margin-top: 2px;
+        }
+
+        .documento-texto {
+            flex: 1;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .documento-obs {
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(180, 132, 108, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-color);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
         /* Responsividade */
         @media (max-width: 480px) {
             .app-header {
@@ -772,6 +828,10 @@
             
             .risk-calc-btn {
                 width: 100%;
+            }
+            
+            .documento-texto {
+                font-size: 0.85rem;
             }
         }
 
@@ -1206,14 +1266,19 @@
                         <input type="text" class="form-control" id="corretorCreci" placeholder="CRECI/XX 0000">
                     </div>
                     
-                    <div id="documentosLista" class="mt-3"></div>
+                    <div id="documentosLista" class="mt-3 documentos-container">
+                        <!-- Template dos documentos será carregado aqui -->
+                    </div>
                     
                     <div class="mt-3 d-flex gap-1">
                         <button class="btn btn-primary w-100" id="btnShareDocsWhatsApp">
                             <i class="fab fa-whatsapp"></i> Compartilhar
                         </button>
                         <button class="btn btn-outline w-100" id="btnExportDocsTXT">
-                            <i class="fas fa-download"></i> Baixar
+                            <i class="fas fa-download"></i> Baixar TXT
+                        </button>
+                        <button class="btn btn-outline w-100" id="btnExportDocsPDF">
+                            <i class="fas fa-file-pdf"></i> Baixar PDF
                         </button>
                     </div>
                 </div>
@@ -1358,6 +1423,74 @@
         const BLOG_URL = 'https://dinheiroeplanejamento.blogspot.com/2025/04/guia-completo-para-corretores-de.html';
         const TUTORIAL_URL = 'https://youtu.be/fvSnXffBbhA'; // URL ATUALIZADA
         const SUPPORT_PHONE = '5582996622036';
+        
+        // ============================================
+        // Template de Documentos Baseado na Imagem
+        // ============================================
+        
+        const documentosTemplate = {
+            'autonomo': [
+                { texto: "RG (ou CNH) + CPF", obs: "" },
+                { texto: "Comprovante de residência", obs: "" },
+                { texto: "Certidão de estado civil", obs: "" },
+                { texto: "Rede social", obs: "" },
+                { texto: "Despesas em nome do cliente", obs: "" },
+                { texto: "Notas fiscais", obs: "" },
+                { texto: "3 Últimos extratos de maquineta", obs: "" },
+                { texto: "3 Últimos extratos bancários", obs: "" }
+            ],
+            'carteira-assinada': [
+                { texto: "RG e CPF (cópia)", obs: "" },
+                { texto: "Comprovante de Residência (atual)", obs: "" },
+                { texto: "Carteira de Trabalho (cópia completa)", obs: "" },
+                { texto: "3 últimos contracheques", obs: "" },
+                { texto: "Declaração de rendimentos do empregador", obs: "" },
+                { texto: "Certidão de Casamento ou Nascimento (se casado)", obs: "" },
+                { texto: "Comprovante de renda do cônjuge (se casado)", obs: "" }
+            ],
+            'servidor-publico': [
+                { texto: "RG e CPF (cópia)", obs: "" },
+                { texto: "Comprovante de Residência (atual)", obs: "" },
+                { texto: "Declaração de vínculo empregatício", obs: "" },
+                { texto: "3 últimos contracheques ou extratos", obs: "" },
+                { texto: "Certidão de Casamento ou Nascimento", obs: "" },
+                { texto: "Comprovante de renda do cônjuge (se aplicável)", obs: "" }
+            ],
+            'empresario': [
+                { texto: "RG e CPF (cópia)", obs: "" },
+                { texto: "Comprovante de Residência (atual)", obs: "" },
+                { texto: "CNPJ da empresa (cópia)", obs: "" },
+                { texto: "3 últimos demonstrativos financeiros", obs: "" },
+                { texto: "Declaração do contador", obs: "" },
+                { texto: "IRPF dos últimos 3 anos", obs: "" },
+                { texto: "Certidão de Casamento ou Nascimento", obs: "" }
+            ],
+            'forcas-armadas': [
+                { texto: "RG e CPF (cópia)", obs: "" },
+                { texto: "Comprovante de Residência (atual)", obs: "" },
+                { texto: "Identidade militar", obs: "" },
+                { texto: "3 últimos contracheques", obs: "" },
+                { texto: "Declaração de serviço ativo", obs: "" },
+                { texto: "Certidão de Casamento ou Nascimento", obs: "" }
+            ],
+            'motorista-aplicativo': [
+                { texto: "RG e CPF (cópia)", obs: "" },
+                { texto: "Comprovante de Residência (atual)", obs: "" },
+                { texto: "CNH (cópia)", obs: "" },
+                { texto: "Extratos da plataforma (últimos 3 meses)", obs: "" },
+                { texto: "Comprovantes bancários", obs: "" },
+                { texto: "IRPF (se tiver)", obs: "" },
+                { texto: "Certidão de Casamento ou Nascimento", obs: "" }
+            ],
+            'pensionista': [
+                { texto: "RG e CPF (cópia)", obs: "" },
+                { texto: "Comprovante de Residência (atual)", obs: "" },
+                { texto: "Comprovante de pensão", obs: "" },
+                { texto: "Extratos bancários (últimos 3 meses)", obs: "" },
+                { texto: "Certidão de óbito do segurado (se for o caso)", obs: "" },
+                { texto: "Certidão de Casamento ou Nascimento", obs: "" }
+            ]
+        };
         
         // ============================================
         // Gerenciamento do Splash Screen
@@ -1906,8 +2039,43 @@
         }
         
         // ============================================
-        // Funções de Interface
+        // Funções de Interface - Documentos
         // ============================================
+        
+        // Carregar documentos por profissão com template
+        function loadDocumentsByProfession(profession) {
+            const container = document.getElementById('documentosLista');
+            const professionText = document.getElementById('profissaoCliente').options[document.getElementById('profissaoCliente').selectedIndex].text;
+            
+            const docs = documentosTemplate[profession] || [];
+            
+            let html = `<div class="documento-titulo">Documentação Necessária - ${professionText}</div>`;
+            html += '<ul class="documento-lista">';
+            
+            docs.forEach((doc, index) => {
+                html += `
+                    <li class="documento-item">
+                        <div class="documento-checkbox">
+                            <i class="far fa-square" style="color: var(--accent-color);"></i>
+                        </div>
+                        <div class="documento-texto">${doc.texto}</div>
+                    </li>
+                `;
+            });
+            
+            html += '</ul>';
+            
+            // Adicionar observação para autônomo
+            if (profession === 'autonomo') {
+                html += `
+                    <div class="documento-obs">
+                        <strong>OBS:</strong> Apresentar Imposto de Renda caso tenha declarado
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+        }
         
         // Carregar leads na interface
         async function loadLeads() {
@@ -2145,85 +2313,6 @@
             }
         }
         
-        // Carregar documentos por profissão
-        function loadDocumentsByProfession(profession) {
-            const documentos = {
-                'carteira-assinada': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Carteira de Trabalho (cópia completa)',
-                    '3 últimos contracheques',
-                    'Declaração de rendimentos do empregador',
-                    'Certidão de Casamento ou Nascimento (se casado)',
-                    'Comprovante de renda do cônjuge (se casado)'
-                ],
-                'servidor-publico': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Declaração de vínculo empregatício',
-                    '3 últimos contracheques ou extratos',
-                    'Certidão de Casamento ou Nascimento',
-                    'Comprovante de renda do cônjuge (se aplicável)'
-                ],
-                'empresario': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'CNPJ da empresa (cópia)',
-                    '3 últimos demonstrativos financeiros',
-                    'Declaração do contador',
-                    'IRPF dos últimos 3 anos',
-                    'Certidão de Casamento ou Nascimento'
-                ],
-                'forcas-armadas': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Identidade militar',
-                    '3 últimos contracheques',
-                    'Declaração de serviço ativo',
-                    'Certidão de Casamento ou Nascimento'
-                ],
-                'autonomo': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Declaração de Autônomo',
-                    'IRPF dos últimos 3 anos',
-                    'Comprovantes de renda (extratos bancários)',
-                    'Certidão de Casamento ou Nascimento'
-                ],
-                'motorista-aplicativo': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'CNH (cópia)',
-                    'Extratos da plataforma (últimos 3 meses)',
-                    'Comprovantes bancários',
-                    'IRPF (se tiver)',
-                    'Certidão de Casamento ou Nascimento'
-                ],
-                'pensionista': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Comprovante de pensão',
-                    'Extratos bancários (últimos 3 meses)',
-                    'Certidão de óbito do segurado (se for o caso)',
-                    'Certidão de Casamento ou Nascimento'
-                ]
-            };
-            
-            const container = document.getElementById('documentosLista');
-            const docs = documentos[profession] || [];
-            
-            let html = '<div class="result-card">';
-            html += '<div class="mb-2 text-accent"><i class="fas fa-list-check"></i> Documentos Necessários:</div>';
-            html += '<div style="font-size: 0.9rem;">';
-            
-            docs.forEach((doc, index) => {
-                html += `<div class="mb-1"><i class="fas fa-check text-success"></i> ${doc}</div>`;
-            });
-            
-            html += '</div></div>';
-            container.innerHTML = html;
-        }
-        
         // ============================================
         // FUNÇÕES DE WHATSAPP MELHORADAS
         // ============================================
@@ -2381,75 +2470,18 @@
             if (creci) message += `*CRECI:* ${creci}\n`;
             message += `\n`;
             
-            const documentos = {
-                'carteira-assinada': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Carteira de Trabalho (cópia completa)',
-                    '3 últimos contracheques',
-                    'Declaração de rendimentos do empregador',
-                    'Certidão de Casamento ou Nascimento (se casado)',
-                    'Comprovante de renda do cônjuge (se casado)'
-                ],
-                'servidor-publico': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Declaração de vínculo empregatício',
-                    '3 últimos contracheques ou extratos',
-                    'Certidão de Casamento ou Nascimento',
-                    'Comprovante de renda do cônjuge (se aplicável)'
-                ],
-                'empresario': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'CNPJ da empresa (cópia)',
-                    '3 últimos demonstrativos financeiros',
-                    'Declaração do contador',
-                    'IRPF dos últimos 3 anos',
-                    'Certidão de Casamento ou Nascimento'
-                ],
-                'forcas-armadas': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Identidade militar',
-                    '3 últimos contracheques',
-                    'Declaração de serviço ativo',
-                    'Certidão de Casamento ou Nascimento'
-                ],
-                'autonomo': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Declaração de Autônomo',
-                    'IRPF dos últimos 3 anos',
-                    'Comprovantes de renda (extratos bancários)',
-                    'Certidão de Casamento ou Nascimento'
-                ],
-                'motorista-aplicativo': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'CNH (cópia)',
-                    'Extratos da plataforma (últimos 3 meses)',
-                    'Comprovantes bancários',
-                    'IRPF (se tiver)',
-                    'Certidão de Casamento ou Nascimento'
-                ],
-                'pensionista': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Comprovante de pensão',
-                    'Extratos bancários (últimos 3 meses)',
-                    'Certidão de óbito do segurado (se for o caso)',
-                    'Certidão de Casamento ou Nascimento'
-                ]
-            };
-            
-            const docs = documentos[profession] || [];
+            const docs = documentosTemplate[profession] || [];
             
             message += `*LISTA DE DOCUMENTOS:*\n\n`;
             
             docs.forEach((doc, index) => {
-                message += `✓ ${doc}\n`;
+                message += `☐ ${doc.texto}\n`;
             });
+            
+            // Adicionar observação para autônomo
+            if (profession === 'autonomo') {
+                message += `\n*OBS:* Apresentar Imposto de Renda caso tenha declarado\n`;
+            }
             
             message += `\n*Dúvidas? Entre em contato!*\n`;
             message += `${corretor} - ${creci || 'Corretor'}\n`;
@@ -2796,69 +2828,7 @@
             const creci = document.getElementById('corretorCreci').value || '';
             const nomeCliente = document.getElementById('nomeCliente').value || 'Cliente';
             
-            const documentos = {
-                'carteira-assinada': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Carteira de Trabalho (cópia completa)',
-                    '3 últimos contracheques',
-                    'Declaração de rendimentos do empregador',
-                    'Certidão de Casamento ou Nascimento (se casado)',
-                    'Comprovante de renda do cônjuge (se casado)'
-                ],
-                'servidor-publico': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Declaração de vínculo empregatício',
-                    '3 últimos contracheques ou extratos',
-                    'Certidão de Casamento ou Nascimento',
-                    'Comprovante de renda do cônjuge (se aplicável)'
-                ],
-                'empresario': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'CNPJ da empresa (cópia)',
-                    '3 últimos demonstrativos financeiros',
-                    'Declaração do contador',
-                    'IRPF dos últimos 3 anos',
-                    'Certidão de Casamento ou Nascimento'
-                ],
-                'forcas-armadas': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Identidade militar',
-                    '3 últimos contracheques',
-                    'Declaração de serviço ativo',
-                    'Certidão de Casamento ou Nascimento'
-                ],
-                'autonomo': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Declaração de Autônomo',
-                    'IRPF dos últimos 3 anos',
-                    'Comprovantes de renda (extratos bancários)',
-                    'Certidão de Casamento ou Nascimento'
-                ],
-                'motorista-aplicativo': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'CNH (cópia)',
-                    'Extratos da plataforma (últimos 3 meses)',
-                    'Comprovantes bancários',
-                    'IRPF (se tiver)',
-                    'Certidão de Casamento ou Nascimento'
-                ],
-                'pensionista': [
-                    'RG e CPF (cópia)',
-                    'Comprovante de Residência (atual)',
-                    'Comprovante de pensão',
-                    'Extratos bancários (últimos 3 meses)',
-                    'Certidão de óbito do segurado (se for o caso)',
-                    'Certidão de Casamento ou Nascimento'
-                ]
-            };
-            
-            const docs = documentos[profession] || [];
+            const docs = documentosTemplate[profession] || [];
             
             let content = "=".repeat(50) + "\n";
             content += "DOCUMENTOS NECESSÁRIOS\n";
@@ -2874,8 +2844,13 @@
             content += "LISTA DE DOCUMENTOS:\n\n";
             
             docs.forEach((doc, index) => {
-                content += `${index + 1}. ${doc}\n`;
+                content += `[ ] ${doc.texto}\n`;
             });
+            
+            // Adicionar observação para autônomo
+            if (profession === 'autonomo') {
+                content += `\nOBS: Apresentar Imposto de Renda caso tenha declarado\n`;
+            }
             
             content += `\n`;
             content += "=".repeat(50) + "\n";
@@ -2894,6 +2869,119 @@
             URL.revokeObjectURL(url);
             
             showToast('Documentos exportados como TXT!', 'success');
+        }
+        
+        // Exportar documentos como PDF com template da imagem
+        async function exportDocsAsPDF() {
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+                
+                const profession = document.getElementById('profissaoCliente').value;
+                const professionText = document.getElementById('profissaoCliente').options[document.getElementById('profissaoCliente').selectedIndex].text;
+                const imobiliaria = document.getElementById('imobiliariaNome').value || '';
+                const corretor = document.getElementById('corretorNome').value || 'Corretor';
+                const creci = document.getElementById('corretorCreci').value || '';
+                const nomeCliente = document.getElementById('nomeCliente').value || 'Cliente';
+                
+                const docs = documentosTemplate[profession] || [];
+                
+                let yPos = 20;
+                
+                // Título
+                doc.setFontSize(18);
+                doc.setTextColor(74, 87, 74);
+                doc.text('Documentação Necessária', 105, yPos, { align: 'center' });
+                yPos += 10;
+                
+                // Subtítulo (Profissão)
+                doc.setFontSize(14);
+                doc.setTextColor(180, 132, 108);
+                doc.text(professionText.toUpperCase(), 105, yPos, { align: 'center' });
+                yPos += 12;
+                
+                // Linha decorativa
+                doc.setDrawColor(180, 132, 108);
+                doc.setLineWidth(0.5);
+                doc.line(20, yPos, 190, yPos);
+                yPos += 12;
+                
+                // Informações do cliente
+                doc.setFontSize(11);
+                doc.setTextColor(0, 0, 0);
+                doc.text(`Cliente: ${nomeCliente}`, 20, yPos);
+                yPos += 6;
+                
+                if (imobiliaria) {
+                    doc.text(`Imobiliária: ${imobiliaria}`, 20, yPos);
+                    yPos += 6;
+                }
+                
+                if (corretor) {
+                    doc.text(`Corretor: ${corretor}`, 20, yPos);
+                    yPos += 6;
+                }
+                
+                if (creci) {
+                    doc.text(`CRECI: ${creci}`, 20, yPos);
+                    yPos += 6;
+                }
+                
+                doc.text(`Data: ${formatDate()}`, 20, yPos);
+                yPos += 12;
+                
+                // Documentos com checkboxes
+                doc.setFontSize(12);
+                doc.setTextColor(74, 87, 74);
+                doc.text('LISTA DE DOCUMENTOS:', 20, yPos);
+                yPos += 10;
+                
+                // Desenhar checkboxes e texto
+                docs.forEach((docItem, index) => {
+                    // Desenhar checkbox quadrado
+                    doc.setDrawColor(180, 132, 108);
+                    doc.setLineWidth(0.5);
+                    doc.rect(20, yPos - 3, 4, 4);
+                    
+                    // Texto do documento
+                    doc.setFontSize(10);
+                    doc.setTextColor(0, 0, 0);
+                    doc.text(docItem.texto, 28, yPos);
+                    
+                    yPos += 7;
+                    
+                    // Quebra de página se necessário
+                    if (yPos > 270) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+                });
+                
+                // Observação para autônomo
+                if (profession === 'autonomo') {
+                    yPos += 5;
+                    doc.setFontSize(9);
+                    doc.setTextColor(100, 100, 100);
+                    doc.text('OBS: Apresentar Imposto de Renda caso tenha declarado', 20, yPos);
+                    yPos += 10;
+                }
+                
+                // Rodapé
+                yPos = 280;
+                doc.setFontSize(8);
+                doc.setTextColor(150, 150, 150);
+                doc.text('Simulador Corretor v2.0 - Gerado automaticamente', 105, yPos, { align: 'center' });
+                yPos += 5;
+                doc.text('Para dúvidas: (82) 99662-2036', 105, yPos, { align: 'center' });
+                
+                // Salvar PDF
+                doc.save(`documentos_${nomeCliente.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
+                
+                showToast('Documentos exportados como PDF!', 'success');
+            } catch (error) {
+                console.error('Erro ao gerar PDF dos documentos:', error);
+                showToast('Erro ao gerar PDF. Tente novamente.', 'error');
+            }
         }
         
         // ============================================
@@ -3065,7 +3153,7 @@
             // Configurar botões do header (ATUALIZADO)
             document.getElementById('btnCaixa').addEventListener('click', openCaixaSimulator);
             document.getElementById('btnBlog').addEventListener('click', openBlog);
-            document.getElementById('btnTutorial').addEventListener('click', openTutorial); // URL ATUALIZADA
+            document.getElementById('btnTutorial').addEventListener('click', openTutorial);
             document.getElementById('btnSuporte').addEventListener('click', openSupport);
             
             // Configurar botão nova simulação
@@ -3310,6 +3398,9 @@
             
             // Exportar documentos como TXT
             document.getElementById('btnExportDocsTXT').addEventListener('click', exportDocsAsTXT);
+            
+            // Exportar documentos como PDF
+            document.getElementById('btnExportDocsPDF').addEventListener('click', exportDocsAsPDF);
             
             // Salvar configurações automaticamente ao sair dos campos
             ['imobiliariaNome', 'corretorNome', 'corretorCreci'].forEach(id => {
