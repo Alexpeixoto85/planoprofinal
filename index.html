@@ -2597,7 +2597,7 @@
             showToast('Simulação exportada como TXT!', 'success');
         }
         
-        // Exportar simulação como PDF (SEM PERCENTUAL DE RISCO)
+        // Exportar simulação como PDF - VERSÃO OTIMIZADA PARA UMA PÁGINA
         async function exportAsPDF() {
             try {
                 const { jsPDF } = window.jspdf;
@@ -2613,61 +2613,57 @@
                 const creci = document.getElementById('corretorCreci').value || '';
                 const taxaAssinaturaCaixa = document.getElementById('taxaAssinaturaCaixa').value || '0,00';
                 
-                let yPos = 20;
+                // Configurações de página
+                const pageWidth = doc.internal.pageSize.width;
+                const margin = 10;
+                const contentWidth = pageWidth - (2 * margin);
+                let yPos = margin;
                 
                 // Título
-                doc.setFontSize(20);
+                doc.setFontSize(16);
                 doc.setTextColor(74, 87, 74);
-                doc.text('SIMULAÇÃO DE PLANO DE PAGAMENTO', 105, yPos, { align: 'center' });
+                doc.text('SIMULAÇÃO DE PLANO DE PAGAMENTO', pageWidth / 2, yPos, { align: 'center' });
+                yPos += 8;
+                
+                // Data
+                doc.setFontSize(9);
+                doc.setTextColor(100, 100, 100);
+                doc.text(`Data: ${formatDate()}`, pageWidth / 2, yPos, { align: 'center' });
                 yPos += 10;
                 
                 // Linha decorativa
                 doc.setDrawColor(180, 132, 108);
-                doc.setLineWidth(0.5);
-                doc.line(20, yPos, 190, yPos);
-                yPos += 10;
+                doc.setLineWidth(0.3);
+                doc.line(margin, yPos, pageWidth - margin, yPos);
+                yPos += 5;
                 
-                // Data
-                doc.setFontSize(10);
-                doc.setTextColor(100, 100, 100);
-                doc.text(`Data: ${formatDate()}`, 20, yPos);
-                yPos += 8;
-                
-                // Informações do cliente
-                doc.setFontSize(12);
+                // Informações do cliente (mais compactas)
+                doc.setFontSize(11);
                 doc.setTextColor(0, 0, 0);
-                doc.text('INFORMAÇÕES DO CLIENTE', 20, yPos);
-                yPos += 8;
-                
-                doc.setFontSize(10);
-                doc.text(`Cliente: ${nomeCliente}`, 20, yPos);
+                doc.text('INFORMAÇÕES DO CLIENTE', margin, yPos);
                 yPos += 6;
-                if (telefone) {
-                    doc.text(`Telefone: ${formatPhone(telefone)}`, 20, yPos);
-                    yPos += 6;
-                }
-                doc.text(`Empreendimento: ${empreendimento}`, 20, yPos);
+                
+                doc.setFontSize(9);
+                const infoCliente = [];
+                infoCliente.push(`Cliente: ${nomeCliente}`);
+                if (telefone) infoCliente.push(`Telefone: ${formatPhone(telefone)}`);
+                infoCliente.push(`Empreendimento: ${empreendimento}`);
+                if (imobiliaria) infoCliente.push(`Imobiliária: ${imobiliaria}`);
+                if (corretor) infoCliente.push(`Corretor: ${corretor}`);
+                if (creci) infoCliente.push(`CRECI: ${creci}`);
+                
+                infoCliente.forEach(info => {
+                    doc.text(info, margin, yPos);
+                    yPos += 4.5;
+                });
+                
+                yPos += 3;
+                
+                // Valores do Imóvel - tabela mais compacta
+                doc.setFontSize(11);
+                doc.text('VALORES DO IMÓVEL', margin, yPos);
                 yPos += 6;
-                if (imobiliaria) {
-                    doc.text(`Imobiliária: ${imobiliaria}`, 20, yPos);
-                    yPos += 6;
-                }
-                if (corretor) {
-                    doc.text(`Corretor: ${corretor}`, 20, yPos);
-                    yPos += 6;
-                }
-                if (creci) {
-                    doc.text(`CRECI: ${creci}`, 20, yPos);
-                    yPos += 6;
-                }
-                yPos += 4;
                 
-                // Valores do Imóvel
-                doc.setFontSize(12);
-                doc.text('VALORES DO IMÓVEL', 20, yPos);
-                yPos += 8;
-                
-                doc.setFontSize(10);
                 const valoresData = [
                     ['Descrição', 'Valor'],
                     ['Valor do Imóvel', formatCurrency(data.valorImovel)],
@@ -2682,19 +2678,31 @@
                     head: [valoresData[0]],
                     body: valoresData.slice(1),
                     theme: 'grid',
-                    headStyles: { fillColor: [74, 87, 74] },
-                    bodyStyles: { textColor: [0, 0, 0] },
-                    margin: { left: 20, right: 20 }
+                    headStyles: { 
+                        fillColor: [74, 87, 74],
+                        fontSize: 8,
+                        cellPadding: 2
+                    },
+                    bodyStyles: { 
+                        fontSize: 8,
+                        cellPadding: 2
+                    },
+                    margin: { left: margin, right: margin },
+                    styles: { lineWidth: 0.1 },
+                    tableWidth: 'auto',
+                    columnStyles: {
+                        0: { cellWidth: contentWidth * 0.6 },
+                        1: { cellWidth: contentWidth * 0.4, halign: 'right' }
+                    }
                 });
                 
-                yPos = doc.lastAutoTable.finalY + 10;
+                yPos = doc.lastAutoTable.finalY + 5;
                 
-                // Entrada
-                doc.setFontSize(12);
-                doc.text('ENTRADA', 20, yPos);
-                yPos += 8;
+                // Entrada - tabela mais compacta
+                doc.setFontSize(11);
+                doc.text('ENTRADA', margin, yPos);
+                yPos += 6;
                 
-                doc.setFontSize(10);
                 const entradaData = [
                     ['Descrição', 'Valor'],
                     ['Sinal', formatCurrency(data.sinalConstrutora)],
@@ -2721,18 +2729,31 @@
                     head: [entradaData[0]],
                     body: entradaData.slice(1),
                     theme: 'grid',
-                    headStyles: { fillColor: [180, 132, 108] },
-                    bodyStyles: { textColor: [0, 0, 0] },
-                    margin: { left: 20, right: 20 }
+                    headStyles: { 
+                        fillColor: [180, 132, 108],
+                        fontSize: 8,
+                        cellPadding: 2
+                    },
+                    bodyStyles: { 
+                        fontSize: 8,
+                        cellPadding: 2
+                    },
+                    margin: { left: margin, right: margin },
+                    styles: { lineWidth: 0.1 },
+                    tableWidth: 'auto',
+                    columnStyles: {
+                        0: { cellWidth: contentWidth * 0.6 },
+                        1: { cellWidth: contentWidth * 0.4, halign: 'right' }
+                    }
                 });
                 
-                yPos = doc.lastAutoTable.finalY + 10;
+                yPos = doc.lastAutoTable.finalY + 5;
                 
-                // Intercaladas (se houver)
+                // Intercaladas (se houver) - mais compacta
                 if (data.valorIntercaladas > 0 && data.quantidadeIntercaladas > 0) {
-                    doc.setFontSize(12);
-                    doc.text('INTERCALADAS', 20, yPos);
-                    yPos += 8;
+                    doc.setFontSize(11);
+                    doc.text('INTERCALADAS', margin, yPos);
+                    yPos += 6;
                     
                     const intercaladasData = [
                         ['Descrição', 'Valor'],
@@ -2746,18 +2767,31 @@
                         head: [intercaladasData[0]],
                         body: intercaladasData.slice(1),
                         theme: 'grid',
-                        headStyles: { fillColor: [76, 175, 80] },
-                        bodyStyles: { textColor: [0, 0, 0] },
-                        margin: { left: 20, right: 20 }
+                        headStyles: { 
+                            fillColor: [76, 175, 80],
+                            fontSize: 8,
+                            cellPadding: 2
+                        },
+                        bodyStyles: { 
+                            fontSize: 8,
+                            cellPadding: 2
+                        },
+                        margin: { left: margin, right: margin },
+                        styles: { lineWidth: 0.1 },
+                        tableWidth: 'auto',
+                        columnStyles: {
+                            0: { cellWidth: contentWidth * 0.6 },
+                            1: { cellWidth: contentWidth * 0.4, halign: 'right' }
+                        }
                     });
                     
-                    yPos = doc.lastAutoTable.finalY + 10;
+                    yPos = doc.lastAutoTable.finalY + 5;
                 }
                 
-                // Resumo
-                doc.setFontSize(12);
-                doc.text('RESUMO', 20, yPos);
-                yPos += 8;
+                // Resumo - mais compacto
+                doc.setFontSize(11);
+                doc.text('RESUMO', margin, yPos);
+                yPos += 6;
                 
                 const resumoData = [
                     ['Descrição', 'Valor'],
@@ -2769,45 +2803,67 @@
                     head: [resumoData[0]],
                     body: resumoData.slice(1),
                     theme: 'grid',
-                    headStyles: { fillColor: [76, 175, 80] },
-                    bodyStyles: { textColor: [0, 0, 0] },
-                    margin: { left: 20, right: 20 }
+                    headStyles: { 
+                        fillColor: [76, 175, 80],
+                        fontSize: 8,
+                        cellPadding: 2
+                    },
+                    bodyStyles: { 
+                        fontSize: 8,
+                        cellPadding: 2,
+                        fontStyle: 'bold'
+                    },
+                    margin: { left: margin, right: margin },
+                    styles: { lineWidth: 0.1 },
+                    tableWidth: 'auto',
+                    columnStyles: {
+                        0: { cellWidth: contentWidth * 0.6 },
+                        1: { cellWidth: contentWidth * 0.4, halign: 'right' }
+                    }
                 });
                 
-                yPos = doc.lastAutoTable.finalY + 10;
+                yPos = doc.lastAutoTable.finalY + 8;
                 
-                // Observações (se houver)
+                // Observações (se houver) - mais compacta
                 if (observacoes) {
-                    doc.setFontSize(12);
-                    doc.text('OBSERVAÇÕES', 20, yPos);
-                    yPos += 8;
-                    
                     doc.setFontSize(10);
-                    const lines = doc.splitTextToSize(observacoes, 170);
-                    doc.text(lines, 20, yPos);
-                    yPos += lines.length * 6 + 10;
+                    doc.setTextColor(0, 0, 0);
+                    doc.text('OBSERVAÇÕES:', margin, yPos);
+                    yPos += 5;
+                    
+                    doc.setFontSize(8);
+                    doc.setTextColor(60, 60, 60);
+                    const lines = doc.splitTextToSize(observacoes, contentWidth);
+                    doc.text(lines, margin, yPos);
+                    yPos += lines.length * 3.5 + 5;
                 }
                 
-                // Informações importantes
-                doc.setFontSize(10);
-                doc.setTextColor(100, 100, 100);
-                doc.text('INFORMAÇÕES IMPORTANTES:', 20, yPos);
-                yPos += 6;
-                doc.text('• Durante a obra: correção pelo INCC mensal', 20, yPos);
-                yPos += 6;
-                doc.text('• Após a obra: correção pelo IGP-M + 1%', 20, yPos);
-                yPos += 6;
-                doc.text('• Valores sujeitos a alteração e aprovação', 20, yPos);
-                yPos += 10;
+                // Informações importantes - mais compactas
+                if (yPos > 240) {
+                    // Se estiver muito baixo, adicionar nova página
+                    doc.addPage();
+                    yPos = margin;
+                }
                 
-                // Assinatura
-                doc.setFontSize(10);
+                doc.setFontSize(8);
+                doc.setTextColor(100, 100, 100);
+                doc.text('INFORMAÇÕES IMPORTANTES:', margin, yPos);
+                yPos += 4;
+                doc.text('• Durante a obra: correção pelo INCC mensal', margin, yPos);
+                yPos += 4;
+                doc.text('• Após a obra: correção pelo IGP-M + 1%', margin, yPos);
+                yPos += 4;
+                doc.text('• Valores sujeitos a alteração e aprovação', margin, yPos);
+                yPos += 8;
+                
+                // Assinatura - mais compacta
+                doc.setFontSize(8);
                 doc.setTextColor(0, 0, 0);
-                doc.text(`Gerado por: ${corretor}`, 20, yPos);
-                yPos += 6;
-                if (creci) doc.text(`CRECI: ${creci}`, 20, yPos);
-                yPos += 6;
-                doc.text(`Data: ${formatDate()}`, 20, yPos);
+                doc.text(`Gerado por: ${corretor}`, margin, yPos);
+                yPos += 4;
+                if (creci) doc.text(`CRECI: ${creci}`, margin, yPos);
+                yPos += 4;
+                doc.text(`Data: ${formatDate()}`, margin, yPos);
                 
                 // Salvar PDF
                 doc.save(`simulacao_${nomeCliente.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
@@ -2886,93 +2942,95 @@
                 
                 const docs = documentosTemplate[profession] || [];
                 
-                let yPos = 20;
+                const pageWidth = doc.internal.pageSize.width;
+                const margin = 15;
+                let yPos = margin;
                 
                 // Título
-                doc.setFontSize(18);
+                doc.setFontSize(16);
                 doc.setTextColor(74, 87, 74);
-                doc.text('Documentação Necessária', 105, yPos, { align: 'center' });
-                yPos += 10;
+                doc.text('Documentação Necessária', pageWidth / 2, yPos, { align: 'center' });
+                yPos += 8;
                 
                 // Subtítulo (Profissão)
-                doc.setFontSize(14);
+                doc.setFontSize(12);
                 doc.setTextColor(180, 132, 108);
-                doc.text(professionText.toUpperCase(), 105, yPos, { align: 'center' });
-                yPos += 12;
+                doc.text(professionText.toUpperCase(), pageWidth / 2, yPos, { align: 'center' });
+                yPos += 10;
                 
                 // Linha decorativa
                 doc.setDrawColor(180, 132, 108);
-                doc.setLineWidth(0.5);
-                doc.line(20, yPos, 190, yPos);
+                doc.setLineWidth(0.3);
+                doc.line(margin, yPos, pageWidth - margin, yPos);
                 yPos += 12;
                 
-                // Informações do cliente
-                doc.setFontSize(11);
+                // Informações do cliente (compactas)
+                doc.setFontSize(9);
                 doc.setTextColor(0, 0, 0);
-                doc.text(`Cliente: ${nomeCliente}`, 20, yPos);
-                yPos += 6;
+                doc.text(`Cliente: ${nomeCliente}`, margin, yPos);
+                yPos += 4.5;
                 
                 if (imobiliaria) {
-                    doc.text(`Imobiliária: ${imobiliaria}`, 20, yPos);
-                    yPos += 6;
+                    doc.text(`Imobiliária: ${imobiliaria}`, margin, yPos);
+                    yPos += 4.5;
                 }
                 
                 if (corretor) {
-                    doc.text(`Corretor: ${corretor}`, 20, yPos);
-                    yPos += 6;
+                    doc.text(`Corretor: ${corretor}`, margin, yPos);
+                    yPos += 4.5;
                 }
                 
                 if (creci) {
-                    doc.text(`CRECI: ${creci}`, 20, yPos);
-                    yPos += 6;
+                    doc.text(`CRECI: ${creci}`, margin, yPos);
+                    yPos += 4.5;
                 }
                 
-                doc.text(`Data: ${formatDate()}`, 20, yPos);
-                yPos += 12;
+                doc.text(`Data: ${formatDate()}`, margin, yPos);
+                yPos += 10;
                 
                 // Documentos com checkboxes
-                doc.setFontSize(12);
+                doc.setFontSize(11);
                 doc.setTextColor(74, 87, 74);
-                doc.text('LISTA DE DOCUMENTOS:', 20, yPos);
-                yPos += 10;
+                doc.text('LISTA DE DOCUMENTOS:', margin, yPos);
+                yPos += 8;
                 
                 // Desenhar checkboxes e texto
                 docs.forEach((docItem, index) => {
-                    // Desenhar checkbox quadrado
-                    doc.setDrawColor(180, 132, 108);
-                    doc.setLineWidth(0.5);
-                    doc.rect(20, yPos - 3, 4, 4);
-                    
-                    // Texto do documento
-                    doc.setFontSize(10);
-                    doc.setTextColor(0, 0, 0);
-                    doc.text(docItem.texto, 28, yPos);
-                    
-                    yPos += 7;
-                    
-                    // Quebra de página se necessário
+                    // Verificar se precisa de nova página
                     if (yPos > 270) {
                         doc.addPage();
-                        yPos = 20;
+                        yPos = margin;
                     }
+                    
+                    // Desenhar checkbox quadrado
+                    doc.setDrawColor(180, 132, 108);
+                    doc.setLineWidth(0.3);
+                    doc.rect(margin, yPos - 2.5, 3, 3);
+                    
+                    // Texto do documento
+                    doc.setFontSize(9);
+                    doc.setTextColor(0, 0, 0);
+                    doc.text(docItem.texto, margin + 6, yPos);
+                    
+                    yPos += 5.5;
                 });
                 
                 // Observação para autônomo
                 if (profession === 'autonomo') {
-                    yPos += 5;
-                    doc.setFontSize(9);
+                    yPos += 3;
+                    doc.setFontSize(8);
                     doc.setTextColor(100, 100, 100);
-                    doc.text('OBS: Apresentar Imposto de Renda caso tenha declarado', 20, yPos);
-                    yPos += 10;
+                    doc.text('OBS: Apresentar Imposto de Renda caso tenha declarado', margin, yPos);
+                    yPos += 8;
                 }
                 
                 // Rodapé
                 yPos = 280;
-                doc.setFontSize(8);
+                doc.setFontSize(7);
                 doc.setTextColor(150, 150, 150);
-                doc.text('Simulador Plano Pro v2.0 - Gerado automaticamente', 105, yPos, { align: 'center' });
-                yPos += 5;
-                doc.text('Para dúvidas: (82) 99662-2036', 105, yPos, { align: 'center' });
+                doc.text('Simulador Plano Pro v2.0 - Gerado automaticamente', pageWidth / 2, yPos, { align: 'center' });
+                yPos += 4;
+                doc.text('Para dúvidas: (82) 99662-2036', pageWidth / 2, yPos, { align: 'center' });
                 
                 // Salvar PDF
                 doc.save(`documentos_${nomeCliente.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
@@ -3446,5 +3504,3 @@
     </script>
 </body>
 </html>
-
-
