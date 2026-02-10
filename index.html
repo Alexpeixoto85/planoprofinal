@@ -376,6 +376,62 @@
             background: rgba(180, 132, 108, 0.1);
         }
 
+        /* Alertas de Renda - NOVA POSIÇÃO (acima dos resultados) */
+        .renda-alert-container {
+            margin-bottom: 16px;
+        }
+
+        .renda-alert {
+            background: rgba(255, 193, 7, 0.1);
+            border: 2px solid var(--warning-color);
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: none;
+            animation: pulse 2s infinite;
+        }
+
+        .renda-alert.show {
+            display: block;
+        }
+
+        .renda-alert.danger {
+            background: rgba(211, 47, 47, 0.1);
+            border-color: var(--danger-color);
+        }
+
+        .renda-alert.success {
+            background: rgba(76, 175, 80, 0.1);
+            border-color: var(--success-color);
+        }
+
+        .renda-alert-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            color: var(--warning-color);
+            font-weight: 600;
+        }
+
+        .renda-alert.danger .renda-alert-header {
+            color: var(--danger-color);
+        }
+
+        .renda-alert.success .renda-alert-header {
+            color: var(--success-color);
+        }
+
+        .renda-alert-content {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .renda-alert-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
         /* Seções Collapsible */
         .section-collapsible {
             overflow: hidden;
@@ -444,7 +500,6 @@
             background: linear-gradient(135deg, rgba(180, 132, 108, 0.1), rgba(76, 175, 80, 0.1));
             border-radius: var(--radius);
             padding: 16px;
-            margin-top: 16px;
             border-left: 4px solid var(--accent-color);
         }
 
@@ -469,6 +524,18 @@
             font-weight: 600;
             color: var(--accent-color);
             font-size: 1.1rem;
+        }
+
+        .result-value.warning {
+            color: var(--warning-color);
+        }
+
+        .result-value.danger {
+            color: var(--danger-color);
+        }
+
+        .result-value.success {
+            color: var(--success-color);
         }
 
         /* Lista de Leads */
@@ -627,6 +694,10 @@
 
         .toast-error {
             border-left-color: var(--danger-color);
+        }
+
+        .toast-warning {
+            border-left-color: var(--warning-color);
         }
 
         .toast-icon {
@@ -833,6 +904,10 @@
             .documento-texto {
                 font-size: 0.85rem;
             }
+            
+            .renda-alert-actions {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 360px) {
@@ -889,6 +964,7 @@
         .text-accent { color: var(--accent-color); }
         .text-success { color: var(--success-color); }
         .text-danger { color: var(--danger-color); }
+        .text-warning { color: var(--warning-color); }
         .mb-1 { margin-bottom: 8px; }
         .mb-2 { margin-bottom: 16px; }
         .mb-3 { margin-bottom: 24px; }
@@ -918,7 +994,7 @@
                 <i class="fas fa-home"></i>
             </div>
             <h1 class="splash-title">Simulador Plano Pro</h1>
-            <p class="splash-subtitle">Versão 2.0</p>
+            <p class="splash-subtitle">Versão 2.1</p>
             <div class="loading-spinner"></div>
         </div>
     </div>
@@ -974,6 +1050,16 @@
                     <div class="form-group">
                         <label class="form-label">Telefone</label>
                         <input type="tel" class="form-control" id="telefoneCliente" placeholder="(00) 99999-9999">
+                    </div>
+                    
+                    <!-- NOVO CAMPO: Renda do Cliente -->
+                    <div class="form-group">
+                        <label class="form-label">Renda Mensal do Cliente *</label>
+                        <div class="input-group">
+                            <span class="input-prefix">R$</span>
+                            <input type="text" class="form-control currency-input" id="rendaCliente" placeholder="0,00" required>
+                        </div>
+                        <small class="text-muted">Para cálculo de compatibilidade (30% da renda)</small>
                     </div>
                     
                     <div class="form-group">
@@ -1076,6 +1162,14 @@
                                 <small class="text-muted">Informe o percentual de risco ou edite manualmente o valor</small>
                             </div>
                             
+                            <!-- NOVO BOTÃO: Analisar Compatibilidade -->
+                            <div class="form-group mt-2">
+                                <button class="btn btn-info w-100" id="btnAnalisarCompatibilidade">
+                                    <i class="fas fa-search-dollar"></i> Analisar Compatibilidade
+                                </button>
+                                <small class="text-muted">Verifica automaticamente o melhor percentual para 30% da renda</small>
+                            </div>
+                            
                             <div class="form-group">
                                 <label class="form-label">Quantidade de Parcelas</label>
                                 <input type="number" class="form-control" id="parcelasEntrada" value="1" min="1">
@@ -1147,6 +1241,22 @@
                     </div>
                 </div>
 
+                <!-- Alertas de Compatibilidade de Renda - MOVIDO PARA CIMA DOS RESULTADOS -->
+                <div class="renda-alert-container">
+                    <div class="renda-alert" id="rendaAlert">
+                        <div class="renda-alert-header">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span id="rendaAlertTitle">Atenção: Parcela Acima do Limite</span>
+                        </div>
+                        <div class="renda-alert-content" id="rendaAlertContent">
+                            A parcela com INCC excede 30% da renda do cliente. Recomendamos ajustar o percentual de risco.
+                        </div>
+                        <div class="renda-alert-actions" id="rendaAlertActions">
+                            <!-- Ações serão inseridas dinamicamente -->
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Resultados -->
                 <div class="card">
                     <div class="card-title">
@@ -1156,8 +1266,13 @@
                     
                     <div class="result-card">
                         <div class="result-item">
-                            <span class="result-label">Saldo Remanescente</span>
-                            <span class="result-value" id="saldoRemanescente">R$ 0,00</span>
+                            <span class="result-label">Renda do Cliente</span>
+                            <span class="result-value" id="rendaClienteDisplay">R$ 0,00</span>
+                        </div>
+                        
+                        <div class="result-item">
+                            <span class="result-label">Limite de 30% da Renda</span>
+                            <span class="result-value" id="limiteRenda">R$ 0,00</span>
                         </div>
                         
                         <div class="result-item">
@@ -1166,8 +1281,18 @@
                         </div>
                         
                         <div class="result-item">
+                            <span class="result-label">% da Renda</span>
+                            <span class="result-value" id="percentualRenda">0,00%</span>
+                        </div>
+                        
+                        <div class="result-item">
                             <span class="result-label">Parcela com Taxa</span>
                             <span class="result-value" id="valorParcelaComTaxaObra">R$ 0,00</span>
+                        </div>
+                        
+                        <div class="result-item">
+                            <span class="result-label">Saldo Remanescente</span>
+                            <span class="result-value" id="saldoRemanescente">R$ 0,00</span>
                         </div>
                         
                         <div class="result-item">
@@ -1176,7 +1301,7 @@
                         </div>
                     </div>
                     
-                    <div class="mb-2">
+                    <div class="mb-2 mt-3">
                         <textarea class="form-control" id="observacoesCliente" rows="3" placeholder="Observações sobre a simulação..."></textarea>
                     </div>
                     
@@ -1335,8 +1460,8 @@
                     </div>
                     
                     <div class="mt-3 text-center text-muted">
-                        <p class="mb-1">Simulador Plano Pro v2.0</p>
-                        <p class="mb-1">Desenvolvido para facilitar seu trabalho</p>
+                        <p class="mb-1">Simulador Plano Pro v2.1</p>
+                        <p class="mb-1">Sistema de Compatibilidade Automático</p>
                         <p>Suporte: (82) 99662-2036</p>
                     </div>
                 </div>
@@ -1418,10 +1543,10 @@
         const DB_NAME = 'SimuladorCorretorDB';
         const DB_VERSION = 2;
         
-        // URLs para botões do header (ATUALIZADO)
+        // URLs para botões do header
         const CAIXA_SIMULATOR_URL = 'https://www.portaldeempreendimentos.caixa.gov.br/simulador/';
         const BLOG_URL = 'https://dinheiroeplanejamento.blogspot.com/2025/04/guia-completo-para-corretores-de.html';
-        const TUTORIAL_URL = 'https://youtu.be/fvSnXffBbhA'; // URL ATUALIZADA
+        const TUTORIAL_URL = 'https://youtu.be/fvSnXffBbhA';
         const SUPPORT_PHONE = '5582996622036';
         
         // ============================================
@@ -1511,7 +1636,7 @@
             
             // Mostrar mensagem de boas-vindas
             setTimeout(() => {
-                showToast('Simulador carregado! Comece a simular.', 'success');
+                showToast('Simulador carregado! Sistema de compatibilidade automático ativado.', 'success');
             }, 500);
         }
         
@@ -1623,9 +1748,9 @@
         function showToast(message, type = 'info', duration = 3000) {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
-            toast.className = `toast ${type === 'success' ? 'toast-success' : type === 'error' ? 'toast-error' : ''}`;
+            toast.className = `toast ${type === 'success' ? 'toast-success' : type === 'error' ? 'toast-error' : type === 'warning' ? 'toast-warning' : ''}`;
             toast.innerHTML = `
-                <i class="toast-icon fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <i class="toast-icon fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
                 <div class="toast-message">${message}</div>
             `;
             
@@ -1639,6 +1764,255 @@
                 toast.classList.remove('show');
                 setTimeout(() => toast.remove(), 300);
             }, duration);
+        }
+        
+        // ============================================
+        // FUNÇÕES DO SISTEMA DE COMPATIBILIDADE AUTOMÁTICO
+        // ============================================
+        
+        // Verificar compatibilidade da parcela com a renda - VERSÃO MELHORADA
+        function verificarCompatibilidadeRenda() {
+            const rendaCliente = parseCurrency(document.getElementById('rendaCliente').value);
+            const valorParcelaComINCC = parseCurrency(document.getElementById('valorParcelaComINCC').textContent);
+            
+            if (rendaCliente <= 0) {
+                // Se não há renda definida, esconder alerta
+                document.getElementById('rendaAlert').classList.remove('show', 'danger', 'success');
+                return false;
+            }
+            
+            const limiteRenda = rendaCliente * 0.30; // 30% da renda
+            const percentualUtilizado = (valorParcelaComINCC / rendaCliente) * 100;
+            
+            // Atualizar exibição dos valores
+            document.getElementById('rendaClienteDisplay').textContent = formatCurrency(rendaCliente);
+            document.getElementById('limiteRenda').textContent = formatCurrency(limiteRenda);
+            
+            const percentualElement = document.getElementById('percentualRenda');
+            percentualElement.textContent = percentualUtilizado.toFixed(2) + '%';
+            
+            // Aplicar classes de cor baseado no percentual
+            if (percentualUtilizado > 30) {
+                percentualElement.className = 'result-value danger';
+            } else if (percentualUtilizado > 25) {
+                percentualElement.className = 'result-value warning';
+            } else {
+                percentualElement.className = 'result-value success';
+            }
+            
+            // Verificar se excede o limite
+            if (valorParcelaComINCC > limiteRenda) {
+                const percentualCompativel = calcularPercentualRiscoCompativel();
+                mostrarAlertaRenda(rendaCliente, valorParcelaComINCC, limiteRenda, percentualUtilizado, percentualCompativel);
+                return false; // Não é compatível
+            } else {
+                // Parcela dentro do limite
+                const alertElement = document.getElementById('rendaAlert');
+                alertElement.classList.remove('danger', 'show');
+                alertElement.classList.add('success');
+                alertElement.querySelector('#rendaAlertTitle').innerHTML = '<i class="fas fa-check-circle"></i> Parcela Compatível';
+                alertElement.querySelector('#rendaAlertContent').textContent = `Ótimo! A parcela está dentro do limite de 30% da renda (${percentualUtilizado.toFixed(2)}%).`;
+                alertElement.querySelector('#rendaAlertActions').innerHTML = '';
+                alertElement.classList.add('show');
+                return true; // É compatível
+            }
+        }
+        
+        // Calcular percentual de risco compatível com 30% da renda
+        function calcularPercentualRiscoCompativel() {
+            const rendaCliente = parseCurrency(document.getElementById('rendaCliente').value);
+            const valorImovel = parseCurrency(document.getElementById('valorImovel').value);
+            const parcelasEntrada = parseInt(document.getElementById('parcelasEntrada').value) || 1;
+            const correcaoINCC = parseFloat(document.getElementById('correcaoINCC').value) || 0;
+            
+            if (rendaCliente <= 0 || valorImovel <= 0) {
+                return 0;
+            }
+            
+            // Limite mensal da parcela (30% da renda)
+            const limiteMensal = rendaCliente * 0.30;
+            
+            // Se tiver correção INCC, precisamos considerar o efeito dos juros compostos
+            let percentualMaximo = 0;
+            
+            if (correcaoINCC > 0 && parcelasEntrada > 1) {
+                // Cálculo considerando INCC (juros compostos)
+                // Encontrar o valor base da parcela que, corrigido pelo INCC, não ultrapassa o limite
+                
+                // Usamos iteração para encontrar o valor base
+                let valorBaseTeste = limiteMensal;
+                let parcelaCorrigida = 0;
+                
+                // Reduzimos gradualmente até encontrar um valor compatível
+                for (let i = 0; i < 100; i++) {
+                    // Calcular média das parcelas corrigidas para este valor base
+                    let somaParcelasCorrigidas = 0;
+                    const fatorINCC = 1 + (correcaoINCC / 100);
+                    
+                    for (let j = 1; j <= parcelasEntrada; j++) {
+                        const parcelaCorrigidaTeste = valorBaseTeste * Math.pow(fatorINCC, j - 1);
+                        somaParcelasCorrigidas += parcelaCorrigidaTeste;
+                    }
+                    
+                    parcelaCorrigida = somaParcelasCorrigidas / parcelasEntrada;
+                    
+                    if (parcelaCorrigida <= limiteMensal) {
+                        break;
+                    } else {
+                        // Reduzir o valor base
+                        valorBaseTeste *= 0.95; // Reduz 5%
+                    }
+                }
+                
+                // Calcular valor total parcelado baseado no valor base encontrado
+                const valorTotalParcelado = valorBaseTeste * parcelasEntrada;
+                percentualMaximo = (valorTotalParcelado / valorImovel) * 100;
+            } else {
+                // Cálculo sem INCC (mais simples)
+                const valorTotalParcelado = limiteMensal * parcelasEntrada;
+                percentualMaximo = (valorTotalParcelado / valorImovel) * 100;
+            }
+            
+            // Limitar a no máximo 100% e mínimo 0%
+            return Math.max(0, Math.min(100, parseFloat(percentualMaximo.toFixed(2))));
+        }
+        
+        // Mostrar alerta de renda com opções de correção - VERSÃO CORRIGIDA
+        function mostrarAlertaRenda(renda, parcela, limite, percentual, percentualCompativel) {
+            const alertElement = document.getElementById('rendaAlert');
+            const alertTitle = document.getElementById('rendaAlertTitle');
+            const alertContent = document.getElementById('rendaAlertContent');
+            const alertActions = document.getElementById('rendaAlertActions');
+            
+            alertElement.classList.remove('success');
+            alertElement.classList.add('danger', 'show');
+            
+            alertTitle.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Parcela Incompatível';
+            alertContent.innerHTML = `
+                A parcela atual (${formatCurrency(parcela)}) excede <strong>${percentual.toFixed(2)}%</strong> da renda.<br>
+                Limite permitido (30%): <strong>${formatCurrency(limite)}</strong><br>
+                Diferença: <strong>${formatCurrency(parcela - limite)}</strong><br><br>
+                <strong>Sugestão:</strong> Reduzir para <strong>${percentualCompativel}%</strong> do valor do imóvel.
+            `;
+            
+            alertActions.innerHTML = `
+                <button class="btn btn-warning btn-sm" onclick="aplicarPercentualCompativel(${percentualCompativel})">
+                    <i class="fas fa-check-circle"></i> Aplicar ${percentualCompativel}%
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="document.getElementById('rendaAlert').classList.remove('show')">
+                    <i class="fas fa-times"></i> Ignorar
+                </button>
+            `;
+            
+            // Opcional: Aplicar automaticamente após 5 segundos se o usuário não interagir
+            setTimeout(() => {
+                if (alertElement.classList.contains('show')) {
+                    const autoApply = confirm(`Deseja aplicar automaticamente o percentual compatível de ${percentualCompativel}%?`);
+                    if (autoApply) {
+                        aplicarPercentualCompativel(percentualCompativel);
+                    }
+                }
+            }, 5000);
+            
+            // Mostrar toast de alerta
+            showToast(`Atenção: Parcela excede ${percentual.toFixed(2)}% da renda!`, 'warning', 5000);
+        }
+        
+        // Aplicar percentual compatível automaticamente
+        function aplicarPercentualCompativel(novoPercentual) {
+            const percentualRiscoInput = document.getElementById('percentualRisco');
+            const maximoConstrParcInput = document.getElementById('maximoConstrParc');
+            const valorImovel = parseCurrency(document.getElementById('valorImovel').value);
+            
+            if (valorImovel <= 0) {
+                showToast('Informe primeiro o valor do imóvel!', 'error');
+                return;
+            }
+            
+            // Arredondar para 2 casas decimais
+            novoPercentual = Math.max(0, Math.min(100, parseFloat(novoPercentual.toFixed(2))));
+            
+            // Calcular novo valor parcelado
+            const novoValorParcelado = (valorImovel * novoPercentual) / 100;
+            
+            // Salvar o percentual anterior para referência
+            const percentualAnterior = percentualRiscoInput.value || 0;
+            
+            // Aplicar valores
+            percentualRiscoInput.value = novoPercentual;
+            maximoConstrParcInput.value = novoValorParcelado.toLocaleString('pt-BR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            
+            // Recalcular todos os valores
+            calcularValores();
+            
+            // Mostrar confirmação
+            showToast(`Percentual ajustado de ${percentualAnterior}% para ${novoPercentual}% (compatível com 30% da renda)`, 'success');
+            
+            // Fechar alerta
+            document.getElementById('rendaAlert').classList.remove('show');
+        }
+        
+        // Função para encontrar o melhor percentual de risco
+        function encontrarMelhorPercentual() {
+            const rendaCliente = parseCurrency(document.getElementById('rendaCliente').value);
+            const valorImovel = parseCurrency(document.getElementById('valorImovel').value);
+            
+            if (rendaCliente <= 0 || valorImovel <= 0) {
+                showToast('Informe a renda e valor do imóvel primeiro!', 'error');
+                return;
+            }
+            
+            const percentualCompativel = calcularPercentualRiscoCompativel();
+            
+            if (percentualCompativel <= 0) {
+                showToast('Não foi possível calcular um percentual compatível. Verifique os valores.', 'warning');
+                return;
+            }
+            
+            // Mostrar análise detalhada
+            const limiteMensal = rendaCliente * 0.30;
+            const valorParcelaSugerido = (valorImovel * percentualCompativel / 100);
+            const parcelas = parseInt(document.getElementById('parcelasEntrada').value) || 1;
+            
+            const mensagem = `
+                <strong>Análise de Compatibilidade:</strong><br>
+                • Renda: ${formatCurrency(rendaCliente)}<br>
+                • Limite mensal (30%): ${formatCurrency(limiteMensal)}<br>
+                • Valor do imóvel: ${formatCurrency(valorImovel)}<br>
+                • Percentual sugerido: <strong>${percentualCompativel}%</strong><br>
+                • Valor parcelado: ${formatCurrency(valorParcelaSugerido)}<br>
+                • Parcelas: ${parcelas}<br>
+                • Parcela média: ${formatCurrency(valorParcelaSugerido / parcelas)}
+            `;
+            
+            // Mostrar modal com análise
+            const modal = document.getElementById('modalMenu');
+            const modalBody = modal.querySelector('.modal-body');
+            
+            modalBody.innerHTML = `
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-chart-line"></i>
+                        Análise de Compatibilidade
+                    </div>
+                    <div class="p-2">
+                        <div style="font-size: 0.9rem;">${mensagem}</div>
+                        <div class="mt-3 d-flex gap-1">
+                            <button class="btn btn-success w-100" onclick="aplicarPercentualCompativel(${percentualCompativel}); document.getElementById('modalMenu').classList.remove('show')">
+                                <i class="fas fa-check"></i> Aplicar ${percentualCompativel}%
+                            </button>
+                            <button class="btn btn-secondary w-100" onclick="document.getElementById('modalMenu').classList.remove('show')">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('show');
         }
         
         // ============================================
@@ -1848,7 +2222,7 @@
                     leads,
                     config,
                     exportDate: new Date().toISOString(),
-                    version: '2.0'
+                    version: '2.1'
                 };
                 
                 const dataStr = JSON.stringify(backup, null, 2);
@@ -1976,6 +2350,33 @@
             document.getElementById('valorParcelaComINCC').textContent = formatCurrency(valorParcelaComINCC);
             document.getElementById('valorParcelaComTaxaObra').textContent = formatCurrency(valorParcelaComTaxaObra);
             document.getElementById('totalIntercaladas').textContent = formatCurrency(totalIntercaladas);
+            
+            // Verificar compatibilidade com a renda
+            verificarCompatibilidadeRenda();
+            
+            // VALIDAÇÃO AUTOMÁTICA (nova seção)
+            // Se a parcela exceder o limite, calcular e aplicar automaticamente
+            const rendaCliente = parseCurrency(document.getElementById('rendaCliente').value);
+            
+            if (rendaCliente > 0 && valorParcelaComINCC > 0) {
+                const limiteRenda = rendaCliente * 0.30;
+                
+                // Se exceder em mais de 5%, sugerir correção
+                if (valorParcelaComINCC > limiteRenda * 1.05) {
+                    const percentualAtual = parseFloat(document.getElementById('percentualRisco').value) || 0;
+                    const percentualCompativel = calcularPercentualRiscoCompativel();
+                    
+                    // Se o percentual atual for significativamente maior que o compatível
+                    if (percentualCompativel > 0 && percentualAtual > percentualCompativel * 1.1) {
+                        // Mostrar sugestão automática
+                        setTimeout(() => {
+                            if (confirm(`Parcela excede significativamente o limite (${((valorParcelaComINCC/rendaCliente)*100).toFixed(2)}%). Deseja ajustar para ${percentualCompativel}%?`)) {
+                                aplicarPercentualCompativel(percentualCompativel);
+                            }
+                        }, 1000);
+                    }
+                }
+            }
             
             return {
                 valorImovel,
@@ -2170,6 +2571,7 @@
                             // Preencher formulário
                             document.getElementById('nomeCliente').value = lead.nome || '';
                             document.getElementById('telefoneCliente').value = lead.telefone || '';
+                            document.getElementById('rendaCliente').value = lead.renda || '0,00';
                             document.getElementById('nomeEmpreendimento').value = lead.empreendimento || '';
                             document.getElementById('valorImovel').value = lead.valorImovel || '0,00';
                             document.getElementById('descontoMCMV').value = lead.descontoMCMV || '0,00';
@@ -2314,7 +2716,7 @@
         }
         
         // ============================================
-        // FUNÇÕES DE WHATSAPP MELHORADAS
+        // FUNÇÕES DE WHATSAPP
         // ============================================
         
         // Gerar conteúdo para WhatsApp
@@ -2322,6 +2724,7 @@
             const data = calcularValores();
             const nomeCliente = document.getElementById('nomeCliente').value.trim();
             const telefone = document.getElementById('telefoneCliente').value;
+            const rendaCliente = parseCurrency(document.getElementById('rendaCliente').value);
             const empreendimento = document.getElementById('nomeEmpreendimento').value || 'Empreendimento';
             const observacoes = document.getElementById('observacoesCliente').value;
             const taxaAssinaturaCaixa = document.getElementById('taxaAssinaturaCaixa').value || '0,00';
@@ -2332,6 +2735,7 @@
             let message = `*Simulação de Plano de Pagamento*\n\n`;
             message += `*Cliente:* ${nomeCliente}\n`;
             if (telefone) message += `*Telefone:* ${formatPhone(telefone)}\n`;
+            if (rendaCliente > 0) message += `*Renda Mensal:* ${formatCurrency(rendaCliente)}\n`;
             message += `*Empreendimento:* ${empreendimento}\n`;
             
             if (imobiliaria) message += `*Imobiliária:* ${imobiliaria}\n`;
@@ -2353,6 +2757,11 @@
             message += `Parcelado: ${formatCurrency(data.maximoConstrParc)} em ${data.parcelasEntrada}x\n`;
             message += `INCC: ${data.correcaoINCC}%\n`;
             message += `1ª Parcela (com INCC): ${formatCurrency(data.valorParcelaComINCC)}\n`;
+            
+            if (rendaCliente > 0) {
+                const percentualRenda = (data.valorParcelaComINCC / rendaCliente) * 100;
+                message += `*Parcela representa ${percentualRenda.toFixed(2)}% da renda*\n`;
+            }
             
             if (data.taxaObra > 0) {
                 if (data.percentualObra > 0) {
@@ -2377,6 +2786,16 @@
             message += `\n*Resumo:*\n`;
             message += `Saldo Remanescente: ${formatCurrency(data.saldoRemanescente)}\n`;
             
+            if (rendaCliente > 0) {
+                const limiteRenda = rendaCliente * 0.30;
+                if (data.valorParcelaComINCC > limiteRenda) {
+                    message += `\n*ATENÇÃO:* Parcela excede 30% da renda (${((data.valorParcelaComINCC / rendaCliente) * 100).toFixed(2)}%)\n`;
+                    message += `Limite recomendado: ${formatCurrency(limiteRenda)}\n`;
+                } else {
+                    message += `\n*COMPATÍVEL:* Parcela dentro do limite de 30% da renda\n`;
+                }
+            }
+            
             if (data.saldoRemanescente > 0) {
                 message += `\n_Esse valor ou parte dele, pode ser pago na entrega das chaves, intercaladas ou de forma que a construtora aceite._\n`;
             }
@@ -2393,7 +2812,7 @@
             return message;
         }
         
-        // Compartilhar via WhatsApp - VERSÃO MELHORADA
+        // Compartilhar via WhatsApp
         function shareViaWhatsApp() {
             const telefoneCliente = document.getElementById('telefoneCliente').value;
             const nomeCliente = document.getElementById('nomeCliente').value.trim();
@@ -2453,7 +2872,7 @@
             }
         }
         
-        // Compartilhar documentos via WhatsApp - VERSÃO MELHORADA
+        // Compartilhar documentos via WhatsApp
         function shareDocsViaWhatsApp() {
             const profession = document.getElementById('profissaoCliente').value;
             const professionText = document.getElementById('profissaoCliente').options[document.getElementById('profissaoCliente').selectedIndex].text;
@@ -2515,6 +2934,7 @@
             const data = calcularValores();
             const nomeCliente = document.getElementById('nomeCliente').value || 'Cliente';
             const telefone = document.getElementById('telefoneCliente').value;
+            const rendaCliente = parseCurrency(document.getElementById('rendaCliente').value);
             const empreendimento = document.getElementById('nomeEmpreendimento').value || 'Empreendimento';
             const observacoes = document.getElementById('observacoesCliente').value;
             const imobiliaria = document.getElementById('imobiliariaNome').value || '';
@@ -2529,6 +2949,7 @@
             
             content += `CLIENTE: ${nomeCliente}\n`;
             if (telefone) content += `TELEFONE: ${formatPhone(telefone)}\n`;
+            if (rendaCliente > 0) content += `RENDA MENSAL: ${formatCurrency(rendaCliente)}\n`;
             content += `EMPREENDIMENTO: ${empreendimento}\n`;
             if (imobiliaria) content += `IMOBILIÁRIA: ${imobiliaria}\n`;
             if (corretor) content += `CORRETOR: ${corretor}\n`;
@@ -2548,6 +2969,16 @@
             content += `Parcelado: ${formatCurrency(data.maximoConstrParc)} em ${data.parcelasEntrada}x\n`;
             content += `INCC: ${data.correcaoINCC}%\n`;
             content += `1ª Parcela (com INCC): ${formatCurrency(data.valorParcelaComINCC)}\n`;
+            
+            if (rendaCliente > 0) {
+                const percentualRenda = (data.valorParcelaComINCC / rendaCliente) * 100;
+                content += `*Parcela representa ${percentualRenda.toFixed(2)}% da renda*\n`;
+                const limiteRenda = rendaCliente * 0.30;
+                if (data.valorParcelaComINCC > limiteRenda) {
+                    content += `*ATENÇÃO: Parcela excede 30% da renda*\n`;
+                    content += `Limite recomendado: ${formatCurrency(limiteRenda)}\n`;
+                }
+            }
             
             if (data.taxaObra > 0) {
                 if (data.percentualObra > 0) {
@@ -2597,7 +3028,7 @@
             showToast('Simulação exportada como TXT!', 'success');
         }
         
-        // Exportar simulação como PDF - VERSÃO OTIMIZADA PARA UMA PÁGINA
+        // Exportar simulação como PDF
         async function exportAsPDF() {
             try {
                 const { jsPDF } = window.jspdf;
@@ -2606,12 +3037,14 @@
                 const data = calcularValores();
                 const nomeCliente = document.getElementById('nomeCliente').value || 'Cliente';
                 const telefone = document.getElementById('telefoneCliente').value;
+                const rendaCliente = parseCurrency(document.getElementById('rendaCliente').value);
                 const empreendimento = document.getElementById('nomeEmpreendimento').value || 'Empreendimento';
                 const observacoes = document.getElementById('observacoesCliente').value;
                 const imobiliaria = document.getElementById('imobiliariaNome').value || '';
                 const corretor = document.getElementById('corretorNome').value || 'Corretor';
                 const creci = document.getElementById('corretorCreci').value || '';
                 const taxaAssinaturaCaixa = document.getElementById('taxaAssinaturaCaixa').value || '0,00';
+                const inccAtual = document.getElementById('correcaoINCC').value || '0.55';
                 
                 // Configurações de página
                 const pageWidth = doc.internal.pageSize.width;
@@ -2619,53 +3052,57 @@
                 const contentWidth = pageWidth - (2 * margin);
                 let yPos = margin;
                 
-                // Título
-                doc.setFontSize(16);
+                // Título principal
+                doc.setFontSize(14);
                 doc.setTextColor(74, 87, 74);
-                doc.text('SIMULAÇÃO DE PLANO DE PAGAMENTO', pageWidth / 2, yPos, { align: 'center' });
-                yPos += 8;
+                doc.text('SIMULAÇÃO DE FINANCIAMENTO', pageWidth / 2, yPos, { align: 'center' });
+                yPos += 6;
                 
-                // Data
-                doc.setFontSize(9);
+                // Subtítulo
+                doc.setFontSize(10);
                 doc.setTextColor(100, 100, 100);
+                doc.text(`Empreendimento: ${empreendimento}`, pageWidth / 2, yPos, { align: 'center' });
+                yPos += 5;
                 doc.text(`Data: ${formatDate()}`, pageWidth / 2, yPos, { align: 'center' });
-                yPos += 10;
+                yPos += 8;
                 
                 // Linha decorativa
                 doc.setDrawColor(180, 132, 108);
-                doc.setLineWidth(0.3);
+                doc.setLineWidth(0.5);
                 doc.line(margin, yPos, pageWidth - margin, yPos);
                 yPos += 5;
                 
-                // Informações do cliente (mais compactas)
-                doc.setFontSize(11);
-                doc.setTextColor(0, 0, 0);
-                doc.text('INFORMAÇÕES DO CLIENTE', margin, yPos);
-                yPos += 6;
+                // INFORMAÇÕES BÁSICAS
+                const infoBasica = [
+                    ['Cliente:', nomeCliente],
+                    ['Telefone:', telefone ? formatPhone(telefone) : 'Não informado'],
+                    ['Renda:', rendaCliente > 0 ? formatCurrency(rendaCliente) : 'Não informada'],
+                    ['Corretor:', corretor]
+                ];
                 
-                doc.setFontSize(9);
-                const infoCliente = [];
-                infoCliente.push(`Cliente: ${nomeCliente}`);
-                if (telefone) infoCliente.push(`Telefone: ${formatPhone(telefone)}`);
-                infoCliente.push(`Empreendimento: ${empreendimento}`);
-                if (imobiliaria) infoCliente.push(`Imobiliária: ${imobiliaria}`);
-                if (corretor) infoCliente.push(`Corretor: ${corretor}`);
-                if (creci) infoCliente.push(`CRECI: ${creci}`);
+                if (imobiliaria) infoBasica.push(['Imobiliária:', imobiliaria]);
+                if (creci) infoBasica.push(['CRECI:', creci]);
                 
-                infoCliente.forEach(info => {
-                    doc.text(info, margin, yPos);
-                    yPos += 4.5;
+                infoBasica.forEach((info, index) => {
+                    if (yPos > 250) return;
+                    doc.setFontSize(9);
+                    doc.setTextColor(60, 60, 60);
+                    doc.text(info[0], margin, yPos);
+                    doc.setFontSize(9);
+                    doc.setTextColor(0, 0, 0);
+                    doc.text(info[1], margin + 35, yPos);
+                    yPos += 5;
                 });
                 
-                yPos += 3;
+                yPos += 5;
                 
-                // Valores do Imóvel - tabela mais compacta
-                doc.setFontSize(11);
+                // VALORES DO IMÓVEL
+                doc.setFontSize(10);
+                doc.setTextColor(74, 87, 74);
                 doc.text('VALORES DO IMÓVEL', margin, yPos);
-                yPos += 6;
+                yPos += 5;
                 
                 const valoresData = [
-                    ['Descrição', 'Valor'],
                     ['Valor do Imóvel', formatCurrency(data.valorImovel)],
                     ['Desconto (Subsídio)', formatCurrency(data.descontoMCMV)],
                     ['Desconto Construtora', formatCurrency(data.descontoConstrutora)],
@@ -2673,174 +3110,185 @@
                     ['Valor Financiado', formatCurrency(data.valorFinanciado)]
                 ];
                 
+                // Calcular total
+                const totalEntrada = data.valorImovel - data.descontoMCMV - data.descontoConstrutora - data.valorFGTS - data.valorFinanciado;
+                valoresData.push(['ENTRADA TOTAL', formatCurrency(totalEntrada)]);
+                
                 doc.autoTable({
                     startY: yPos,
-                    head: [valoresData[0]],
-                    body: valoresData.slice(1),
+                    body: valoresData,
                     theme: 'grid',
-                    headStyles: { 
-                        fillColor: [74, 87, 74],
-                        fontSize: 8,
-                        cellPadding: 2
-                    },
                     bodyStyles: { 
                         fontSize: 8,
-                        cellPadding: 2
+                        cellPadding: 3,
+                        lineWidth: 0.1
                     },
                     margin: { left: margin, right: margin },
-                    styles: { lineWidth: 0.1 },
-                    tableWidth: 'auto',
+                    styles: { 
+                        lineColor: [200, 200, 200],
+                        lineWidth: 0.1
+                    },
                     columnStyles: {
-                        0: { cellWidth: contentWidth * 0.6 },
-                        1: { cellWidth: contentWidth * 0.4, halign: 'right' }
-                    }
+                        0: { cellWidth: contentWidth * 0.7, fontStyle: 'normal' },
+                        1: { cellWidth: contentWidth * 0.3, halign: 'right', fontStyle: 'bold' }
+                    },
+                    head: false
                 });
                 
                 yPos = doc.lastAutoTable.finalY + 5;
                 
-                // Entrada - tabela mais compacta
-                doc.setFontSize(11);
-                doc.text('ENTRADA', margin, yPos);
-                yPos += 6;
+                // DETALHES DA ENTRADA
+                doc.setFontSize(10);
+                doc.setTextColor(180, 132, 108);
+                doc.text('DETALHES DA ENTRADA', margin, yPos);
+                yPos += 5;
                 
                 const entradaData = [
-                    ['Descrição', 'Valor'],
                     ['Sinal', formatCurrency(data.sinalConstrutora)],
                     ['Parcelado', `${formatCurrency(data.maximoConstrParc)} em ${data.parcelasEntrada}x`],
-                    ['INCC', `${data.correcaoINCC}%`],
-                    ['1ª Parcela (com INCC)', formatCurrency(data.valorParcelaComINCC)]
+                    ['INCC', `${inccAtual}% a.m.`],
+                    ['1ª Parcela c/ INCC', formatCurrency(data.valorParcelaComINCC)]
                 ];
+                
+                if (rendaCliente > 0) {
+                    const percentualRenda = (data.valorParcelaComINCC / rendaCliente) * 100;
+                    entradaData.push(['% da Renda', `${percentualRenda.toFixed(1)}%`]);
+                    
+                    if (percentualRenda > 30) {
+                        entradaData.push(['STATUS', 'ACIMA DO LIMITE', { styles: { textColor: [255, 0, 0] } }]);
+                    } else {
+                        entradaData.push(['STATUS', 'DENTRO DO LIMITE', { styles: { textColor: [0, 128, 0] } }]);
+                    }
+                    
+                    entradaData.push(['Limite (30%)', formatCurrency(rendaCliente * 0.30)]);
+                }
                 
                 if (data.taxaObra > 0) {
                     if (data.percentualObra > 0) {
-                        entradaData.push(['Taxa de Obra', `${formatCurrency(data.taxaObra)} (${data.percentualObra}%)`]);
+                        entradaData.push(['Taxa Obra', `${formatCurrency(data.taxaObraProporcional)} (${data.percentualObra}%)`]);
                     } else {
-                        entradaData.push(['Taxa de Obra', formatCurrency(data.taxaObra)]);
+                        entradaData.push(['Taxa Obra', formatCurrency(data.taxaObra)]);
                     }
-                    entradaData.push(['Parcela com Taxa', formatCurrency(data.valorParcelaComTaxaObra)]);
+                    entradaData.push(['Parcela c/ Taxa', formatCurrency(data.valorParcelaComTaxaObra)]);
                 }
                 
                 if (parseCurrency(taxaAssinaturaCaixa) > 0) {
-                    entradaData.push(['Taxa Assinatura Caixa', `${taxaAssinaturaCaixa} (ato da assinatura)`]);
+                    entradaData.push(['Taxa Assinatura', taxaAssinaturaCaixa]);
                 }
                 
                 doc.autoTable({
                     startY: yPos,
-                    head: [entradaData[0]],
-                    body: entradaData.slice(1),
+                    body: entradaData,
                     theme: 'grid',
-                    headStyles: { 
-                        fillColor: [180, 132, 108],
-                        fontSize: 8,
-                        cellPadding: 2
-                    },
                     bodyStyles: { 
                         fontSize: 8,
-                        cellPadding: 2
+                        cellPadding: 3,
+                        lineWidth: 0.1
                     },
                     margin: { left: margin, right: margin },
-                    styles: { lineWidth: 0.1 },
-                    tableWidth: 'auto',
+                    styles: { 
+                        lineColor: [200, 200, 200],
+                        lineWidth: 0.1
+                    },
                     columnStyles: {
-                        0: { cellWidth: contentWidth * 0.6 },
-                        1: { cellWidth: contentWidth * 0.4, halign: 'right' }
-                    }
+                        0: { cellWidth: contentWidth * 0.6, fontStyle: 'normal' },
+                        1: { cellWidth: contentWidth * 0.4, halign: 'right', fontStyle: data.taxaObra > 0 ? 'bold' : 'normal' }
+                    },
+                    head: false
                 });
                 
                 yPos = doc.lastAutoTable.finalY + 5;
                 
-                // Intercaladas (se houver) - mais compacta
+                // INTERCALADAS (se houver)
                 if (data.valorIntercaladas > 0 && data.quantidadeIntercaladas > 0) {
-                    doc.setFontSize(11);
+                    doc.setFontSize(10);
+                    doc.setTextColor(76, 175, 80);
                     doc.text('INTERCALADAS', margin, yPos);
-                    yPos += 6;
+                    yPos += 5;
                     
                     const intercaladasData = [
-                        ['Descrição', 'Valor'],
                         ['Valor', formatCurrency(data.valorIntercaladas)],
                         ['Quantidade', data.quantidadeIntercaladas],
-                        ['Total', formatCurrency(data.totalIntercaladas)]
+                        ['TOTAL', formatCurrency(data.totalIntercaladas)]
                     ];
                     
                     doc.autoTable({
                         startY: yPos,
-                        head: [intercaladasData[0]],
-                        body: intercaladasData.slice(1),
+                        body: intercaladasData,
                         theme: 'grid',
-                        headStyles: { 
-                            fillColor: [76, 175, 80],
-                            fontSize: 8,
-                            cellPadding: 2
-                        },
                         bodyStyles: { 
                             fontSize: 8,
-                            cellPadding: 2
+                            cellPadding: 3,
+                            lineWidth: 0.1
                         },
                         margin: { left: margin, right: margin },
-                        styles: { lineWidth: 0.1 },
-                        tableWidth: 'auto',
+                        styles: { 
+                            lineColor: [200, 200, 200],
+                            lineWidth: 0.1
+                        },
                         columnStyles: {
                             0: { cellWidth: contentWidth * 0.6 },
                             1: { cellWidth: contentWidth * 0.4, halign: 'right' }
-                        }
+                        },
+                        head: false
                     });
                     
                     yPos = doc.lastAutoTable.finalY + 5;
                 }
                 
-                // Resumo - mais compacto
+                // RESUMO FINAL
                 doc.setFontSize(11);
-                doc.text('RESUMO', margin, yPos);
-                yPos += 6;
+                doc.setTextColor(0, 0, 0);
+                doc.text('RESUMO FINAL', margin, yPos);
+                yPos += 5;
                 
                 const resumoData = [
-                    ['Descrição', 'Valor'],
                     ['Saldo Remanescente', formatCurrency(data.saldoRemanescente)]
                 ];
                 
+                if (data.saldoRemanescente > 0) {
+                    resumoData.push(['Observação:', 'Pode ser pago na entrega das chaves']);
+                }
+                
                 doc.autoTable({
                     startY: yPos,
-                    head: [resumoData[0]],
-                    body: resumoData.slice(1),
+                    body: resumoData,
                     theme: 'grid',
-                    headStyles: { 
-                        fillColor: [76, 175, 80],
-                        fontSize: 8,
-                        cellPadding: 2
-                    },
                     bodyStyles: { 
-                        fontSize: 8,
-                        cellPadding: 2,
+                        fontSize: 9,
+                        cellPadding: 4,
+                        lineWidth: 0.1,
                         fontStyle: 'bold'
                     },
                     margin: { left: margin, right: margin },
-                    styles: { lineWidth: 0.1 },
-                    tableWidth: 'auto',
+                    styles: { 
+                        lineColor: [180, 132, 108],
+                        lineWidth: 0.3
+                    },
                     columnStyles: {
                         0: { cellWidth: contentWidth * 0.6 },
                         1: { cellWidth: contentWidth * 0.4, halign: 'right' }
-                    }
+                    },
+                    head: false
                 });
                 
                 yPos = doc.lastAutoTable.finalY + 8;
                 
-                // Observações (se houver) - mais compacta
+                // OBSERVAÇÕES (se houver)
                 if (observacoes) {
-                    doc.setFontSize(10);
-                    doc.setTextColor(0, 0, 0);
+                    doc.setFontSize(9);
+                    doc.setTextColor(60, 60, 60);
                     doc.text('OBSERVAÇÕES:', margin, yPos);
-                    yPos += 5;
+                    yPos += 4;
                     
                     doc.setFontSize(8);
-                    doc.setTextColor(60, 60, 60);
                     const lines = doc.splitTextToSize(observacoes, contentWidth);
                     doc.text(lines, margin, yPos);
-                    yPos += lines.length * 3.5 + 5;
+                    yPos += lines.length * 4 + 5;
                 }
                 
-                // Informações importantes - mais compactas
+                // INFORMAÇÕES IMPORTANTES
                 if (yPos > 240) {
-                    // Se estiver muito baixo, adicionar nova página
                     doc.addPage();
                     yPos = margin;
                 }
@@ -2853,17 +3301,21 @@
                 yPos += 4;
                 doc.text('• Após a obra: correção pelo IGP-M + 1%', margin, yPos);
                 yPos += 4;
-                doc.text('• Valores sujeitos a alteração e aprovação', margin, yPos);
+                doc.text('• Valores sujeitos a alteração e aprovação da instituição financeira', margin, yPos);
+                yPos += 4;
+                doc.text('• Esta simulação não constitui proposta formal de financiamento', margin, yPos);
                 yPos += 8;
                 
-                // Assinatura - mais compacta
+                // ASSINATURA
                 doc.setFontSize(8);
                 doc.setTextColor(0, 0, 0);
                 doc.text(`Gerado por: ${corretor}`, margin, yPos);
+                if (creci) {
+                    yPos += 4;
+                    doc.text(`CRECI: ${creci}`, margin, yPos);
+                }
                 yPos += 4;
-                if (creci) doc.text(`CRECI: ${creci}`, margin, yPos);
-                yPos += 4;
-                doc.text(`Data: ${formatDate()}`, margin, yPos);
+                doc.text(`Data: ${new Date().toLocaleDateString('pt-BR')}`, margin, yPos);
                 
                 // Salvar PDF
                 doc.save(`simulacao_${nomeCliente.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
@@ -2911,7 +3363,7 @@
             content += `\n`;
             content += "=".repeat(50) + "\n";
             content += `Gerado em: ${formatDate()}\n`;
-            content += `Simulador Plano Pro v2.0\n`;
+            content += `Simulador Plano Pro v2.1\n`;
             content += `Para dúvidas: (82) 99662-2036\n`;
             
             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
@@ -2927,7 +3379,7 @@
             showToast('Documentos exportados como TXT!', 'success');
         }
         
-        // Exportar documentos como PDF com template da imagem
+        // Exportar documentos como PDF
         async function exportDocsAsPDF() {
             try {
                 const { jsPDF } = window.jspdf;
@@ -2964,7 +3416,7 @@
                 doc.line(margin, yPos, pageWidth - margin, yPos);
                 yPos += 12;
                 
-                // Informações do cliente (compactas)
+                // Informações do cliente
                 doc.setFontSize(9);
                 doc.setTextColor(0, 0, 0);
                 doc.text(`Cliente: ${nomeCliente}`, margin, yPos);
@@ -3028,7 +3480,7 @@
                 yPos = 280;
                 doc.setFontSize(7);
                 doc.setTextColor(150, 150, 150);
-                doc.text('Simulador Plano Pro v2.0 - Gerado automaticamente', pageWidth / 2, yPos, { align: 'center' });
+                doc.text('Simulador Plano Pro v2.1 - Gerado automaticamente', pageWidth / 2, yPos, { align: 'center' });
                 yPos += 4;
                 doc.text('Para dúvidas: (82) 99662-2036', pageWidth / 2, yPos, { align: 'center' });
                 
@@ -3056,7 +3508,7 @@
             window.open(BLOG_URL, '_blank');
         }
         
-        // Abrir tutorial (ATUALIZADO)
+        // Abrir tutorial
         function openTutorial() {
             window.open(TUTORIAL_URL, '_blank');
         }
@@ -3181,18 +3633,28 @@
                 this.value = value;
             });
             
-            // Configurar inputs que disparam cálculo
+            // Configurar inputs que disparam cálculo (INCLUINDO RENDA)
             const calcularInputs = [
                 'valorImovel', 'descontoMCMV', 'valorFinanciado', 'descontoConstrutora',
                 'valorFGTS', 'sinalConstrutora', 'maximoConstrParc', 'parcelasEntrada',
                 'correcaoINCC', 'valorIntercaladas', 'quantidadeIntercaladas',
-                'taxaObra', 'percentualObra', 'percentualRisco', 'taxaAssinaturaCaixa'
+                'taxaObra', 'percentualObra', 'percentualRisco', 'taxaAssinaturaCaixa',
+                'rendaCliente'
             ];
             
             calcularInputs.forEach(id => {
                 const element = document.getElementById(id);
                 if (element) {
-                    element.addEventListener('input', calcularValores);
+                    element.addEventListener('input', function() {
+                        calcularValores();
+                        
+                        // Validação especial para renda
+                        if (id === 'rendaCliente' || id === 'percentualRisco') {
+                            setTimeout(() => {
+                                verificarCompatibilidadeRenda();
+                            }, 100);
+                        }
+                    });
                 }
             });
             
@@ -3208,7 +3670,7 @@
                 });
             });
             
-            // Configurar botões do header (ATUALIZADO)
+            // Configurar botões do header
             document.getElementById('btnCaixa').addEventListener('click', openCaixaSimulator);
             document.getElementById('btnBlog').addEventListener('click', openBlog);
             document.getElementById('btnTutorial').addEventListener('click', openTutorial);
@@ -3219,6 +3681,7 @@
                 // Limpar formulário
                 document.getElementById('nomeCliente').value = '';
                 document.getElementById('telefoneCliente').value = '';
+                document.getElementById('rendaCliente').value = '0,00';
                 document.getElementById('nomeEmpreendimento').value = '';
                 document.getElementById('observacoesCliente').value = '';
                 document.getElementById('percentualRisco').value = '';
@@ -3233,6 +3696,9 @@
                 document.getElementById('correcaoINCC').value = '0.55';
                 document.getElementById('percentualObra').value = '0';
                 document.getElementById('quantidadeIntercaladas').value = '0';
+                
+                // Esconder alerta
+                document.getElementById('rendaAlert').classList.remove('show');
                 
                 // Calcular
                 calcularValores();
@@ -3273,6 +3739,9 @@
                 }
             });
             
+            // Configurar botão de análise de compatibilidade
+            document.getElementById('btnAnalisarCompatibilidade').addEventListener('click', encontrarMelhorPercentual);
+            
             // Botão salvar lead
             document.getElementById('btnSaveLead').addEventListener('click', async function() {
                 const nomeCliente = document.getElementById('nomeCliente').value.trim();
@@ -3282,12 +3751,20 @@
                     return;
                 }
                 
+                const rendaCliente = parseCurrency(document.getElementById('rendaCliente').value);
+                if (rendaCliente <= 0) {
+                    showToast('Informe a renda do cliente!', 'error');
+                    document.getElementById('rendaCliente').focus();
+                    return;
+                }
+                
                 const data = calcularValores();
                 const percentualRisco = parseFloat(document.getElementById('percentualRisco').value) || 0;
                 
                 const leadData = {
                     nome: nomeCliente,
                     telefone: document.getElementById('telefoneCliente').value.replace(/\D/g, ''),
+                    renda: document.getElementById('rendaCliente').value,
                     empreendimento: document.getElementById('nomeEmpreendimento').value,
                     observacoes: document.getElementById('observacoesCliente').value,
                     
@@ -3328,7 +3805,7 @@
                 }
             });
             
-            // Botão compartilhar WhatsApp (VERSÃO MELHORADA)
+            // Botão compartilhar WhatsApp
             document.getElementById('btnShareWhatsApp').addEventListener('click', shareViaWhatsApp);
             
             // Botão exportar TXT
@@ -3400,7 +3877,7 @@
                 }
             });
             
-            // Botões do menu rápido (ATUALIZADO)
+            // Botões do menu rápido
             document.getElementById('btnQuickNew').addEventListener('click', function() {
                 document.getElementById('modalMenu').classList.remove('show');
                 document.getElementById('btnNewSimulation').click();
@@ -3451,7 +3928,7 @@
                 loadDocumentsByProfession(this.value);
             });
             
-            // Compartilhar documentos via WhatsApp (VERSÃO MELHORADA)
+            // Compartilhar documentos via WhatsApp
             document.getElementById('btnShareDocsWhatsApp').addEventListener('click', shareDocsViaWhatsApp);
             
             // Exportar documentos como TXT
@@ -3501,6 +3978,9 @@
         window.openSupport = openSupport;
         window.openCaixaSimulator = openCaixaSimulator;
         window.calcularPorPercentualRisco = calcularPorPercentualRisco;
+        window.aplicarPercentualCompativel = aplicarPercentualCompativel;
+        window.encontrarMelhorPercentual = encontrarMelhorPercentual;
+        window.calcularPercentualRiscoCompativel = calcularPercentualRiscoCompativel;
     </script>
 </body>
 </html>
