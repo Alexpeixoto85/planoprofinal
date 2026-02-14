@@ -1181,6 +1181,7 @@
                                     <span class="input-prefix">%</span>
                                     <input type="number" class="form-control" id="correcaoINCC" value="0.55" step="0.01">
                                 </div>
+                                <small class="text-muted">Apenas informativo – não influencia nos cálculos</small>
                             </div>
                             
                             <div class="form-group">
@@ -1276,7 +1277,7 @@
                         </div>
                         
                         <div class="result-item">
-                            <span class="result-label">Parcela com INCC</span>
+                            <span class="result-label">Parcela (divisão simples)</span>
                             <span class="result-value" id="valorParcelaComINCC">R$ 0,00</span>
                         </div>
                         
@@ -1621,20 +1622,16 @@
         // Gerenciamento do Splash Screen
         // ============================================
         
-        // Função para esconder o splash screen e mostrar o aplicativo
         function hideSplashScreen() {
             const splashScreen = document.getElementById('splashScreen');
             const appContainer = document.getElementById('appContainer');
             
-            // Esconder splash screen
             splashScreen.classList.add('hidden');
             
-            // Mostrar aplicativo
             setTimeout(() => {
                 appContainer.classList.add('visible');
             }, 300);
             
-            // Mostrar mensagem de boas-vindas
             setTimeout(() => {
                 showToast('Simulador carregado! Sistema de compatibilidade automático ativado.', 'success');
             }, 500);
@@ -1663,7 +1660,6 @@
                     console.log('Upgrade do banco de dados necessário');
                     db = event.target.result;
                     
-                    // Criar store para leads
                     if (!db.objectStoreNames.contains('leads')) {
                         const leadsStore = db.createObjectStore('leads', { 
                             keyPath: 'id', 
@@ -1674,13 +1670,11 @@
                         console.log('Store "leads" criada');
                     }
                     
-                    // Criar store para configurações
                     if (!db.objectStoreNames.contains('config')) {
                         db.createObjectStore('config', { keyPath: 'key' });
                         console.log('Store "config" criada');
                     }
                     
-                    // Criar store para notas
                     if (!db.objectStoreNames.contains('notas')) {
                         db.createObjectStore('notas', { keyPath: 'id', autoIncrement: true });
                         console.log('Store "notas" criada');
@@ -1693,7 +1687,6 @@
         // Funções Utilitárias
         // ============================================
         
-        // Formatar moeda
         function formatCurrency(value) {
             if (value === null || value === undefined || value === '') return 'R$ 0,00';
             const num = typeof value === 'string' ? 
@@ -1702,7 +1695,6 @@
             return 'R$ ' + num.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
         
-        // Converter moeda formatada para número
         function parseCurrency(value) {
             if (!value) return 0;
             const cleaned = value.toString()
@@ -1714,7 +1706,6 @@
             return isNaN(num) ? 0 : num;
         }
         
-        // Formatar telefone
         function formatPhone(phone) {
             if (!phone) return '';
             const cleaned = phone.replace(/\D/g, '');
@@ -1726,14 +1717,12 @@
             return phone;
         }
         
-        // Validar telefone
         function isValidPhone(phone) {
             if (!phone) return false;
             const cleaned = phone.replace(/\D/g, '');
             return cleaned.length >= 10 && cleaned.length <= 11;
         }
         
-        // Formatar data
         function formatDate(date = new Date()) {
             return date.toLocaleDateString('pt-BR', {
                 day: '2-digit',
@@ -1744,7 +1733,6 @@
             });
         }
         
-        // Mostrar toast
         function showToast(message, type = 'info', duration = 3000) {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
@@ -1770,28 +1758,24 @@
         // FUNÇÕES DO SISTEMA DE COMPATIBILIDADE AUTOMÁTICO
         // ============================================
         
-        // Verificar compatibilidade da parcela com a renda - VERSÃO MELHORADA
         function verificarCompatibilidadeRenda() {
             const rendaCliente = parseCurrency(document.getElementById('rendaCliente').value);
             const valorParcelaComINCC = parseCurrency(document.getElementById('valorParcelaComINCC').textContent);
             
             if (rendaCliente <= 0) {
-                // Se não há renda definida, esconder alerta
                 document.getElementById('rendaAlert').classList.remove('show', 'danger', 'success');
                 return false;
             }
             
-            const limiteRenda = rendaCliente * 0.30; // 30% da renda
+            const limiteRenda = rendaCliente * 0.30;
             const percentualUtilizado = (valorParcelaComINCC / rendaCliente) * 100;
             
-            // Atualizar exibição dos valores
             document.getElementById('rendaClienteDisplay').textContent = formatCurrency(rendaCliente);
             document.getElementById('limiteRenda').textContent = formatCurrency(limiteRenda);
             
             const percentualElement = document.getElementById('percentualRenda');
             percentualElement.textContent = percentualUtilizado.toFixed(2) + '%';
             
-            // Aplicar classes de cor baseado no percentual
             if (percentualUtilizado > 30) {
                 percentualElement.className = 'result-value danger';
             } else if (percentualUtilizado > 25) {
@@ -1800,13 +1784,11 @@
                 percentualElement.className = 'result-value success';
             }
             
-            // Verificar se excede o limite
             if (valorParcelaComINCC > limiteRenda) {
                 const percentualCompativel = calcularPercentualRiscoCompativel();
                 mostrarAlertaRenda(rendaCliente, valorParcelaComINCC, limiteRenda, percentualUtilizado, percentualCompativel);
-                return false; // Não é compatível
+                return false;
             } else {
-                // Parcela dentro do limite
                 const alertElement = document.getElementById('rendaAlert');
                 alertElement.classList.remove('danger', 'show');
                 alertElement.classList.add('success');
@@ -1814,70 +1796,24 @@
                 alertElement.querySelector('#rendaAlertContent').textContent = `Ótimo! A parcela está dentro do limite de 30% da renda (${percentualUtilizado.toFixed(2)}%).`;
                 alertElement.querySelector('#rendaAlertActions').innerHTML = '';
                 alertElement.classList.add('show');
-                return true; // É compatível
+                return true;
             }
         }
         
-        // Calcular percentual de risco compatível com 30% da renda
         function calcularPercentualRiscoCompativel() {
             const rendaCliente = parseCurrency(document.getElementById('rendaCliente').value);
             const valorImovel = parseCurrency(document.getElementById('valorImovel').value);
             const parcelasEntrada = parseInt(document.getElementById('parcelasEntrada').value) || 1;
-            const correcaoINCC = parseFloat(document.getElementById('correcaoINCC').value) || 0;
             
-            if (rendaCliente <= 0 || valorImovel <= 0) {
-                return 0;
-            }
+            if (rendaCliente <= 0 || valorImovel <= 0) return 0;
             
-            // Limite mensal da parcela (30% da renda)
             const limiteMensal = rendaCliente * 0.30;
+            const valorTotalParcelado = limiteMensal * parcelasEntrada;
+            let percentualMaximo = (valorTotalParcelado / valorImovel) * 100;
             
-            // Se tiver correção INCC, precisamos considerar o efeito dos juros compostos
-            let percentualMaximo = 0;
-            
-            if (correcaoINCC > 0 && parcelasEntrada > 1) {
-                // Cálculo considerando INCC (juros compostos)
-                // Encontrar o valor base da parcela que, corrigido pelo INCC, não ultrapassa o limite
-                
-                // Usamos iteração para encontrar o valor base
-                let valorBaseTeste = limiteMensal;
-                let parcelaCorrigida = 0;
-                
-                // Reduzimos gradualmente até encontrar um valor compatível
-                for (let i = 0; i < 100; i++) {
-                    // Calcular média das parcelas corrigidas para este valor base
-                    let somaParcelasCorrigidas = 0;
-                    const fatorINCC = 1 + (correcaoINCC / 100);
-                    
-                    for (let j = 1; j <= parcelasEntrada; j++) {
-                        const parcelaCorrigidaTeste = valorBaseTeste * Math.pow(fatorINCC, j - 1);
-                        somaParcelasCorrigidas += parcelaCorrigidaTeste;
-                    }
-                    
-                    parcelaCorrigida = somaParcelasCorrigidas / parcelasEntrada;
-                    
-                    if (parcelaCorrigida <= limiteMensal) {
-                        break;
-                    } else {
-                        // Reduzir o valor base
-                        valorBaseTeste *= 0.95; // Reduz 5%
-                    }
-                }
-                
-                // Calcular valor total parcelado baseado no valor base encontrado
-                const valorTotalParcelado = valorBaseTeste * parcelasEntrada;
-                percentualMaximo = (valorTotalParcelado / valorImovel) * 100;
-            } else {
-                // Cálculo sem INCC (mais simples)
-                const valorTotalParcelado = limiteMensal * parcelasEntrada;
-                percentualMaximo = (valorTotalParcelado / valorImovel) * 100;
-            }
-            
-            // Limitar a no máximo 100% e mínimo 0%
             return Math.max(0, Math.min(100, parseFloat(percentualMaximo.toFixed(2))));
         }
         
-        // Mostrar alerta de renda com opções de correção - VERSÃO CORRIGIDA
         function mostrarAlertaRenda(renda, parcela, limite, percentual, percentualCompativel) {
             const alertElement = document.getElementById('rendaAlert');
             const alertTitle = document.getElementById('rendaAlertTitle');
@@ -1904,7 +1840,6 @@
                 </button>
             `;
             
-            // Opcional: Aplicar automaticamente após 5 segundos se o usuário não interagir
             setTimeout(() => {
                 if (alertElement.classList.contains('show')) {
                     const autoApply = confirm(`Deseja aplicar automaticamente o percentual compatível de ${percentualCompativel}%?`);
@@ -1914,11 +1849,9 @@
                 }
             }, 5000);
             
-            // Mostrar toast de alerta
             showToast(`Atenção: Parcela excede ${percentual.toFixed(2)}% da renda!`, 'warning', 5000);
         }
         
-        // Aplicar percentual compatível automaticamente
         function aplicarPercentualCompativel(novoPercentual) {
             const percentualRiscoInput = document.getElementById('percentualRisco');
             const maximoConstrParcInput = document.getElementById('maximoConstrParc');
@@ -1929,33 +1862,20 @@
                 return;
             }
             
-            // Arredondar para 2 casas decimais
             novoPercentual = Math.max(0, Math.min(100, parseFloat(novoPercentual.toFixed(2))));
-            
-            // Calcular novo valor parcelado
             const novoValorParcelado = (valorImovel * novoPercentual) / 100;
             
-            // Salvar o percentual anterior para referência
-            const percentualAnterior = percentualRiscoInput.value || 0;
-            
-            // Aplicar valores
             percentualRiscoInput.value = novoPercentual;
             maximoConstrParcInput.value = novoValorParcelado.toLocaleString('pt-BR', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             });
             
-            // Recalcular todos os valores
             calcularValores();
-            
-            // Mostrar confirmação
-            showToast(`Percentual ajustado de ${percentualAnterior}% para ${novoPercentual}% (compatível com 30% da renda)`, 'success');
-            
-            // Fechar alerta
+            showToast(`Percentual ajustado para ${novoPercentual}% (compatível com 30% da renda)`, 'success');
             document.getElementById('rendaAlert').classList.remove('show');
         }
         
-        // Função para encontrar o melhor percentual de risco
         function encontrarMelhorPercentual() {
             const rendaCliente = parseCurrency(document.getElementById('rendaCliente').value);
             const valorImovel = parseCurrency(document.getElementById('valorImovel').value);
@@ -1972,7 +1892,6 @@
                 return;
             }
             
-            // Mostrar análise detalhada
             const limiteMensal = rendaCliente * 0.30;
             const valorParcelaSugerido = (valorImovel * percentualCompativel / 100);
             const parcelas = parseInt(document.getElementById('parcelasEntrada').value) || 1;
@@ -1988,7 +1907,6 @@
                 • Parcela média: ${formatCurrency(valorParcelaSugerido / parcelas)}
             `;
             
-            // Mostrar modal com análise
             const modal = document.getElementById('modalMenu');
             const modalBody = modal.querySelector('.modal-body');
             
@@ -2019,7 +1937,6 @@
         // Funções do Banco de Dados
         // ============================================
         
-        // Salvar lead
         async function saveLead(leadData) {
             return new Promise((resolve, reject) => {
                 if (!db) {
@@ -2032,7 +1949,6 @@
                     const transaction = db.transaction(['leads'], 'readwrite');
                     const store = transaction.objectStore('leads');
                     
-                    // Adicionar data e id
                     const lead = {
                         ...leadData,
                         data: new Date().toISOString(),
@@ -2060,7 +1976,6 @@
             });
         }
         
-        // Buscar todos os leads
         async function getAllLeads() {
             return new Promise((resolve, reject) => {
                 if (!db) {
@@ -2075,7 +1990,6 @@
                     
                     request.onsuccess = () => {
                         const leads = request.result;
-                        // Ordenar por data (mais recente primeiro)
                         leads.sort((a, b) => new Date(b.data) - new Date(a.data));
                         resolve(leads);
                     };
@@ -2091,7 +2005,6 @@
             });
         }
         
-        // Excluir lead
         async function deleteLead(id) {
             return new Promise((resolve, reject) => {
                 if (!db) {
@@ -2122,7 +2035,6 @@
             });
         }
         
-        // Excluir todos os leads
         async function deleteAllLeads() {
             return new Promise((resolve, reject) => {
                 if (!db) {
@@ -2153,7 +2065,6 @@
             });
         }
         
-        // Salvar configuração
         async function saveConfig(key, value) {
             return new Promise((resolve, reject) => {
                 if (!db) {
@@ -2182,7 +2093,6 @@
             });
         }
         
-        // Buscar configuração
         async function getConfig(key, defaultValue = null) {
             return new Promise((resolve) => {
                 if (!db) {
@@ -2207,7 +2117,6 @@
             });
         }
         
-        // Exportar backup
         async function exportBackup() {
             try {
                 const leads = await getAllLeads();
@@ -2242,7 +2151,6 @@
             }
         }
         
-        // Importar backup
         async function importBackup(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -2251,14 +2159,12 @@
                     try {
                         const backup = JSON.parse(event.target.result);
                         
-                        // Importar leads
                         if (backup.leads && backup.leads.length > 0) {
                             for (const lead of backup.leads) {
                                 await saveLead(lead);
                             }
                         }
                         
-                        // Importar configurações
                         if (backup.config) {
                             for (const [key, value] of Object.entries(backup.config)) {
                                 await saveConfig(key, value);
@@ -2286,11 +2192,10 @@
         }
         
         // ============================================
-        // Funções de Cálculo (INCC CORRIGIDO)
+        // Funções de Cálculo (INCC APENAS INFORMATIVO)
         // ============================================
         
         function calcularValores() {
-            // Obter valores
             const valorImovel = parseCurrency(document.getElementById('valorImovel').value);
             const descontoMCMV = parseCurrency(document.getElementById('descontoMCMV').value);
             const valorFinanciado = parseCurrency(document.getElementById('valorFinanciado').value);
@@ -2299,43 +2204,22 @@
             const sinalConstrutora = parseCurrency(document.getElementById('sinalConstrutora').value);
             const maximoConstrParc = parseCurrency(document.getElementById('maximoConstrParc').value);
             const parcelasEntrada = parseInt(document.getElementById('parcelasEntrada').value) || 1;
-            const correcaoINCC = parseFloat(document.getElementById('correcaoINCC').value) || 0;
+            const correcaoINCC = parseFloat(document.getElementById('correcaoINCC').value) || 0; // apenas informativo
             const valorIntercaladas = parseCurrency(document.getElementById('valorIntercaladas').value);
             const quantidadeIntercaladas = parseInt(document.getElementById('quantidadeIntercaladas').value) || 0;
             const taxaObra = parseCurrency(document.getElementById('taxaObra').value);
             const percentualObra = parseFloat(document.getElementById('percentualObra').value) || 0;
             const taxaAssinaturaCaixa = parseCurrency(document.getElementById('taxaAssinaturaCaixa').value);
             
-            // Cálculos básicos
             const valorEntrada = valorImovel - descontoMCMV - valorFinanciado - valorFGTS - descontoConstrutora;
             const totalIntercaladas = valorIntercaladas * quantidadeIntercaladas;
             const saldoRemanescente = valorEntrada - sinalConstrutora - maximoConstrParc - totalIntercaladas;
             
-            // CORREÇÃO DO CÁLCULO DO INCC - Fórmula correta de juros compostos mensais
             let valorParcelaComINCC = 0;
             if (maximoConstrParc > 0 && parcelasEntrada > 0) {
-                const valorParcelaBase = maximoConstrParc / parcelasEntrada;
-                
-                if (correcaoINCC > 0 && parcelasEntrada > 1) {
-                    // Calcular valor corrigido usando fórmula de juros compostos para parcelas mensais
-                    // Valor corrigido = valor base * (1 + INCC/100)^n, onde n é o número da parcela
-                    // Vamos calcular a média das parcelas corrigidas
-                    let somaParcelasCorrigidas = 0;
-                    const fatorINCC = 1 + (correcaoINCC / 100);
-                    
-                    for (let i = 1; i <= parcelasEntrada; i++) {
-                        // A parcela i é corrigida por (i-1) meses
-                        const parcelaCorrigida = valorParcelaBase * Math.pow(fatorINCC, i - 1);
-                        somaParcelasCorrigidas += parcelaCorrigida;
-                    }
-                    
-                    valorParcelaComINCC = somaParcelasCorrigidas / parcelasEntrada;
-                } else {
-                    valorParcelaComINCC = valorParcelaBase;
-                }
+                valorParcelaComINCC = maximoConstrParc / parcelasEntrada;
             }
             
-            // Cálculo taxa de obra proporcional
             let taxaObraProporcional = 0;
             if (taxaObra > 0 && percentualObra > 0) {
                 taxaObraProporcional = (taxaObra * percentualObra) / 100;
@@ -2345,30 +2229,23 @@
             
             const valorParcelaComTaxaObra = valorParcelaComINCC + taxaObraProporcional;
             
-            // Atualizar interface
             document.getElementById('saldoRemanescente').textContent = formatCurrency(saldoRemanescente);
             document.getElementById('valorParcelaComINCC').textContent = formatCurrency(valorParcelaComINCC);
             document.getElementById('valorParcelaComTaxaObra').textContent = formatCurrency(valorParcelaComTaxaObra);
             document.getElementById('totalIntercaladas').textContent = formatCurrency(totalIntercaladas);
             
-            // Verificar compatibilidade com a renda
             verificarCompatibilidadeRenda();
             
-            // VALIDAÇÃO AUTOMÁTICA (nova seção)
-            // Se a parcela exceder o limite, calcular e aplicar automaticamente
             const rendaCliente = parseCurrency(document.getElementById('rendaCliente').value);
             
             if (rendaCliente > 0 && valorParcelaComINCC > 0) {
                 const limiteRenda = rendaCliente * 0.30;
                 
-                // Se exceder em mais de 5%, sugerir correção
                 if (valorParcelaComINCC > limiteRenda * 1.05) {
                     const percentualAtual = parseFloat(document.getElementById('percentualRisco').value) || 0;
                     const percentualCompativel = calcularPercentualRiscoCompativel();
                     
-                    // Se o percentual atual for significativamente maior que o compatível
                     if (percentualCompativel > 0 && percentualAtual > percentualCompativel * 1.1) {
-                        // Mostrar sugestão automática
                         setTimeout(() => {
                             if (confirm(`Parcela excede significativamente o limite (${((valorParcelaComINCC/rendaCliente)*100).toFixed(2)}%). Deseja ajustar para ${percentualCompativel}%?`)) {
                                 aplicarPercentualCompativel(percentualCompativel);
@@ -2401,10 +2278,6 @@
             };
         }
         
-        // ============================================
-        // Calcular valor parcelado por percentual de risco
-        // ============================================
-        
         function calcularPorPercentualRisco() {
             const valorImovel = parseCurrency(document.getElementById('valorImovel').value);
             const percentualRisco = parseFloat(document.getElementById('percentualRisco').value) || 0;
@@ -2421,10 +2294,8 @@
                 return;
             }
             
-            // Calcular valor baseado no percentual
             const valorCalculado = (valorImovel * percentualRisco) / 100;
             
-            // Formatar e aplicar o valor
             const valorFormatado = valorCalculado.toLocaleString('pt-BR', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
@@ -2432,10 +2303,8 @@
             
             document.getElementById('maximoConstrParc').value = valorFormatado;
             
-            // Mostrar mensagem de sucesso
             showToast(`Valor calculado: ${formatCurrency(valorCalculado)} (${percentualRisco}% do imóvel)`, 'success');
             
-            // Recalcular todos os valores
             calcularValores();
         }
         
@@ -2443,7 +2312,6 @@
         // Funções de Interface - Documentos
         // ============================================
         
-        // Carregar documentos por profissão com template
         function loadDocumentsByProfession(profession) {
             const container = document.getElementById('documentosLista');
             const professionText = document.getElementById('profissaoCliente').options[document.getElementById('profissaoCliente').selectedIndex].text;
@@ -2466,7 +2334,6 @@
             
             html += '</ul>';
             
-            // Adicionar observação para autônomo
             if (profession === 'autonomo') {
                 html += `
                     <div class="documento-obs">
@@ -2478,7 +2345,6 @@
             container.innerHTML = html;
         }
         
-        // Carregar leads na interface
         async function loadLeads() {
             try {
                 const leads = await getAllLeads();
@@ -2551,7 +2417,6 @@
             }
         }
         
-        // Carregar lead para formulário
         async function loadLeadToForm(id) {
             return new Promise((resolve) => {
                 if (!db) {
@@ -2568,7 +2433,6 @@
                     request.onsuccess = () => {
                         const lead = request.result;
                         if (lead) {
-                            // Preencher formulário
                             document.getElementById('nomeCliente').value = lead.nome || '';
                             document.getElementById('telefoneCliente').value = lead.telefone || '';
                             document.getElementById('rendaCliente').value = lead.renda || '0,00';
@@ -2589,12 +2453,10 @@
                             document.getElementById('quantidadeIntercaladas').value = lead.quantidadeIntercaladas || 0;
                             document.getElementById('observacoesCliente').value = lead.observacoes || '';
                             
-                            // Calcular percentual de risco se disponível
                             if (lead.percentualRisco) {
                                 document.getElementById('percentualRisco').value = lead.percentualRisco;
                             }
                             
-                            // Ir para aba de simulação
                             switchTab('simulation');
                             calcularValores();
                             
@@ -2616,7 +2478,6 @@
             });
         }
         
-        // Excluir lead da interface
         async function deleteLeadFromUI(id) {
             if (confirm('Tem certeza que deseja excluir este lead?')) {
                 try {
@@ -2629,7 +2490,6 @@
             }
         }
         
-        // Excluir todos os leads
         async function deleteAllLeadsFromUI() {
             if (confirm('Tem certeza que deseja excluir TODOS os leads? Esta ação não pode ser desfeita.')) {
                 try {
@@ -2642,22 +2502,18 @@
             }
         }
         
-        // Carregar configurações
         async function loadConfig() {
             try {
-                // Carregar INCC
                 const inccAtual = await getConfig('inccAtual', '0.55');
                 const inccUpdateTime = await getConfig('inccUpdateTime', 'Nunca');
                 
                 document.getElementById('inccAtual').value = inccAtual;
                 document.getElementById('inccUpdateTime').textContent = inccUpdateTime;
                 
-                // Carregar dados do corretor
                 document.getElementById('imobiliariaNome').value = await getConfig('imobiliariaNome', '');
                 document.getElementById('corretorNome').value = await getConfig('corretorNome', '');
                 document.getElementById('corretorCreci').value = await getConfig('corretorCreci', '');
                 
-                // Atualizar INCC no formulário se estiver zerado
                 if (parseFloat(document.getElementById('correcaoINCC').value) === 0) {
                     document.getElementById('correcaoINCC').value = inccAtual;
                     calcularValores();
@@ -2667,7 +2523,6 @@
             }
         }
         
-        // Salvar configurações do corretor
         async function saveCorretorData() {
             try {
                 await saveConfig('imobiliariaNome', document.getElementById('imobiliariaNome').value);
@@ -2680,7 +2535,6 @@
             }
         }
         
-        // Salvar configurações automaticamente ao sair dos campos
         async function saveConfigAuto() {
             try {
                 await saveConfig('imobiliariaNome', document.getElementById('imobiliariaNome').value);
@@ -2691,7 +2545,6 @@
             }
         }
         
-        // Atualizar INCC
         async function updateINCC() {
             const inccValue = document.getElementById('inccAtual').value;
             if (!inccValue || parseFloat(inccValue) < 0) {
@@ -2703,7 +2556,6 @@
                 await saveConfig('inccAtual', inccValue);
                 await saveConfig('inccUpdateTime', formatDate());
                 
-                // Atualizar também no formulário
                 document.getElementById('correcaoINCC').value = inccValue;
                 calcularValores();
                 
@@ -2719,7 +2571,6 @@
         // FUNÇÕES DE WHATSAPP
         // ============================================
         
-        // Gerar conteúdo para WhatsApp
         function generateWhatsAppContent() {
             const data = calcularValores();
             const nomeCliente = document.getElementById('nomeCliente').value.trim();
@@ -2755,8 +2606,8 @@
             if (data.sinalConstrutora > 0) message += `Sinal: ${formatCurrency(data.sinalConstrutora)}\n`;
             
             message += `Parcelado: ${formatCurrency(data.maximoConstrParc)} em ${data.parcelasEntrada}x\n`;
-            message += `INCC: ${data.correcaoINCC}%\n`;
-            message += `1ª Parcela (com INCC): ${formatCurrency(data.valorParcelaComINCC)}\n`;
+            message += `INCC (informativo): ${data.correcaoINCC}%\n`;
+            message += `Parcela (divisão simples): ${formatCurrency(data.valorParcelaComINCC)}\n`;
             
             if (rendaCliente > 0) {
                 const percentualRenda = (data.valorParcelaComINCC / rendaCliente) * 100;
@@ -2805,74 +2656,59 @@
             }
             
             message += `\n*Informações Importantes:*\n`;
-            message += `Durante a obra: correção pelo INCC mensal\n`;
+            message += `Durante a obra: correção pelo INCC mensal (informativo)\n`;
             message += `Após a obra: correção pelo IGP-M + 1%\n`;
             message += `Valores sujeitos a alteração e aprovação\n`;
             
             return message;
         }
         
-        // Compartilhar via WhatsApp
         function shareViaWhatsApp() {
             const telefoneCliente = document.getElementById('telefoneCliente').value;
             const nomeCliente = document.getElementById('nomeCliente').value.trim();
             
-            // Gerar mensagem
             const message = generateWhatsAppContent();
             
-            // Verificar se tem telefone do cliente
             if (isValidPhone(telefoneCliente)) {
-                // Tem telefone válido - perguntar se quer enviar para o cliente
                 const confirmMessage = `Deseja enviar a simulação para ${formatPhone(telefoneCliente)} (${nomeCliente})?`;
                 
                 if (confirm(confirmMessage)) {
-                    // Enviar para o cliente
                     const phone = telefoneCliente.replace(/\D/g, '');
                     const url = `https://wa.me/55${phone}?text=${encodeURIComponent(message)}`;
                     window.open(url, '_blank');
                     showToast(`Simulação enviada para ${formatPhone(telefoneCliente)}!`, 'success');
                 } else {
-                    // Abrir WhatsApp para escolher manualmente
                     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
                     window.open(url, '_blank');
                 }
             } else {
-                // Não tem telefone válido - perguntar se quer informar um
                 const userChoice = confirm("Nenhum telefone de cliente válido encontrado. Deseja informar um número agora?");
                 
                 if (userChoice) {
-                    // Pedir o número do cliente
                     const phoneInput = prompt("Digite o número do cliente (com DDD):", "");
                     
                     if (phoneInput && isValidPhone(phoneInput)) {
-                        // Enviar para o número informado
                         const phone = phoneInput.replace(/\D/g, '');
                         const url = `https://wa.me/55${phone}?text=${encodeURIComponent(message)}`;
                         window.open(url, '_blank');
                         showToast(`Simulação enviada para ${formatPhone(phoneInput)}!`, 'success');
                         
-                        // Salvar o telefone no campo
                         document.getElementById('telefoneCliente').value = formatPhone(phoneInput);
                     } else if (phoneInput) {
-                        // Número inválido
                         showToast('Número inválido. Por favor, informe um número com DDD.', 'error');
-                        // Abrir WhatsApp para escolher manualmente
                         const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
                         window.open(url, '_blank');
                     } else {
-                        // Usuário cancelou - abrir WhatsApp normalmente
                         const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
                         window.open(url, '_blank');
                     }
                 } else {
-                    // Abrir WhatsApp normalmente
                     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
                     window.open(url, '_blank');
                 }
             }
         }
         
-        // Compartilhar documentos via WhatsApp
         function shareDocsViaWhatsApp() {
             const profession = document.getElementById('profissaoCliente').value;
             const professionText = document.getElementById('profissaoCliente').options[document.getElementById('profissaoCliente').selectedIndex].text;
@@ -2897,7 +2733,6 @@
                 message += `☐ ${doc.texto}\n`;
             });
             
-            // Adicionar observação para autônomo
             if (profession === 'autonomo') {
                 message += `\n*OBS:* Apresentar Imposto de Renda caso tenha declarado\n`;
             }
@@ -2906,30 +2741,24 @@
             message += `${corretor} - ${creci || 'Corretor'}\n`;
             message += `📱 (82) 99662-2036`;
             
-            // Verificar se tem telefone do cliente
             if (isValidPhone(telefoneCliente) && nomeCliente) {
-                // Perguntar se quer enviar para o cliente
                 const confirmMessage = `Deseja enviar os documentos para ${formatPhone(telefoneCliente)} (${nomeCliente})?`;
                 
                 if (confirm(confirmMessage)) {
-                    // Enviar para o cliente
                     const phone = telefoneCliente.replace(/\D/g, '');
                     const url = `https://wa.me/55${phone}?text=${encodeURIComponent(message)}`;
                     window.open(url, '_blank');
                     showToast(`Documentos enviados para ${formatPhone(telefoneCliente)}!`, 'success');
                 } else {
-                    // Abrir WhatsApp para escolher manualmente
                     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
                     window.open(url, '_blank');
                 }
             } else {
-                // Abrir WhatsApp normalmente
                 const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
                 window.open(url, '_blank');
             }
         }
         
-        // Exportar simulação como TXT
         function exportAsTXT() {
             const data = calcularValores();
             const nomeCliente = document.getElementById('nomeCliente').value || 'Cliente';
@@ -2967,8 +2796,8 @@
             content += `Sinal: ${formatCurrency(data.sinalConstrutora)}\n`;
             
             content += `Parcelado: ${formatCurrency(data.maximoConstrParc)} em ${data.parcelasEntrada}x\n`;
-            content += `INCC: ${data.correcaoINCC}%\n`;
-            content += `1ª Parcela (com INCC): ${formatCurrency(data.valorParcelaComINCC)}\n`;
+            content += `INCC (informativo): ${data.correcaoINCC}%\n`;
+            content += `Parcela (divisão simples): ${formatCurrency(data.valorParcelaComINCC)}\n`;
             
             if (rendaCliente > 0) {
                 const percentualRenda = (data.valorParcelaComINCC / rendaCliente) * 100;
@@ -3008,7 +2837,7 @@
             }
             
             content += "INFORMAÇÕES IMPORTANTES:\n";
-            content += "Durante a obra: correção pelo INCC mensal\n";
+            content += "Durante a obra: correção pelo INCC mensal (informativo)\n";
             content += "Após a obra: correção pelo IGP-M + 1%\n";
             content += "Valores sujeitos a alteração e aprovação\n\n";
             
@@ -3028,7 +2857,6 @@
             showToast('Simulação exportada como TXT!', 'success');
         }
         
-        // Exportar simulação como PDF
         async function exportAsPDF() {
             try {
                 const { jsPDF } = window.jspdf;
@@ -3046,19 +2874,16 @@
                 const taxaAssinaturaCaixa = document.getElementById('taxaAssinaturaCaixa').value || '0,00';
                 const inccAtual = document.getElementById('correcaoINCC').value || '0.55';
                 
-                // Configurações de página
                 const pageWidth = doc.internal.pageSize.width;
                 const margin = 10;
                 const contentWidth = pageWidth - (2 * margin);
                 let yPos = margin;
                 
-                // Título principal
                 doc.setFontSize(14);
                 doc.setTextColor(74, 87, 74);
                 doc.text('SIMULAÇÃO DE FINANCIAMENTO', pageWidth / 2, yPos, { align: 'center' });
                 yPos += 6;
                 
-                // Subtítulo
                 doc.setFontSize(10);
                 doc.setTextColor(100, 100, 100);
                 doc.text(`Empreendimento: ${empreendimento}`, pageWidth / 2, yPos, { align: 'center' });
@@ -3066,13 +2891,11 @@
                 doc.text(`Data: ${formatDate()}`, pageWidth / 2, yPos, { align: 'center' });
                 yPos += 8;
                 
-                // Linha decorativa
                 doc.setDrawColor(180, 132, 108);
                 doc.setLineWidth(0.5);
                 doc.line(margin, yPos, pageWidth - margin, yPos);
                 yPos += 5;
                 
-                // INFORMAÇÕES BÁSICAS
                 const infoBasica = [
                     ['Cliente:', nomeCliente],
                     ['Telefone:', telefone ? formatPhone(telefone) : 'Não informado'],
@@ -3096,7 +2919,6 @@
                 
                 yPos += 5;
                 
-                // VALORES DO IMÓVEL
                 doc.setFontSize(10);
                 doc.setTextColor(74, 87, 74);
                 doc.text('VALORES DO IMÓVEL', margin, yPos);
@@ -3110,7 +2932,6 @@
                     ['Valor Financiado', formatCurrency(data.valorFinanciado)]
                 ];
                 
-                // Calcular total
                 const totalEntrada = data.valorImovel - data.descontoMCMV - data.descontoConstrutora - data.valorFGTS - data.valorFinanciado;
                 valoresData.push(['ENTRADA TOTAL', formatCurrency(totalEntrada)]);
                 
@@ -3137,7 +2958,6 @@
                 
                 yPos = doc.lastAutoTable.finalY + 5;
                 
-                // DETALHES DA ENTRADA
                 doc.setFontSize(10);
                 doc.setTextColor(180, 132, 108);
                 doc.text('DETALHES DA ENTRADA', margin, yPos);
@@ -3146,8 +2966,8 @@
                 const entradaData = [
                     ['Sinal', formatCurrency(data.sinalConstrutora)],
                     ['Parcelado', `${formatCurrency(data.maximoConstrParc)} em ${data.parcelasEntrada}x`],
-                    ['INCC', `${inccAtual}% a.m.`],
-                    ['1ª Parcela c/ INCC', formatCurrency(data.valorParcelaComINCC)]
+                    ['INCC (informativo)', `${inccAtual}% a.m.`],
+                    ['Parcela (divisão simples)', formatCurrency(data.valorParcelaComINCC)]
                 ];
                 
                 if (rendaCliente > 0) {
@@ -3199,7 +3019,6 @@
                 
                 yPos = doc.lastAutoTable.finalY + 5;
                 
-                // INTERCALADAS (se houver)
                 if (data.valorIntercaladas > 0 && data.quantidadeIntercaladas > 0) {
                     doc.setFontSize(10);
                     doc.setTextColor(76, 175, 80);
@@ -3236,7 +3055,6 @@
                     yPos = doc.lastAutoTable.finalY + 5;
                 }
                 
-                // RESUMO FINAL
                 doc.setFontSize(11);
                 doc.setTextColor(0, 0, 0);
                 doc.text('RESUMO FINAL', margin, yPos);
@@ -3274,7 +3092,6 @@
                 
                 yPos = doc.lastAutoTable.finalY + 8;
                 
-                // OBSERVAÇÕES (se houver)
                 if (observacoes) {
                     doc.setFontSize(9);
                     doc.setTextColor(60, 60, 60);
@@ -3287,7 +3104,6 @@
                     yPos += lines.length * 4 + 5;
                 }
                 
-                // INFORMAÇÕES IMPORTANTES
                 if (yPos > 240) {
                     doc.addPage();
                     yPos = margin;
@@ -3297,7 +3113,7 @@
                 doc.setTextColor(100, 100, 100);
                 doc.text('INFORMAÇÕES IMPORTANTES:', margin, yPos);
                 yPos += 4;
-                doc.text('• Durante a obra: correção pelo INCC mensal', margin, yPos);
+                doc.text('• Durante a obra: correção pelo INCC mensal (informativo)', margin, yPos);
                 yPos += 4;
                 doc.text('• Após a obra: correção pelo IGP-M + 1%', margin, yPos);
                 yPos += 4;
@@ -3306,7 +3122,6 @@
                 doc.text('• Esta simulação não constitui proposta formal de financiamento', margin, yPos);
                 yPos += 8;
                 
-                // ASSINATURA
                 doc.setFontSize(8);
                 doc.setTextColor(0, 0, 0);
                 doc.text(`Gerado por: ${corretor}`, margin, yPos);
@@ -3317,7 +3132,6 @@
                 yPos += 4;
                 doc.text(`Data: ${new Date().toLocaleDateString('pt-BR')}`, margin, yPos);
                 
-                // Salvar PDF
                 doc.save(`simulacao_${nomeCliente.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
                 
                 showToast('PDF gerado com sucesso!', 'success');
@@ -3327,7 +3141,6 @@
             }
         }
         
-        // Exportar documentos como TXT
         function exportDocsAsTXT() {
             const profession = document.getElementById('profissaoCliente').value;
             const professionText = document.getElementById('profissaoCliente').options[document.getElementById('profissaoCliente').selectedIndex].text;
@@ -3355,7 +3168,6 @@
                 content += `[ ] ${doc.texto}\n`;
             });
             
-            // Adicionar observação para autônomo
             if (profession === 'autonomo') {
                 content += `\nOBS: Apresentar Imposto de Renda caso tenha declarado\n`;
             }
@@ -3379,7 +3191,6 @@
             showToast('Documentos exportados como TXT!', 'success');
         }
         
-        // Exportar documentos como PDF
         async function exportDocsAsPDF() {
             try {
                 const { jsPDF } = window.jspdf;
@@ -3398,25 +3209,21 @@
                 const margin = 15;
                 let yPos = margin;
                 
-                // Título
                 doc.setFontSize(16);
                 doc.setTextColor(74, 87, 74);
                 doc.text('Documentação Necessária', pageWidth / 2, yPos, { align: 'center' });
                 yPos += 8;
                 
-                // Subtítulo (Profissão)
                 doc.setFontSize(12);
                 doc.setTextColor(180, 132, 108);
                 doc.text(professionText.toUpperCase(), pageWidth / 2, yPos, { align: 'center' });
                 yPos += 10;
                 
-                // Linha decorativa
                 doc.setDrawColor(180, 132, 108);
                 doc.setLineWidth(0.3);
                 doc.line(margin, yPos, pageWidth - margin, yPos);
                 yPos += 12;
                 
-                // Informações do cliente
                 doc.setFontSize(9);
                 doc.setTextColor(0, 0, 0);
                 doc.text(`Cliente: ${nomeCliente}`, margin, yPos);
@@ -3440,26 +3247,21 @@
                 doc.text(`Data: ${formatDate()}`, margin, yPos);
                 yPos += 10;
                 
-                // Documentos com checkboxes
                 doc.setFontSize(11);
                 doc.setTextColor(74, 87, 74);
                 doc.text('LISTA DE DOCUMENTOS:', margin, yPos);
                 yPos += 8;
                 
-                // Desenhar checkboxes e texto
                 docs.forEach((docItem, index) => {
-                    // Verificar se precisa de nova página
                     if (yPos > 270) {
                         doc.addPage();
                         yPos = margin;
                     }
                     
-                    // Desenhar checkbox quadrado
                     doc.setDrawColor(180, 132, 108);
                     doc.setLineWidth(0.3);
                     doc.rect(margin, yPos - 2.5, 3, 3);
                     
-                    // Texto do documento
                     doc.setFontSize(9);
                     doc.setTextColor(0, 0, 0);
                     doc.text(docItem.texto, margin + 6, yPos);
@@ -3467,7 +3269,6 @@
                     yPos += 5.5;
                 });
                 
-                // Observação para autônomo
                 if (profession === 'autonomo') {
                     yPos += 3;
                     doc.setFontSize(8);
@@ -3476,7 +3277,6 @@
                     yPos += 8;
                 }
                 
-                // Rodapé
                 yPos = 280;
                 doc.setFontSize(7);
                 doc.setTextColor(150, 150, 150);
@@ -3484,7 +3284,6 @@
                 yPos += 4;
                 doc.text('Para dúvidas: (82) 99662-2036', pageWidth / 2, yPos, { align: 'center' });
                 
-                // Salvar PDF
                 doc.save(`documentos_${nomeCliente.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
                 
                 showToast('Documentos exportados como PDF!', 'success');
@@ -3498,30 +3297,24 @@
         // Funções de Navegação e Acesso Rápido
         // ============================================
         
-        // Abrir simulador da Caixa
         function openCaixaSimulator() {
             window.open(CAIXA_SIMULATOR_URL, '_blank');
         }
         
-        // Abrir blog
         function openBlog() {
             window.open(BLOG_URL, '_blank');
         }
         
-        // Abrir tutorial
         function openTutorial() {
             window.open(TUTORIAL_URL, '_blank');
         }
         
-        // Abrir suporte
         function openSupport() {
             const message = encodeURIComponent('Olá! Preciso de ajuda com o Simulador Plano Pro.');
             window.open(`https://wa.me/${SUPPORT_PHONE}?text=${message}`, '_blank');
         }
         
-        // Trocar aba
         function switchTab(tabName) {
-            // Remover active de todas as abas e nav items
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
                 tab.classList.add('d-none');
@@ -3531,7 +3324,6 @@
                 item.classList.remove('active');
             });
             
-            // Ativar aba selecionada
             const tabId = `tab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`;
             const tabElement = document.getElementById(tabId);
             if (tabElement) {
@@ -3539,13 +3331,11 @@
                 tabElement.classList.add('active');
             }
             
-            // Ativar nav item correspondente
             const navItem = document.querySelector(`.nav-item[data-tab="${tabName}"]`);
             if (navItem) {
                 navItem.classList.add('active');
             }
             
-            // Executar ações específicas da aba
             if (tabName === 'leads') {
                 loadLeads();
             } else if (tabName === 'documents') {
@@ -3554,7 +3344,6 @@
             }
         }
         
-        // Toggle seções collapsible
         function setupCollapsibleSections() {
             document.querySelectorAll('.section-header').forEach(header => {
                 header.addEventListener('click', function() {
@@ -3580,12 +3369,10 @@
         // ============================================
         
         document.addEventListener('DOMContentLoaded', async function() {
-            // Mostrar splash screen por 1.5 segundos
             setTimeout(() => {
                 hideSplashScreen();
             }, 1500);
             
-            // Inicializar banco de dados
             try {
                 await initDB();
                 console.log('Banco de dados inicializado com sucesso');
@@ -3595,9 +3382,7 @@
                 showToast('Erro ao inicializar banco de dados. Algumas funcionalidades podem não estar disponíveis.', 'error');
             }
             
-            // Configurar formatação de moeda
             document.querySelectorAll('.currency-input').forEach(input => {
-                // Inicializar valores
                 if (!input.value || input.value === '0') {
                     input.value = '0,00';
                 }
@@ -3615,7 +3400,6 @@
                 });
             });
             
-            // Configurar formatação de telefone
             document.getElementById('telefoneCliente').addEventListener('input', function() {
                 let value = this.value.replace(/\D/g, '');
                 if (value.length > 11) value = value.substring(0, 11);
@@ -3633,7 +3417,6 @@
                 this.value = value;
             });
             
-            // Configurar inputs que disparam cálculo (INCLUINDO RENDA)
             const calcularInputs = [
                 'valorImovel', 'descontoMCMV', 'valorFinanciado', 'descontoConstrutora',
                 'valorFGTS', 'sinalConstrutora', 'maximoConstrParc', 'parcelasEntrada',
@@ -3648,7 +3431,6 @@
                     element.addEventListener('input', function() {
                         calcularValores();
                         
-                        // Validação especial para renda
                         if (id === 'rendaCliente' || id === 'percentualRisco') {
                             setTimeout(() => {
                                 verificarCompatibilidadeRenda();
@@ -3658,10 +3440,8 @@
                 }
             });
             
-            // Configurar collapsible sections
             setupCollapsibleSections();
             
-            // Configurar navegação por tabs
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -3670,15 +3450,12 @@
                 });
             });
             
-            // Configurar botões do header
             document.getElementById('btnCaixa').addEventListener('click', openCaixaSimulator);
             document.getElementById('btnBlog').addEventListener('click', openBlog);
             document.getElementById('btnTutorial').addEventListener('click', openTutorial);
             document.getElementById('btnSuporte').addEventListener('click', openSupport);
             
-            // Configurar botão nova simulação
             document.getElementById('btnNewSimulation').addEventListener('click', function() {
-                // Limpar formulário
                 document.getElementById('nomeCliente').value = '';
                 document.getElementById('telefoneCliente').value = '';
                 document.getElementById('rendaCliente').value = '0,00';
@@ -3686,29 +3463,23 @@
                 document.getElementById('observacoesCliente').value = '';
                 document.getElementById('percentualRisco').value = '';
                 
-                // Manter valores monetários como 0,00
                 document.querySelectorAll('.currency-input').forEach(input => {
                     input.value = '0,00';
                 });
                 
-                // Resetar outros campos
                 document.getElementById('parcelasEntrada').value = '1';
                 document.getElementById('correcaoINCC').value = '0.55';
                 document.getElementById('percentualObra').value = '0';
                 document.getElementById('quantidadeIntercaladas').value = '0';
                 
-                // Esconder alerta
                 document.getElementById('rendaAlert').classList.remove('show');
                 
-                // Calcular
                 calcularValores();
                 showToast('Nova simulação iniciada!', 'success');
                 
-                // Foco no nome do cliente
                 document.getElementById('nomeCliente').focus();
             });
             
-            // Configurar menu
             document.getElementById('btnMenu').addEventListener('click', function() {
                 document.getElementById('modalMenu').classList.add('show');
             });
@@ -3719,7 +3490,6 @@
                 });
             });
             
-            // Fechar modal ao clicar fora
             document.querySelectorAll('.modal').forEach(modal => {
                 modal.addEventListener('click', function(e) {
                     if (e.target === this) {
@@ -3728,10 +3498,8 @@
                 });
             });
             
-            // Configurar botão para calcular valor parcelado por percentual de risco
             document.getElementById('btnCalcularRisco').addEventListener('click', calcularPorPercentualRisco);
             
-            // Permitir usar Enter no campo de percentual de risco
             document.getElementById('percentualRisco').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -3739,10 +3507,8 @@
                 }
             });
             
-            // Configurar botão de análise de compatibilidade
             document.getElementById('btnAnalisarCompatibilidade').addEventListener('click', encontrarMelhorPercentual);
             
-            // Botão salvar lead
             document.getElementById('btnSaveLead').addEventListener('click', async function() {
                 const nomeCliente = document.getElementById('nomeCliente').value.trim();
                 if (!nomeCliente) {
@@ -3768,7 +3534,6 @@
                     empreendimento: document.getElementById('nomeEmpreendimento').value,
                     observacoes: document.getElementById('observacoesCliente').value,
                     
-                    // Valores monetários já formatados
                     valorImovel: document.getElementById('valorImovel').value,
                     descontoMCMV: document.getElementById('descontoMCMV').value,
                     valorFinanciado: document.getElementById('valorFinanciado').value,
@@ -3778,7 +3543,6 @@
                     maximoConstrParc: document.getElementById('maximoConstrParc').value,
                     taxaAssinaturaCaixa: document.getElementById('taxaAssinaturaCaixa').value,
                     
-                    // Outros valores
                     parcelasEntrada: data.parcelasEntrada,
                     correcaoINCC: data.correcaoINCC,
                     taxaObra: document.getElementById('taxaObra').value,
@@ -3786,10 +3550,8 @@
                     valorIntercaladas: document.getElementById('valorIntercaladas').value,
                     quantidadeIntercaladas: data.quantidadeIntercaladas,
                     
-                    // Percentual de risco
                     percentualRisco: percentualRisco,
                     
-                    // Resultados
                     saldoRemanescente: formatCurrency(data.saldoRemanescente),
                     valorParcelaComINCC: formatCurrency(data.valorParcelaComINCC),
                     valorParcelaComTaxaObra: formatCurrency(data.valorParcelaComTaxaObra),
@@ -3805,27 +3567,17 @@
                 }
             });
             
-            // Botão compartilhar WhatsApp
             document.getElementById('btnShareWhatsApp').addEventListener('click', shareViaWhatsApp);
-            
-            // Botão exportar TXT
             document.getElementById('btnExportTXT').addEventListener('click', exportAsTXT);
-            
-            // Botão exportar PDF
             document.getElementById('btnExportPDF').addEventListener('click', exportAsPDF);
-            
-            // Botão exportar leads
             document.getElementById('btnExportLeads').addEventListener('click', exportBackup);
             
-            // Botão importar leads
             document.getElementById('btnImportLeads').addEventListener('click', function() {
                 document.getElementById('backupFile').click();
             });
             
-            // Botão limpar todos os leads
             document.getElementById('btnClearAllLeads').addEventListener('click', deleteAllLeadsFromUI);
             
-            // Configurar upload de backup
             document.getElementById('backupFile').addEventListener('change', async function(e) {
                 const file = e.target.files[0];
                 if (file) {
@@ -3845,21 +3597,13 @@
                 }
             });
             
-            // Botão backup export
             document.getElementById('btnBackupExport').addEventListener('click', exportBackup);
-            
-            // Botão backup import
             document.getElementById('btnBackupImport').addEventListener('click', function() {
                 document.getElementById('backupFile').click();
             });
-            
-            // Botão atualizar INCC
             document.getElementById('btnUpdateINCC').addEventListener('click', updateINCC);
-            
-            // Botão salvar dados do corretor
             document.getElementById('btnSaveCorretorData').addEventListener('click', saveCorretorData);
             
-            // Botão limpar cache
             document.getElementById('btnClearCache').addEventListener('click', function() {
                 if (confirm('Limpar cache? Isso não apagará seus leads.')) {
                     localStorage.clear();
@@ -3867,7 +3611,6 @@
                 }
             });
             
-            // Botão resetar tudo
             document.getElementById('btnResetAll').addEventListener('click', function() {
                 if (confirm('ATENÇÃO: Isso apagará TODOS os dados, incluindo leads. Esta ação não pode ser desfeita. Continuar?')) {
                     indexedDB.deleteDatabase(DB_NAME);
@@ -3877,7 +3620,6 @@
                 }
             });
             
-            // Botões do menu rápido
             document.getElementById('btnQuickNew').addEventListener('click', function() {
                 document.getElementById('modalMenu').classList.remove('show');
                 document.getElementById('btnNewSimulation').click();
@@ -3923,21 +3665,14 @@
                 document.getElementById('btnResetAll').click();
             });
             
-            // Carregar documentos ao mudar profissão
             document.getElementById('profissaoCliente').addEventListener('change', function() {
                 loadDocumentsByProfession(this.value);
             });
             
-            // Compartilhar documentos via WhatsApp
             document.getElementById('btnShareDocsWhatsApp').addEventListener('click', shareDocsViaWhatsApp);
-            
-            // Exportar documentos como TXT
             document.getElementById('btnExportDocsTXT').addEventListener('click', exportDocsAsTXT);
-            
-            // Exportar documentos como PDF
             document.getElementById('btnExportDocsPDF').addEventListener('click', exportDocsAsPDF);
             
-            // Salvar configurações automaticamente ao sair dos campos
             ['imobiliariaNome', 'corretorNome', 'corretorCreci'].forEach(id => {
                 const element = document.getElementById(id);
                 if (element) {
@@ -3945,22 +3680,18 @@
                 }
             });
             
-            // Carregar dados iniciais
             try {
                 await loadConfig();
                 await loadLeads();
                 
-                // Carregar documentos iniciais
                 const initialProfession = document.getElementById('profissaoCliente').value;
                 loadDocumentsByProfession(initialProfession);
                 
-                // Calcular valores iniciais
                 calcularValores();
             } catch (error) {
                 console.error('Erro ao carregar dados iniciais:', error);
             }
             
-            // Adicionar listener para recarregar leads ao voltar para a aba
             window.addEventListener('focus', async function() {
                 if (document.querySelector('.nav-item[data-tab="leads"]').classList.contains('active')) {
                     await loadLeads();
